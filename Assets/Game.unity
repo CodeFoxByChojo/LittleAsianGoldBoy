@@ -222,18 +222,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bbf1d9237a20fb41a88563576fef1b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 1746685219428454, guid: 6faa4202c338b884ab850472db80719b,
+  configHandler: {fileID: 1751349639883306, guid: 99794e498139cbf4ab3b990ab7fd28c6,
+    type: 2}
+  configData: {fileID: 1570520221547276, guid: f088afb187dc683428790e0af30c9dc8, type: 2}
+  dataHandler: {fileID: 1704307410999148, guid: 7a5e6a57610f821488c23ed8fce575ef,
     type: 2}
   environment: {fileID: 1060514073537282, guid: 9308971b4e4cf0d41bf25f2ad6ee4596,
     type: 2}
   interfaceManager: {fileID: 1211753840593592, guid: 5f7b84bae9aa7dc43aa393bf4db0a3b1,
     type: 2}
   character: {fileID: 1495346457875146, guid: 20e0a7b6ef96cd74096c1cdf3742a369, type: 2}
+  gameManager: {fileID: 1746685219428454, guid: 6faa4202c338b884ab850472db80719b,
+    type: 2}
   gameState: {fileID: 1143773498807200, guid: ac07b780f449ba548906a936a20a37ca, type: 2}
-  dataHandler: {fileID: 1704307410999148, guid: 7a5e6a57610f821488c23ed8fce575ef,
-    type: 2}
-  configHandler: {fileID: 1751349639883306, guid: 99794e498139cbf4ab3b990ab7fd28c6,
-    type: 2}
 --- !u!1 &496792525
 GameObject:
   m_ObjectHideFlags: 0
