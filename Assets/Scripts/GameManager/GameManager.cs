@@ -10,6 +10,9 @@ namespace GameManager {
         public static GameManager instance = null;
         private static DataHandler.DataHandler dataHandler = DataHandler.DataHandler.instance;
         GameState gameState = GameState.instance;
+        private static GameManager instance = null;
+        private static DataHandler.DataHandler dataHandler = DataHandler.DataHandler.getInstance();
+        private static GameState gameState = GameState.getInstance();
 
         private void Awake() {
             if (instance == null) {
@@ -28,7 +31,7 @@ namespace GameManager {
 
         public GameState getGameState() {
             if (gameState == null) {
-                gameState = GameState.instance;
+                gameState = GameState.getInstance();
             }
             return gameState;
         }

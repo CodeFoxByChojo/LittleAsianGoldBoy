@@ -6,16 +6,36 @@ using UnityEngine;
 namespace DataHandler {
     public class ConfigHandler : MonoBehaviour {
 
-        private ConfigData configData = new ConfigData();
+        private static ConfigHandler instance = null;
+        private ConfigData configData;
         private bool configLoaded = false;
+        public bool instanceCheck = false;
 
-        protected internal ConfigData getConfigData() {
-            //loadConfigData();
-            return configData;
+        private void Awake() {
+            if (instance == null) {
+                instance = this;
+            } else if (instance != this) {
+                Destroy(gameObject);
+            }
+            DontDestroyOnLoad(gameObject);
         }
+
+        private void Start() {
+            configData = ConfigData.getInstance();
+        }
+
+        public static ConfigHandler getInstance() {
+            return instance;
+        }
+
+        public ConfigData getConfigData() {
+            //loadConfigData();
+            return configData.getConfigData();
+        }
+
         private void loadConfigData() {
             if (configLoaded) return;
-            configData.setKnowledgePerHour(1);
+            configData.KnowledgePerHour = 1;
             //TODO Implement YAML Parser to get ConfigData
         }
     }

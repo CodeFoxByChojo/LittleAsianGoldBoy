@@ -5,7 +5,8 @@ using UnityEngine;
 namespace Character {
     public class Character : MonoBehaviour {
 
-        public static Character instance = null;
+        private static Character instance = null;
+
         private void Awake() {
             if (instance == null) {
                 instance = this;
@@ -15,6 +16,9 @@ namespace Character {
             DontDestroyOnLoad(gameObject);
         }
 
+        public static Character getInstance() {
+            return instance;
+        }
 
         // Use this for initialization
         void Start() {

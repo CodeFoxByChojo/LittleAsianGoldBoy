@@ -3,41 +3,51 @@ using System.Collections.Generic;
 using UnityEngine;
 using GameManager;
 using Environment;
+using DataHandler;
 
 public class Loader : MonoBehaviour {
 
-    public GameObject gameManager;
+    public GameObject configHandler;
+    public GameObject configData;
+    public GameObject dataHandler;
     public GameObject environment;
     public GameObject interfaceManager;
     public GameObject character;
+    public GameObject gameManager;
     public GameObject gameState;
-    public GameObject dataHandler;
 
 
 
     void Awake() {
-        if (GameManager.GameManager.instance == null) {
+        if (GameManager.GameManager.getInstance() == null) {
             Instantiate(gameManager);
         }
-        if (Environment.Environment.instance == null) {
+        if (Environment.Environment.getInstance() == null) {
             Instantiate(environment);
         }
-        if (UIManager.instance == null) {
+        if (UIManager.getInstance() == null) {
             Instantiate(interfaceManager);
         }
-        if (Character.Character.instance == null) {
+        if (Character.Character.getInstance() == null) {
             Instantiate(character);
         }
-        if (GameState.instance == null) {
+        if (GameState.getInstance() == null) {
             Instantiate(gameState);
         }
-        if (DataHandler.DataHandler.instance == null) {
+        if (DataHandler.DataHandler.getInstance() == null) {
             Instantiate(dataHandler);
         }
-    }
+        if (ConfigHandler.getInstance() == null) {
+            Instantiate(configHandler);
+        }
+        if (ConfigData.getInstance() == null) {
+            Instantiate(configData);
+        }
 
-    // Use this for initialization
-    void Start() {
+}
+
+// Use this for initialization
+void Start() {
 
     }
 

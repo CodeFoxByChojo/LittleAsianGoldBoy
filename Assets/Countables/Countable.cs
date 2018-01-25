@@ -6,7 +6,7 @@ using GameManager;
 namespace Countable {
     public class CountableClass : MonoBehaviour {
 
-        protected GameManager.GameManager gameManager = GameManager.GameManager.instance;
+        protected GameManager.GameManager gameManager = GameManager.GameManager.getInstance();
         protected static CountableClass instance = null;
 
 

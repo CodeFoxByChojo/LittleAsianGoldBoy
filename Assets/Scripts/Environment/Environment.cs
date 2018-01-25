@@ -4,7 +4,8 @@ using UnityEngine;
 
 namespace Environment {
     public class Environment : MonoBehaviour {
-        public static Environment instance;
+        private static Environment instance;
+
         private void Awake() {
             if (instance == null) {
                 instance = this;
@@ -14,6 +15,9 @@ namespace Environment {
             DontDestroyOnLoad(gameObject);
         }
 
+        public static Environment getInstance() {
+            return instance;
+        }
 
         // Use this for initialization
         void Start() {

@@ -7,9 +7,8 @@ using Countable;
 namespace GameManager {
     public class GameState : CountableClass {
 
-        //GameManager gameManager = GameManager.instance;
-        public static new GameState instance = null;
-        public bool instanceExist = false;
+        private static new GameState instance = null;
+
         private int currentHour = 1;
         private int currentDay = 1;
         private int currentGoldPrice;
@@ -23,6 +22,10 @@ namespace GameManager {
             DontDestroyOnLoad(gameObject);
 
             attachToHourNotify();
+        }
+
+        public static GameState getInstance() {
+            return instance;
         }
 
         public override void oneHourPassed() {

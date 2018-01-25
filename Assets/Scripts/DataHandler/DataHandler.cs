@@ -5,8 +5,11 @@ using UnityEngine;
 namespace DataHandler {
     public class DataHandler : MonoBehaviour {
 
-        public static DataHandler instance;
-        private ConfigHandler configHandler; 
+        private static DataHandler instance;
+        public static DataHandler getInstance() {
+            return instance;
+        }
+        private ConfigHandler configHandler;
 
         private void Awake() {
             if (instance == null) {
@@ -24,7 +27,7 @@ namespace DataHandler {
 
         // Use this for initialization
         void Start() {
-
+            configHandler = ConfigHandler.getInstance();
         }
 
         // Update is called once per frame

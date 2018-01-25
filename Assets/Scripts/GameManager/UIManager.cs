@@ -7,9 +7,9 @@ using UnityEngine.UI;
 namespace GameManager {
     public class UIManager : MonoBehaviour {
 
-        public static UIManager instance = null;
+        private static UIManager instance = null;
 
-        private GameManager gameManager = GameManager.instance;
+        private GameManager gameManager = GameManager.getInstance();
 
         public Text timeObject;
 
@@ -20,7 +20,11 @@ namespace GameManager {
                 Destroy(gameObject);
             }
             DontDestroyOnLoad(gameObject);
-            timeObject = GameObject.Find("Time").GetComponent<Text>();
+            timeObject = GameObject.Find("DateTime").GetComponent<Text>();
+        }
+
+        public static UIManager getInstance() {
+            return instance;
         }
 
         // Use this for initialization

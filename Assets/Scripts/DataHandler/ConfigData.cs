@@ -4,6 +4,19 @@ using UnityEngine;
 
 namespace DataHandler {
     public class ConfigData : MonoBehaviour {
+        private void Awake() {
+            if (instance == null) {
+                instance = this;
+            } else if (instance != this) {
+                Destroy(gameObject);
+            }
+            DontDestroyOnLoad(gameObject);
+        }
+
+        public static ConfigData getInstance() {
+            return instance;
+        }
+
 
         private int knowledgePerHour = 1;
         private int licenseCost = 1;
