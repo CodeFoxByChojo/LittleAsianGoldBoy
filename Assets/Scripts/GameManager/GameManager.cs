@@ -7,9 +7,6 @@ using Countable;
 namespace GameManager {
     public class GameManager : MonoBehaviour {
 
-        public static GameManager instance = null;
-        private static DataHandler.DataHandler dataHandler = DataHandler.DataHandler.instance;
-        GameState gameState = GameState.instance;
         private static GameManager instance = null;
         private static DataHandler.DataHandler dataHandler = DataHandler.DataHandler.getInstance();
         private static GameState gameState = GameState.getInstance();
@@ -21,6 +18,10 @@ namespace GameManager {
                 Destroy(gameObject);
             }
             DontDestroyOnLoad(gameObject);
+        }
+
+        public static GameManager getInstance() {
+            return instance;
         }
 
         private List<CountableClass> hourNotify = new List<CountableClass>();
