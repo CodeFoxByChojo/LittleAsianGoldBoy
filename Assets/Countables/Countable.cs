@@ -1,7 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using GameManager;
 
-public abstract class Countable {
-    public abstract void oneHourPassed();
+namespace Countable {
+    public class CountableClass : MonoBehaviour {
+
+        protected GameManager.GameManager gameManager = GameManager.GameManager.instance;
+        protected static CountableClass instance = null;
+
+
+        public virtual void oneHourPassed() {
+        }
+
+        protected void attachToHourNotify() {
+            if ( instance != null) {
+            gameManager.registerHourNotify(instance);
+            } else if (instance == null) {
+                gameManager.registerHourNotify(this);
+            }
+        }
+
+    }
 }
