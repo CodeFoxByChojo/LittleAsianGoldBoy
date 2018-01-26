@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace DataHandler {
+namespace Chojo.LAG.DataController {
     public class ConfigHandler : MonoBehaviour {
 
         private static ConfigHandler instance = null;

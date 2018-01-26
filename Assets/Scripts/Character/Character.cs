@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Chojo.LAG.Manager;
 
-namespace Character {
-    public class Character : MonoBehaviour {
+namespace Chojo.LAG.CharacterController {
 
         private static Character instance = null;
 

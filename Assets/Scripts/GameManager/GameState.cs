@@ -2,9 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Countable;
+using Chojo.LAG.Countable;
 
-namespace GameManager {
+namespace Chojo.LAG.Manager {
     public class GameState : CountableClass {
 
         private static new GameState instance = null;

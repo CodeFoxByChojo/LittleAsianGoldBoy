@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Environment {
+namespace Chojo.LAG.Environments {
     public class Computer : MonoBehaviour {
 
         // Use this for initialization

@@ -1,10 +1,12 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Countable;
+using Chojo.LAG.Countable;
+using Chojo.LAG.Environments;
+using Chojo.LAG.DataController;
+using Chojo.LAG.CharacterController;
 
-namespace GameManager {
+namespace Chojo.LAG.Manager {
     public class GameManager : MonoBehaviour {
 
         private static GameManager instance = null;

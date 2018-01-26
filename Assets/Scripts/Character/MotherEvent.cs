@@ -1,9 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Chojo.LAG.Manager;
 
-namespace Character {
-    public class MotherEvent : MonoBehaviour {
 
         // Use this for initialization
         void Start() {
@@ -12,6 +11,8 @@ namespace Character {
 
         // Update is called once per frame
         void Update() {
+namespace Chojo.LAG.CharacterController {
+    public class MotherEvent {
 
         }
     }

@@ -2,9 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Countable;
+using Chojo.LAG.Countable;
 
-namespace Environment {
+namespace Chojo.LAG.Environments {
     public class Bot : CountableClass {
         public override void oneHourPassed() {
             throw new NotImplementedException();

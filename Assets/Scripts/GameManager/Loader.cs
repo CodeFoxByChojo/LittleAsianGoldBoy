@@ -1,11 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using GameManager;
-using Environment;
-using DataHandler;
+using Chojo.LAG.DataController;
+using Chojo.LAG.Environments;
+using Chojo.LAG.CharacterController;
 
-public class Loader : MonoBehaviour {
+namespace Chojo.LAG.Manager {
 
     public GameObject configHandler;
     public GameObject configData;

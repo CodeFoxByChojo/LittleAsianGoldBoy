@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace DataHandler {
+namespace Chojo.LAG.DataController {
     public class ConfigData : MonoBehaviour{
 
         private static ConfigData instance;

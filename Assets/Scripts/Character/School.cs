@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class School : MonoBehaviour {
+namespace Chojo.LAG.CharacterController {
+    public class School : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace DataHandler {
+namespace Chojo.LAG.DataController {
     public class GameData : MonoBehaviour {
 
         // Use this for initialization

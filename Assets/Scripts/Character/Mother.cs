@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Chojo.LAG.Countable;
+using Chojo.LAG.Manager;
 
-namespace Character {
-    public class Mother : MonoBehaviour {
 
         // Use this for initialization
         void Start() {

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace GameManager {
+namespace Chojo.LAG.Manager {
     public class UIManager : MonoBehaviour {
 
         private static UIManager instance = null;
