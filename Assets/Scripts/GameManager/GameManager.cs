@@ -10,8 +10,16 @@ namespace Chojo.LAG.Manager {
     public class GameManager : MonoBehaviour {
 
         private static GameManager instance = null;
-        private static DataHandler.DataHandler dataHandler = DataHandler.DataHandler.getInstance();
-        private static GameState gameState = GameState.getInstance();
+        private static DataHandler dataHandler;
+        private static GameState gameState;
+        private static Environment environment;
+        private static Character character;
+        private ConfigData configData;
+
+        private float oneTimeCycleInSeconds;
+        private float timeToNextCycle = 0;
+
+        private List<CountableClass> hourNotify = new List<CountableClass>();
 
         private void Awake() {
             if (instance == null) {
@@ -23,20 +31,27 @@ namespace Chojo.LAG.Manager {
         }
 
         public static GameManager getInstance() {
+            if (instance == null) {
+                instance = new GameManager();
+            }
             return instance;
         }
 
-        private List<CountableClass> hourNotify = new List<CountableClass>();
-
-        private float oneTimeCycleInSeconds = dataHandler.getConfigData().TimeCycleInSeconds;
-        private float timeToNextCycle = 0;
-        
+        private void Start() {
+            dataHandler = DataHandler.getInstance();
+            gameState = GameState.getInstance();
+            environment = Environment.getInstance();
+            character = Character.getInstance();
+            configData = dataHandler.getConfigData();
+            oneTimeCycleInSeconds = configData.TimeCycleInSeconds;
+        }
 
         public GameState getGameState() {
-            if (gameState == null) {
-                gameState = GameState.getInstance();
-            }
             return gameState;
+        }
+
+        public ConfigData getConfigData() {
+            return configData;
         }
 
         private void Update() {
@@ -57,6 +72,7 @@ namespace Chojo.LAG.Manager {
 
         public void registerHourNotify(CountableClass notifyObject) {
             hourNotify.Add(notifyObject);
+            Debug.Log(notifyObject + " succesfully linked to Hour notify");
         }
 
     }
