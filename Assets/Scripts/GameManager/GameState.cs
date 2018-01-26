@@ -7,24 +7,21 @@ using Chojo.LAG.Countable;
 namespace Chojo.LAG.Manager {
     public class GameState : CountableClass {
 
-        private static new GameState instance = null;
+        private static GameState instance = null;
 
         private int currentHour = 1;
         private int currentDay = 1;
         private int currentGoldPrice;
 
-        private void Awake() {
-            if (instance == null) {
-                instance = this;
-            } else if (instance != this) {
-                Destroy(gameObject);
-            }
-            DontDestroyOnLoad(gameObject);
-
+        private GameState() {
             attachToHourNotify();
         }
 
+
         public static GameState getInstance() {
+            if (instance == null) {
+                instance = new GameState();
+            }
             return instance;
         }
 
