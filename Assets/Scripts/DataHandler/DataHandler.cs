@@ -6,10 +6,11 @@ namespace Chojo.LAG.DataController {
     public class DataHandler : MonoBehaviour {
 
         private static DataHandler instance;
+        private ConfigHandler configHandler;
+
         public static DataHandler getInstance() {
             return instance;
         }
-        private ConfigHandler configHandler;
 
         private void Awake() {
             if (instance == null) {
@@ -20,17 +21,14 @@ namespace Chojo.LAG.DataController {
             DontDestroyOnLoad(gameObject);
         }
 
-        public ConfigData getConfigData() {
-            return configHandler.getConfigData();
-        }
-
-
-        // Use this for initialization
         void Start() {
             configHandler = ConfigHandler.getInstance();
         }
 
-        // Update is called once per frame
+        public ConfigData getConfigData() {
+            return configHandler.getConfigData();
+        }
+        
         void Update() {
 
         }

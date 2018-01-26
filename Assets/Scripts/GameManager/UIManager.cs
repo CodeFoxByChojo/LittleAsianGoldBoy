@@ -9,7 +9,7 @@ namespace Chojo.LAG.Manager {
 
         private static UIManager instance = null;
 
-        private GameManager gameManager = GameManager.getInstance();
+        private GameManager gameManager;
 
         public Text timeObject;
 
@@ -29,7 +29,7 @@ namespace Chojo.LAG.Manager {
 
         // Use this for initialization
         void Start() {
-
+            gameManager = GameManager.getInstance();
         }
 
         // Update is called once per frame
