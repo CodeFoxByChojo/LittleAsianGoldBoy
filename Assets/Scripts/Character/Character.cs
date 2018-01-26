@@ -4,20 +4,23 @@ using UnityEngine;
 using Chojo.LAG.Manager;
 
 namespace Chojo.LAG.CharacterController {
+    public class Character {
 
         private static Character instance = null;
+        private Mother mother = Mother.getInstance();
+        private GameManager gameManager = GameManager.getInstance();
 
-        private void Awake() {
-            if (instance == null) {
-                instance = this;
-            } else if (instance != this) {
-                Destroy(gameObject);
-            }
-            DontDestroyOnLoad(gameObject);
-        }
+        private Character() { }
 
         public static Character getInstance() {
+            if (instance == null) {
+                instance = new Character();
+            }
             return instance;
+        }
+
+        public GameManager getGameManager() {
+            return gameManager;
         }
 
         // Use this for initialization
