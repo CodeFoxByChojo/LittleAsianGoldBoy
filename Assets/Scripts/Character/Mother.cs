@@ -32,6 +32,32 @@ namespace Chojo.LAG.CharacterController {
         }
 
         private void generateMotherEvent() {
+        public override void oneHourPassed() {
+            //Verringert die Wartezeit, die das Event noch angenommen werden kann, wenn das Event noch nicht angenommen wurde.
+            if (motherTaskWaitDuration != 0 && !motherEvent.isEventActive()) {
+                motherTaskWaitDuration = motherTaskWaitDuration - 1;
+            }
+            //Wenn kein Event vorhanden ist und die Wartezeit bis zum nächsten Event abgelaufen ist, wird eine neues Event erstell und die Wartezeit zum annehmen festgelegt.
+            if (timeToNextMotherEvent == 0 && motherEvent == null) {
+                motherEvent = new MotherEvent();
+                motherTaskWaitDuration = UnityEngine.Random.Range(gameManager.getConfigData().MinMotherWaitDuration, gameManager.getConfigData().MaxMotherWaitDuration);
+            }
+            //Ist ein Event aktiv und die Dauer des Events auf null, ist das Event erfolgreich beendet und wird entfernt. Der Timer für das nächste Event wird gestartet
+            if (motherEvent != null && motherEvent.getDuration() == 0) {
+                motherEvent = null;
+                timeToNextMotherEvent = UnityEngine.Random.Range(gameManager.getConfigData().MinMotherWaitDuration, gameManager.getConfigData().MaxMotherWaitDuration);
+                giveKarma(20);
+            }
+            //Solange das Event aktiv ist, wird es jeden Zyklus benachrichtigt.
+            if (motherEvent != null && motherEvent.isEventActive()) {
+                motherEvent.oneHourPassed();
+            }
+            //Wenn die Zeit um das Event anzunehmen abgelaufen ist, wird das Event gelöscht und der Spieler bekommt Karma abgezogen.
+            if (motherEvent != null && motherTaskWaitDuration == 0) {
+                motherEvent = null;
+                takeKarma(10);
+            }
+        }
 
         }
     }
