@@ -12,6 +12,14 @@ namespace Chojo.LAG.Environments {
 
         // Update is called once per frame
         void Update() {
+        public bool upgradeComputer() {
+            if (level < gameManager.getConfigData().MaxComputerLevel
+                && gameManager.getCharacter().takeMoney(gameManager.getConfigData().getUpgradeCost(level, gameManager.getConfigData().ComputerPrice))) {
+                level = level++;
+                return true;
+            }
+            return false;
+        }
 
         }
     }
