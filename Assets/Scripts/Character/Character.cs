@@ -4,7 +4,7 @@ using UnityEngine;
 using Chojo.LAG.Manager;
 
 namespace Chojo.LAG.CharacterController {
-    public class Character {
+    public class Character : CountableClass {
 
         private static Character instance = null;
         private Mother mother = Mother.getInstance();
