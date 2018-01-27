@@ -27,6 +27,15 @@ namespace Chojo.LAG.Environments {
         // Update is called once per frame
         void Update() {
 
+        public int getBotAmount() {
+            return bots.Count;
+        }
+        public int getMaxBotAmount() {
+            int maxAmount = 0;
+            foreach (Computer pc in computer) {
+                maxAmount = maxAmount + (pc.getLevel() * 2);
+            }
+            return maxAmount;
         }
     }
 }
