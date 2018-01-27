@@ -3,32 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Chojo.LAG.DataController {
-    public class DataHandler : MonoBehaviour {
+    public class DataHandler {
 
         private static DataHandler instance;
-        private ConfigHandler configHandler;
+        private ConfigHandler configHandler = ConfigHandler.getInstance();
 
         public static DataHandler getInstance() {
+            if (instance == null) {
+                instance = new DataHandler();
+                return instance;
+            }
             return instance;
         }
 
-        private void Awake() {
-            if (instance == null) {
-                instance = this;
-            } else if (instance != this) {
-                Destroy(gameObject);
-            }
-            DontDestroyOnLoad(gameObject);
-        }
-
-        void Start() {
-            configHandler = ConfigHandler.getInstance();
-        }
+        private DataHandler() { }
 
         public ConfigData getConfigData() {
             return configHandler.getConfigData();
         }
-        
+
         void Update() {
 
         }
