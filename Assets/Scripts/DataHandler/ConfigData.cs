@@ -68,6 +68,13 @@ namespace Chojo.LAG.DataController {
             }
         }
 
+        //Gibt basierend auf den Basiskosten für das Upgrade und das aktuelle Level einen Wert zurück.
+        public int getUpgradeCost(int level, int basecost) {
+            int amount;
+            amount = (level*10) ^ 2 + basecost;
+            return amount;
+        }
+
         public int ComputerPrice {
             get {
                 return computerPrice;
