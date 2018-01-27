@@ -15,6 +15,11 @@ namespace Chojo.LAG.Manager {
         private static Environment environment;
         private static Character character;
         private ConfigData configData;
+        private static DataHandler dataHandler = DataHandler.getInstance();
+        private static GameState gameState = GameState.getInstance();
+        private static Environment environment = Environment.getInstance();
+        private static Character character = Character.getInstance();
+        private ConfigData configData = dataHandler.getConfigData();
 
         private float oneTimeCycleInSeconds;
         private float timeToNextCycle = 0;
@@ -38,11 +43,6 @@ namespace Chojo.LAG.Manager {
         }
 
         private void Start() {
-            dataHandler = DataHandler.getInstance();
-            gameState = GameState.getInstance();
-            environment = Environment.getInstance();
-            character = Character.getInstance();
-            configData = dataHandler.getConfigData();
             oneTimeCycleInSeconds = configData.TimeCycleInSeconds;
         }
 
