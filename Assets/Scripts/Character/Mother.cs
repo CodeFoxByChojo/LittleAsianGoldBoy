@@ -59,6 +59,28 @@ namespace Chojo.LAG.CharacterController {
             }
         }
 
+        private void takeKarma(int amount) {
+            if (karma <= amount) {
+                karma = 0;
+            } else {
+                karma = karma - amount;
+            }
+        }
+
+        private void giveKarma(int amount) {
+            if (karma + amount <= 100) {
+                karma = karma + amount;
+            } else {
+                karma = 100;
+            }
+        }
+
+        public int getKarma() {
+            return karma;
+        }
+        
+        public MotherEvent getMotherEvent() {
+            return motherEvent;
         }
     }
 }
