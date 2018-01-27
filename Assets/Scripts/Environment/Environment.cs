@@ -1,31 +1,33 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Chojo.LAG.Countable;
+using System;
 
 namespace Chojo.LAG.Environments {
-    public class Environment : MonoBehaviour {
+    public class Environment : CountableClass {
         private static Environment instance;
 
-        private void Awake() {
-            if (instance == null) {
-                instance = this;
-            } else if (instance != this) {
-                Destroy(gameObject);
-            }
-            DontDestroyOnLoad(gameObject);
-        }
+        private List<Bot> bots = new List<Bot>();
+        private List<Computer> computer = new List<Computer>(); 
+
+        private Environment() { }
 
         public static Environment getInstance() {
+            if (instance == null) {
+                instance = new Environment();
+            }
             return instance;
         }
 
-        // Use this for initialization
-        void Start() {
-
+        public override void oneHourPassed() {
+            //Entfernt abgelaufene Bots aus der Liste.
+            for (int i = 0; i > bots.Count; i++)
+                if (!bots[i].oneHourPassed()) {
+                    bots.RemoveAt(i);
+                    i = i--;
+                }
         }
-
-        // Update is called once per frame
-        void Update() {
 
         public int getBotAmount() {
             return bots.Count;

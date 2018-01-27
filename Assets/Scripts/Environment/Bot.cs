@@ -3,21 +3,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Chojo.LAG.Countable;
+using Chojo.LAG.Manager;
 
 namespace Chojo.LAG.Environments {
-    public class Bot : CountableClass {
-        public override void oneHourPassed() {
-            throw new NotImplementedException();
+    public class Bot {
+
+        private GameManager gameManager = GameManager.getInstance();
+
+        private int licenceDuration;
+
+        //Ist die Zeit des Bots abgelaufen, wird false zurückgegeben. So weiß das Environment, dass der Bot gelöscht werden kann.
+        public bool oneHourPassed() {
+            licenceDuration = licenceDuration - 1;
+            if (licenceDuration == 0) {
+                return false;
+            }
+            return true;
         }
 
-        // Use this for initialization
-        void Start() {
-
-        }
-
-        // Update is called once per frame
-        void Update() {
-
+        Bot() {
+            licenceDuration = UnityEngine.Random.Range(gameManager.getConfigData().MinBotLifeDuration, gameManager.getConfigData().MaxBotLifeDuration);
         }
     }
 }

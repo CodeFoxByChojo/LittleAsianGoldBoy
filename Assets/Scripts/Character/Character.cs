@@ -2,13 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Chojo.LAG.Manager;
+using Chojo.LAG.Countable;
+using System;
 
 namespace Chojo.LAG.CharacterController {
     public class Character : CountableClass {
 
         private static Character instance = null;
         private Mother mother = Mother.getInstance();
-        private GameManager gameManager = GameManager.getInstance();
+        private new GameManager gameManager = GameManager.getInstance();
+        private School school = School.getInstance();
+
+        private int knowledge = 0;
+        private int gold = 0;
+        private int money = 0;
 
         private Character() { }
 
@@ -23,8 +30,12 @@ namespace Chojo.LAG.CharacterController {
             return gameManager;
         }
 
-        // Use this for initialization
-        void Start() {
+        public override void oneHourPassed() {
+            if (school.isSchoolActive()) {
+                knowledge = knowledge + gameManager.getConfigData().KnowledgePerHour;
+            }
+        }
+
         public bool isCharacterWorking() {
             return mother.getMotherEvent().isEventActive();
         }
@@ -60,9 +71,13 @@ namespace Chojo.LAG.CharacterController {
             }
         }
 
-        // Update is called once per frame
-        void Update() {
-
+        public void addKnowledge(int amount) {
+            knowledge = knowledge + amount;
         }
+
+        public int getKnowledge() {
+            return knowledge;
+        }
+
     }
 }

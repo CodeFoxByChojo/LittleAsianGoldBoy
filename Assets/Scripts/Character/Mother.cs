@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Chojo.LAG.Countable;
 using Chojo.LAG.Manager;
+using System;
 
 namespace Chojo.LAG.CharacterController {
     public class Mother : CountableClass {
@@ -10,6 +11,10 @@ namespace Chojo.LAG.CharacterController {
         private int motherTaskWaitDuration;
         private MotherEvent motherEvent;
         private static Mother instance;
+        private new GameManager gameManager = GameManager.getInstance();
+
+        private int timeToNextMotherEvent = 0;
+        private int karma = 50;
 
         private Mother() {
             attachToHourNotify();
@@ -23,15 +28,11 @@ namespace Chojo.LAG.CharacterController {
         }
 
         protected override void attachToHourNotify() {
-            
+
             instance = this;
-            Debug.Log("Instance of Mother is " + instance);
-            Debug.Log("Instance of GameManager is " + gameManager);
             GameManager.getInstance().registerHourNotify(instance);
-            Debug.Log("Attached " + instance + " to hour notify");
         }
 
-        private void generateMotherEvent() {
         public override void oneHourPassed() {
             //Verringert die Wartezeit, die das Event noch angenommen werden kann, wenn das Event noch nicht angenommen wurde.
             if (motherTaskWaitDuration != 0 && !motherEvent.isEventActive()) {

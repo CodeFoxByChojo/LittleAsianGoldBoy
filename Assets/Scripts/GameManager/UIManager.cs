@@ -38,7 +38,6 @@ namespace Chojo.LAG.Manager {
         }
 
         private void updateTime() {
-            if (gameManager.getGameState() == null) return;
             int[] time = gameManager.getGameState().getCurrentTime();
             timeObject.text = "Day: " + time[0] + " Hour: " + time[1];
         }

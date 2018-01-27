@@ -10,11 +10,6 @@ namespace Chojo.LAG.Manager {
     public class GameManager : MonoBehaviour {
 
         private static GameManager instance = null;
-        private static DataHandler dataHandler;
-        private static GameState gameState;
-        private static Environment environment;
-        private static Character character;
-        private ConfigData configData;
         private static DataHandler dataHandler = DataHandler.getInstance();
         private static GameState gameState = GameState.getInstance();
         private static Environment environment = Environment.getInstance();
@@ -51,7 +46,14 @@ namespace Chojo.LAG.Manager {
         }
 
         public ConfigData getConfigData() {
+            if (configData == null || dataHandler == null) {
+                dataHandler = DataHandler.getInstance();
+                configData = dataHandler.getConfigData();
+            }
             return configData;
+        }
+        public Character getCharacter() {
+            return character;
         }
 
         private void Update() {

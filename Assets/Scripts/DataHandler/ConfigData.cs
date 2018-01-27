@@ -1,31 +1,26 @@
 ﻿using UnityEngine;
 
 namespace Chojo.LAG.DataController {
-    public class ConfigData : MonoBehaviour{
+    public class ConfigData {
 
         private static ConfigData instance;
 
-        private void Awake() {
-            if (instance == null) {
-                instance = this;
-            } else if (instance != this) {
-                Destroy(gameObject);
-            }
-            DontDestroyOnLoad(gameObject);
-        }
-
         public static ConfigData getInstance() {
+            if (instance == null) {
+                instance = new ConfigData();
+            }
             return instance;
         }
 
         public ConfigData getConfigData() {
-            return this;
+            return getInstance();
         }
 
         private int knowledgePerHour = 1;
-        private int licenseCost = 1;
+        private int licenseCost = 100;
         private float upgradeCostIncrease = 2.0f;
         private int computerPrice = 100;
+        private int maxComputerLevel = 5;
         private int botLicensePrice = 50;
         private int bandwidePrice = 200;
         private int roomPrice = 100;
@@ -37,6 +32,7 @@ namespace Chojo.LAG.DataController {
         private int minBotLifeDuration = 72;
         private int maxBotLifeDuration = 200;
         private float timeCycleInSeconds = 2.0f;
+        private int schoolDuration = 10;
 
         public int KnowledgePerHour {
             get {
@@ -59,10 +55,6 @@ namespace Chojo.LAG.DataController {
         }
 
         public float UpgradeCostIncrease {
-            get {
-                return upgradeCostIncrease;
-            }
-
             set {
                 upgradeCostIncrease = value;
             }
@@ -192,6 +184,26 @@ namespace Chojo.LAG.DataController {
 
             set {
                 timeCycleInSeconds = value;
+            }
+        }
+
+        public int SchoolDuration {
+            get {
+                return schoolDuration;
+            }
+
+            set {
+                schoolDuration = value;
+            }
+        }
+
+        public int MaxComputerLevel {
+            get {
+                return maxComputerLevel;
+            }
+
+            set {
+                maxComputerLevel = value;
             }
         }
     }

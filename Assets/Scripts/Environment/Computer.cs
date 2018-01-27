@@ -1,17 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Chojo.LAG.Manager;
 
 namespace Chojo.LAG.Environments {
-    public class Computer : MonoBehaviour {
+    public class Computer {
 
-        // Use this for initialization
-        void Start() {
+        private GameManager gameManager = GameManager.getInstance();
+
+        private int level = 1;
+        private 
+
+        Computer() {
 
         }
-
-        // Update is called once per frame
-        void Update() {
+        Computer(int startLevel) {
+            level = startLevel;
+        }
+        
         public bool upgradeComputer() {
             if (level < gameManager.getConfigData().MaxComputerLevel
                 && gameManager.getCharacter().takeMoney(gameManager.getConfigData().getUpgradeCost(level, gameManager.getConfigData().ComputerPrice))) {
@@ -21,6 +27,9 @@ namespace Chojo.LAG.Environments {
             return false;
         }
 
+        public int getLevel() {
+            return level;
         }
     }
+
 }
