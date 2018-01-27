@@ -4,27 +4,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Chojo.LAG.DataController {
-    public class ConfigHandler : MonoBehaviour {
+    public class ConfigHandler {
 
         private static ConfigHandler instance = null;
-        private ConfigData configData;
+        private ConfigData configData = ConfigData.getInstance();
         private bool configLoaded = false;
         public bool instanceCheck = false;
 
-        private void Awake() {
-            if (instance == null) {
-                instance = this;
-            } else if (instance != this) {
-                Destroy(gameObject);
-            }
-            DontDestroyOnLoad(gameObject);
-        }
-
-        private void Start() {
-            configData = ConfigData.getInstance();
-        }
+        private ConfigHandler() { }
 
         public static ConfigHandler getInstance() {
+            if ( instance == null) {
+                instance = new ConfigHandler();
+            }
             return instance;
         }
 
