@@ -8,47 +8,13 @@ using Chojo.LAG.CharacterController;
 namespace Chojo.LAG.Manager {
     public class Loader : MonoBehaviour {
 
-        public GameObject configHandler;
-        public GameObject configData;
-        public GameObject dataHandler;
-        public GameObject environment;
         public GameObject interfaceManager;
-        public GameObject character;
         public GameObject gameManager;
 
 
 
         void Awake() {
-            if (Environment.getInstance() == null) {
-                Instantiate(environment);
-                while (Environment.getInstance() == null) {
-                    //wait
-                }
-            }
-            if (Character.getInstance() == null) {
-                Instantiate(character);
-                while (Character.getInstance() == null) {
-                    //wait
-                }
-            }
-            if (DataHandler.getInstance() == null) {
-                Instantiate(dataHandler);
-                while (DataHandler.getInstance() == null) {
-                    //wait
-                }
-            }
-            if (ConfigHandler.getInstance() == null) {
-                Instantiate(configHandler);
-                while (ConfigHandler.getInstance() == null) {
-                    //wait
-                }
-            }
-            if (ConfigData.getInstance() == null) {
-                Instantiate(configData);
-                while (ConfigData.getInstance() == null) {
-                    //wait
-                }
-            }
+
             if (GameManager.getInstance() == null) {
                 Instantiate(gameManager);
                 while (GameManager.getInstance() == null) {
@@ -61,7 +27,6 @@ namespace Chojo.LAG.Manager {
                     //wait
                 }
             }
-
         }
 
         // Use this for initialization
