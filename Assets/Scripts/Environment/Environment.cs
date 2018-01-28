@@ -69,5 +69,11 @@ namespace Chojo.LAG.Environments {
             }
             return false;
         }
+        public void ToggleAutobuy() {
+            autobuy = !autobuy;
+        }
+        public bool IsAutobuActive() {
+            return autobuy;
+        }
     }
 }
