@@ -18,10 +18,11 @@ namespace Chojo.LAG.Environments {
             level = startLevel;
         }
         
-        public bool upgradeComputer() {
-            if (level < gameManager.getConfigData().MaxComputerLevel
-                && gameManager.getCharacter().takeMoney(gameManager.getConfigData().getUpgradeCost(level, gameManager.getConfigData().ComputerPrice))) {
-                level = level++;
+        public bool UpgradeComputer() {
+            if (level < gameManager.GetConfigData().MaxComputerLevel
+                && gameManager.GetCharacter().TakeMoney(gameManager.GetConfigData().getUpgradeCost(level, gameManager.GetConfigData().ComputerPrice))) {
+                level = level + 1;
+                Debug.Log("Computer " + id + " upgradet");
                 return true;
             }
             return false;
