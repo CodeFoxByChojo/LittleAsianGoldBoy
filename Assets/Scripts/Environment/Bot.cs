@@ -20,8 +20,10 @@ namespace Chojo.LAG.Environments {
             }
             return true;
         }
-
-        Bot() {
+        public int GetLicenceDuration() {
+            return licenceDuration;
+        }
+        public void ActivateBot() {
             licenceDuration = UnityEngine.Random.Range(gameManager.GetConfigData().MinBotLifeDuration, gameManager.GetConfigData().MaxBotLifeDuration);
         }
     }
