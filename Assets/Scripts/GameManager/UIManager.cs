@@ -77,6 +77,37 @@ namespace Chojo.LAG.Manager {
 
         internal void ButtonClickedEvent() {
             throw new NotImplementedException();
+        internal void ButtonClickedEvent(Defines.ButtonIdentiy identity, Defines.ButtonType type) {
+            switch (identity) {
+                case Defines.ButtonIdentiy.Gold:
+                    if (type == Defines.ButtonType.Activate) {
+                        gameManager.GetCharacter().CharacterGoldClick();
+                    }
+                    break;
+                case Defines.ButtonIdentiy.GoldSell:
+                    if (type == Defines.ButtonType.Sell) {
+                        gameManager.GetCharacter().SellGold();
+                    }
+                    break;
+                case Defines.ButtonIdentiy.Mother:
+                    if (type == Defines.ButtonType.Activate) {
+                        gameManager.GetCharacter().GetMother().GetMotherEvent().ActivateEvent();
+                    }
+                    break;
+                default:
+                    Debug.Log("Not a vaild combination");
+                    break;
+            }
+        }
+
+        internal void ButtonClickedEvent(Defines.ButtonIdentiy identity, Defines.ButtonType type, int identifier) {
+            var environment = gameManager.GetEnvironment();
+            var computer = environment.GetComputer();
+            if (identifier >= computer.Count) {
+                environment.BuyComputer();
+            } else {
+                computer[identifier].UpgradeComputer();
+            }
         }
 
         // Use this for initialization
