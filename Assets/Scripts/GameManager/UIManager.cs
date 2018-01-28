@@ -123,6 +123,80 @@ namespace Chojo.LAG.Manager {
         private void updateTime() {
             int[] time = gameManager.getGameState().getCurrentTime();
             timeObject.text = "Day: " + time[0] + " Hour: " + time[1];
+        private void UpdateComputer() {
+            gameManager = GameManager.GetInstance();
+            var tempConfigData = gameManager.GetConfigData();
+            Debug.Log(tempConfigData);
+            var pclist = gameManager.GetEnvironment().GetComputer();
+            //Computer 0
+            if (pclist[0] != null) {
+                if (pclist[0].GetLevel() != 5) {
+                    pc0UpgradePrice.text = pclist[0].GetUpgradePrice().ToString();
+                    pc0Upgrade.text = "Upgrade";
+                } else {
+                    pc0UpgradePrice.text = "Maximum";
+                    pc0Upgrade.text = "High End";
+                }
+                pc0Level.text = "Level : " + pclist[0].GetLevel() + "/5";
+            }
+            //Computer 1
+            if (pclist.Count > 1) {
+                if (pclist[1].GetLevel() != 5) {
+                    pc1UpgradePrice.text = pclist[1].GetUpgradePrice().ToString();
+                    pc1Upgrade.text = "Upgrade";
+                } else {
+                    pc1UpgradePrice.text = "Maximum";
+                    pc1Upgrade.text = "High End";
+                }
+                pc1Level.text = "Level : " + pclist[1].GetLevel() + "/5";
+            } else {
+                pc1UpgradePrice.text = tempConfigData.ComputerPrice.ToString();
+                pc1Upgrade.text = "Buy";
+            }
+            //Computer 2
+            if (pclist.Count > 2) {
+                if (pclist[2].GetLevel() != 5) {
+                    pc2UpgradePrice.text = pclist[2].GetUpgradePrice().ToString();
+                    pc2Upgrade.text = "Upgrade";
+                } else {
+                    pc2UpgradePrice.text = "Maximum";
+                    pc2Upgrade.text = "High End";
+                }
+                pc2Level.text = "Level : " + pclist[2].GetLevel() + "/5";
+            } else {
+                pc2UpgradePrice.text = tempConfigData.ComputerPrice.ToString();
+                pc2Upgrade.text = "Buy";
+            }
+            //Computer 3
+            if (pclist.Count > 3) {
+                if (pclist[3].GetLevel() != 5) {
+                    pc3UpgradePrice.text = pclist[3].GetUpgradePrice().ToString();
+                    pc3Upgrade.text = "Upgrade";
+                } else {
+                    pc3UpgradePrice.text = "Maximum";
+                    pc3Upgrade.text = "High End";
+                }
+                pc3Level.text = "Level : " + pclist[3].GetLevel() + "/5";
+            } else {
+                pc3UpgradePrice.text = tempConfigData.ComputerPrice.ToString();
+                pc3Upgrade.text = "Buy";
+            }
+            //Computer 4
+            if (pclist.Count > 4) {
+                if (pclist[4].GetLevel() != 5) {
+                    pc4UpgradePrice.text = pclist[4].GetUpgradePrice().ToString();
+                    pc4Upgrade.text = "Upgrade";
+                } else {
+                    pc4UpgradePrice.text = "Maximum";
+                    pc4Upgrade.text = "High End";
+                }
+                pc4Level.text = "Level : " + pclist[4].GetLevel() + "/5";
+            } else {
+                pc4UpgradePrice.text = tempConfigData.ComputerPrice.ToString();
+                pc4Upgrade.text = "Buy";
+            }
+        }
+
         }
     }
 }
