@@ -11,7 +11,9 @@ namespace Chojo.LAG.Environments {
         private new GameManager gameManager = GameManager.GetInstance(); 
 
         private List<Bot> bots = new List<Bot>();
-        private List<Computer> computer = new List<Computer>(); 
+        private List<Computer> computer = new List<Computer>();
+
+        private bool autobuy = false;
 
         private Environment() {
             computer.Add(new Computer());
@@ -31,17 +33,20 @@ namespace Chojo.LAG.Environments {
                     bots.RemoveAt(i);
                     i = i--;
                 }
+            if (autobuy) {
+
+            }
         }
 
         public int GetBotAmount() {
             return bots.Count;
         }
         public int GetMaxBotAmount() {
-            int maxAmount = 0;
-            foreach (Computer pc in computer) {
-                maxAmount = maxAmount + (pc.GetLevel() * 2);
+            int amount = 0;
+            foreach (Computer element in computer) {
+                amount = amount + (element.GetLevel() * 2);
             }
-            return maxAmount;
+            return amount;
         }
 
         protected override void AttachToHourNotify() {
@@ -60,6 +65,21 @@ namespace Chojo.LAG.Environments {
                 computer.Add(new Computer());
             }
         }
+
+        public int GetMaxSubscriptions() {
+            return bots.Count;
+        }
+
+        public int GetSubscriptionsAmount() {
+            int amount = 0;
+            foreach (Bot element in bots) {
+                if(element.GetLicenceDuration() > 0) {
+                    amount++;
+                }
+            }
+            return amount;
+        }
+
         public bool BuySubscription() {
             if (GetSubscriptionsAmount() != GetMaxSubscriptions() && gameManager.GetCharacter().TakeMoney(gameManager.GetConfigData().SubscriptionPrice))
                 foreach (Bot element in bots) {
@@ -80,6 +100,7 @@ namespace Chojo.LAG.Environments {
             }
             return false;
         }
+
         public void ToggleAutobuy() {
             autobuy = !autobuy;
         }
