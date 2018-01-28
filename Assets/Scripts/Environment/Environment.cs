@@ -75,5 +75,13 @@ namespace Chojo.LAG.Environments {
         public bool IsAutobuActive() {
             return autobuy;
         }
+
+        private void RenewSubscriptions() {
+            foreach (Bot element in bots) {
+                if (element.GetLicenceDuration() == 0) {
+                    BuySubscription();
+                }
+            }
+        }
     }
 }
