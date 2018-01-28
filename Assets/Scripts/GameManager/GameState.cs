@@ -10,6 +10,7 @@ namespace Chojo.LAG.Manager {
         private static GameState instance = null;
         private static new GameManager gameManager = GameManager.GetInstance();
 
+        private double count;
         private int currentHour = 1;
         private int currentDay = 1;
         private float currentGoldPrice;
@@ -31,7 +32,7 @@ namespace Chojo.LAG.Manager {
             if (currentHour == 0) {
                 currentDay += 1;
             }
-            currentGoldPrice = UnityEngine.Random.Range(gameManager.GetConfigData().MinGoldPrice, gameManager.GetConfigData().MaxGoldPrice);
+            currentGoldPrice = (float)calculateGoldPrice();
 
         }
 
@@ -47,6 +48,18 @@ namespace Chojo.LAG.Manager {
         }
         public float GetCurrentGoldPrice() {
             return currentGoldPrice;
+        }
+        private float calculateGoldPrice() {
+            count = count + ((float)(UnityEngine.Random.Range(0, 50)) / 100);
+
+            float a = (float)Math.Sin(count);
+            a = a * 3;
+            if (a < 0) {
+                a = a * (-1);
+            }
+            a = a + 0.5f;
+            a = a + ((float)(UnityEngine.Random.Range(-50, 50)) / 100);
+            return a;
         }
     }
 }
