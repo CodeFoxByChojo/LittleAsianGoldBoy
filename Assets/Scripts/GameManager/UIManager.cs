@@ -216,6 +216,24 @@ namespace Chojo.LAG.Manager {
             supportPointsDisplay.text = mother.GetKarma() + "/100";
         }
 
+        private void UpdateGoldPrice() {
+            float a = gameManager.GetGameState().GetCurrentGoldPrice();
+            int b = (int)(a * 100);
+            a = (float)b;
+            goldPriceDisplay.text = "" + a / 100;
+        }
+
+        private void UpdateGold() {
+            goldDisplay.text = "" + gameManager.GetCharacter().GetGold();
+        }
+
+        private void UpdateMoney() {
+            moneyDisplay.text = "" + gameManager.GetCharacter().GetMoney();
+        }
+
+        private void UpdateTime() {
+            int[] time = gameManager.GetGameState().GetCurrentTime();
+            timeDisplay.text = "Day: " + time[0] + " Hour: " + time[1];
         }
     }
 }
