@@ -27,6 +27,10 @@ namespace Chojo.LAG.Manager {
             return instance;
         }
 
+        internal void ButtonClickedEvent() {
+            throw new NotImplementedException();
+        }
+
         // Use this for initialization
         void Start() {
             gameManager = GameManager.getInstance();
