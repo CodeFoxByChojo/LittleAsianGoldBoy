@@ -19,7 +19,7 @@ namespace Chojo.LAG.DataController {
         private int knowledgePerHour = 1;
         private int licenseCost = 100;
         private float upgradeCostIncrease = 2.0f;
-        private int computerPrice = 5;
+        private int computerPrice = 500;
         private int maxComputerLevel = 5;
         private int botLicensePrice = 50;
         private int bandwidePrice = 200;
@@ -36,6 +36,7 @@ namespace Chojo.LAG.DataController {
         private int goldPerClick = 10;
         private float maxGoldPrice = 0.01f;
         private float minGoldPrice = 3.00f;
+        private int subscriptionPrice = 15;
 
         public int KnowledgePerHour {
             get {
@@ -66,7 +67,7 @@ namespace Chojo.LAG.DataController {
         //Gibt basierend auf den Basiskosten für das Upgrade und das aktuelle Level einen Wert zurück.
         public int getUpgradeCost(int level, int basecost) {
             int amount;
-            amount = (level*10) ^ 2 + basecost;
+            amount = (level*10) ^ level + basecost;
             return amount;
         }
 
@@ -237,6 +238,16 @@ namespace Chojo.LAG.DataController {
 
             set {
                 minGoldPrice = value;
+            }
+        }
+
+        public int SubscriptionPrice {
+            get {
+                return subscriptionPrice;
+            }
+
+            set {
+                subscriptionPrice = value;
             }
         }
     }
