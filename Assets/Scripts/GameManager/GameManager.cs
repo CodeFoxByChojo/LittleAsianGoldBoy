@@ -21,17 +21,10 @@ namespace Chojo.LAG.Manager {
 
         private List<CountableClass> hourNotify = new List<CountableClass>();
 
-        private void Awake() {
-            if (instance == null) {
-                instance = this;
-            } else if (instance != this) {
-                Destroy(gameObject);
-            }
-            DontDestroyOnLoad(gameObject);
-        }
+        private GameManager() { }
 
-        public static GameManager getInstance() {
-            if (instance == null) {
+        public static GameManager GetInstance() {
+            if(instance == null) {
                 instance = new GameManager();
             }
             return instance;
