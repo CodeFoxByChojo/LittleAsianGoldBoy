@@ -117,7 +117,12 @@ namespace Chojo.LAG.Manager {
 
         // Update is called once per frame
         void Update() {
-            updateTime();
+            UpdateTime();
+            UpdateMoney();
+            UpdateGold();
+            UpdateGoldPrice();
+            UpdateMother();
+            UpdateComputer();
         }
 
         private void updateTime() {
