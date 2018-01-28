@@ -197,6 +197,25 @@ namespace Chojo.LAG.Manager {
             }
         }
 
+        private void UpdateMother() {
+            var mother = gameManager.GetCharacter().GetMother();
+            if (gameManager.GetCharacter().GetMother().GetMotherEvent() != null) {
+                taskNameDisplay.text = mother.GetMotherEvent().GetTaskName();
+                taskDurationDisplay.text = mother.GetMotherEvent().GetDuration().ToString();
+                var a = mother.GetMotherTaskWaitDuration();
+                if (mother.GetMotherEvent().IsEventActive()) {
+                    waitDurationDisplay.text = "active";
+                } else {
+                    waitDurationDisplay.text = a.ToString();
+                }
+            } else {
+                taskNameDisplay.text = "";
+                taskDurationDisplay.text = "";
+                waitDurationDisplay.text = "";
+            }
+            supportPointsDisplay.text = mother.GetKarma() + "/100";
+        }
+
         }
     }
 }
