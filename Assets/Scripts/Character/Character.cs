@@ -9,50 +9,51 @@ namespace Chojo.LAG.CharacterController {
     public class Character : CountableClass {
 
         private static Character instance = null;
-        private Mother mother = Mother.getInstance();
-        private new GameManager gameManager = GameManager.getInstance();
-        private School school = School.getInstance();
+        private Mother mother = Mother.GetInstance();
+        private new GameManager gameManager = GameManager.GetInstance();
+        private School school = School.GetInstance();
 
         private int knowledge = 0;
         private int gold = 0;
         private int money = 0;
+        private int clickLevel = 1;
 
         private Character() { }
 
-        public static Character getInstance() {
+        public static Character GetInstance() {
             if (instance == null) {
                 instance = new Character();
             }
             return instance;
         }
 
-        public GameManager getGameManager() {
+        public GameManager GetGameManager() {
             return gameManager;
         }
 
-        public override void oneHourPassed() {
-            if (school.isSchoolActive()) {
-                knowledge = knowledge + gameManager.getConfigData().KnowledgePerHour;
+        public override void OneHourPassed() {
+            if (school.IsSchoolActive()) {
+                knowledge = knowledge + gameManager.GetConfigData().KnowledgePerHour;
             }
         }
 
-        public bool isCharacterWorking() {
-            return mother.getMotherEvent().isEventActive();
+        public bool IsCharacterWorking() {
+            return mother.GetMotherEvent().IsEventActive();
         }
-        public bool isCharacterLearning() {
-            return school.isSchoolActive();
+        public bool IsCharacterLearning() {
+            return school.IsSchoolActive();
         }
 
-        public int getMoney() {
+        public int GetMoney() {
             return money;
         }
 
-        public void addMoney( int amount) {
+        public void AddMoney( int amount) {
             money = money + amount;
         }
 
         //Gibt 'true' zurück, wenn Geld abgezogen wurde. Gibt 'false' zurück, wenn der Spieler nicht genug Geld hat und zieht kein Geld ab.
-        public bool takeMoney(int amount) {
+        public bool TakeMoney(int amount) {
             if (amount > money) {
                 return false;
             }else {
@@ -62,7 +63,7 @@ namespace Chojo.LAG.CharacterController {
         }
 
         //Gibt 'true' zurück, wenn Knowledge abgezogen wurde. Gibt 'false' zurück, wenn der Spieler nicht genug Knowledge hat und zieht kein Knowledge ab.
-        public bool takeKnowledge(int amount) {
+        public bool TakeKnowledge(int amount) {
             if (amount > knowledge) {
                 return false;
             } else {
@@ -71,11 +72,11 @@ namespace Chojo.LAG.CharacterController {
             }
         }
 
-        public void addKnowledge(int amount) {
+        public void AddKnowledge(int amount) {
             knowledge = knowledge + amount;
         }
 
-        public int getKnowledge() {
+        public int GetKnowledge() {
             return knowledge;
         }
 

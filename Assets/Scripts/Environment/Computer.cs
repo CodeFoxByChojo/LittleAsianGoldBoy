@@ -6,15 +6,15 @@ using Chojo.LAG.Manager;
 namespace Chojo.LAG.Environments {
     public class Computer {
 
-        private GameManager gameManager = GameManager.getInstance();
+        private GameManager gameManager = GameManager.GetInstance();
 
         private int level = 1;
-        private 
+        private int id;
 
-        Computer() {
-
+        public Computer() {
+            //id = gameManager.GetEnvironment().GetComputer().Count - 1;
         }
-        Computer(int startLevel) {
+        public Computer(int startLevel) {
             level = startLevel;
         }
         
@@ -28,8 +28,11 @@ namespace Chojo.LAG.Environments {
             return false;
         }
 
-        public int getLevel() {
+        public int GetLevel() {
             return level;
+        }
+        public int GetUpgradePrice() {
+            return gameManager.GetConfigData().getUpgradeCost(level, gameManager.GetConfigData().ComputerPrice);
         }
     }
 

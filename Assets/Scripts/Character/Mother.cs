@@ -11,56 +11,56 @@ namespace Chojo.LAG.CharacterController {
         private int motherTaskWaitDuration;
         private MotherEvent motherEvent;
         private static Mother instance;
-        private new GameManager gameManager = GameManager.getInstance();
+        private new GameManager gameManager = GameManager.GetInstance();
 
         private int timeToNextMotherEvent = 0;
         private int karma = 50;
 
         private Mother() {
-            attachToHourNotify();
+            AttachToHourNotify();
         }
 
-        public static Mother getInstance() {
+        public static Mother GetInstance() {
             if (instance == null) {
                 instance = new Mother();
             }
             return instance;
         }
 
-        protected override void attachToHourNotify() {
-
+        protected override void AttachToHourNotify() {
             instance = this;
-            GameManager.getInstance().registerHourNotify(instance);
+            gameManager.RegisterHourNotify(instance);
         }
 
-        public override void oneHourPassed() {
+        public override void OneHourPassed() {
             //Verringert die Wartezeit, die das Event noch angenommen werden kann, wenn das Event noch nicht angenommen wurde.
-            if (motherTaskWaitDuration != 0 && !motherEvent.isEventActive()) {
+            if (motherTaskWaitDuration != 0 && motherEvent != null && !motherEvent.IsEventActive()) {
                 motherTaskWaitDuration = motherTaskWaitDuration - 1;
             }
             //Wenn kein Event vorhanden ist und die Wartezeit bis zum nächsten Event abgelaufen ist, wird eine neues Event erstell und die Wartezeit zum annehmen festgelegt.
             if (timeToNextMotherEvent == 0 && motherEvent == null) {
                 motherEvent = new MotherEvent();
-                motherTaskWaitDuration = UnityEngine.Random.Range(gameManager.getConfigData().MinMotherWaitDuration, gameManager.getConfigData().MaxMotherWaitDuration);
+                motherTaskWaitDuration = UnityEngine.Random.Range(gameManager.GetConfigData().MinMotherWaitDuration, gameManager.GetConfigData().MaxMotherWaitDuration);
             }
             //Ist ein Event aktiv und die Dauer des Events auf null, ist das Event erfolgreich beendet und wird entfernt. Der Timer für das nächste Event wird gestartet
-            if (motherEvent != null && motherEvent.getDuration() == 0) {
+            if (motherEvent != null && motherEvent.GetDuration() == 0) {
                 motherEvent = null;
-                timeToNextMotherEvent = UnityEngine.Random.Range(gameManager.getConfigData().MinMotherWaitDuration, gameManager.getConfigData().MaxMotherWaitDuration);
-                giveKarma(20);
+                timeToNextMotherEvent = UnityEngine.Random.Range(gameManager.GetConfigData().MinMotherWaitDuration, gameManager.GetConfigData().MaxMotherWaitDuration);
+                GiveKarma(20);
             }
             //Solange das Event aktiv ist, wird es jeden Zyklus benachrichtigt.
-            if (motherEvent != null && motherEvent.isEventActive()) {
-                motherEvent.oneHourPassed();
+            if (motherEvent != null && motherEvent.IsEventActive()) {
+                motherEvent.OneHourPassed();
             }
             //Wenn die Zeit um das Event anzunehmen abgelaufen ist, wird das Event gelöscht und der Spieler bekommt Karma abgezogen.
             if (motherEvent != null && motherTaskWaitDuration == 0) {
                 motherEvent = null;
-                takeKarma(10);
+                timeToNextMotherEvent = UnityEngine.Random.Range(gameManager.GetConfigData().MinMotherWaitDuration, gameManager.GetConfigData().MaxMotherWaitDuration);
+                TakeKarma(10);
             }
         }
 
-        private void takeKarma(int amount) {
+        private void TakeKarma(int amount) {
             if (karma <= amount) {
                 karma = 0;
             } else {
@@ -68,7 +68,7 @@ namespace Chojo.LAG.CharacterController {
             }
         }
 
-        private void giveKarma(int amount) {
+        private void GiveKarma(int amount) {
             if (karma + amount <= 100) {
                 karma = karma + amount;
             } else {
@@ -76,12 +76,15 @@ namespace Chojo.LAG.CharacterController {
             }
         }
 
-        public int getKarma() {
+        public int GetKarma() {
             return karma;
         }
-        
-        public MotherEvent getMotherEvent() {
+
+        public MotherEvent GetMotherEvent() {
             return motherEvent;
+        }
+        public int GetMotherTaskWaitDuration() {
+            return motherTaskWaitDuration;
         }
     }
 }

@@ -8,12 +8,12 @@ using Chojo.LAG.Manager;
 namespace Chojo.LAG.Environments {
     public class Bot {
 
-        private GameManager gameManager = GameManager.getInstance();
+        private GameManager gameManager = GameManager.GetInstance();
 
         private int licenceDuration;
 
         //Ist die Zeit des Bots abgelaufen, wird false zurückgegeben. So weiß das Environment, dass der Bot gelöscht werden kann.
-        public bool oneHourPassed() {
+        public bool OneHourPassed() {
             licenceDuration = licenceDuration - 1;
             if (licenceDuration == 0) {
                 return false;
@@ -22,7 +22,7 @@ namespace Chojo.LAG.Environments {
         }
 
         Bot() {
-            licenceDuration = UnityEngine.Random.Range(gameManager.getConfigData().MinBotLifeDuration, gameManager.getConfigData().MaxBotLifeDuration);
+            licenceDuration = UnityEngine.Random.Range(gameManager.GetConfigData().MinBotLifeDuration, gameManager.GetConfigData().MaxBotLifeDuration);
         }
     }
 }

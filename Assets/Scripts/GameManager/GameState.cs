@@ -8,36 +8,45 @@ namespace Chojo.LAG.Manager {
     public class GameState : CountableClass {
 
         private static GameState instance = null;
+        private static new GameManager gameManager = GameManager.GetInstance();
 
         private int currentHour = 1;
         private int currentDay = 1;
-        private int currentGoldPrice;
+        private float currentGoldPrice;
 
         private GameState() {
-            attachToHourNotify();
+            AttachToHourNotify();
         }
 
 
-        public static GameState getInstance() {
+        public static GameState GetInstance() {
             if (instance == null) {
                 instance = new GameState();
             }
             return instance;
         }
 
-        public override void oneHourPassed() {
+        public override void OneHourPassed() {
             currentHour = (currentHour + 1) % 24;
             if (currentHour == 0) {
                 currentDay += 1;
             }
+            currentGoldPrice = UnityEngine.Random.Range(gameManager.GetConfigData().MinGoldPrice, gameManager.GetConfigData().MaxGoldPrice);
 
         }
 
-        public int[] getCurrentTime() {
+        public int[] GetCurrentTime() {
             int[] time = new int[2];
             time[0] = currentDay;
             time[1] = currentHour;
             return time;
+        }
+        protected override void AttachToHourNotify() {
+            instance = this;
+            gameManager.RegisterHourNotify(instance);
+        }
+        public float GetCurrentGoldPrice() {
+            return currentGoldPrice;
         }
     }
 }

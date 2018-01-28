@@ -19,7 +19,7 @@ namespace Chojo.LAG.DataController {
         private int knowledgePerHour = 1;
         private int licenseCost = 100;
         private float upgradeCostIncrease = 2.0f;
-        private int computerPrice = 100;
+        private int computerPrice = 5;
         private int maxComputerLevel = 5;
         private int botLicensePrice = 50;
         private int bandwidePrice = 200;
@@ -33,6 +33,9 @@ namespace Chojo.LAG.DataController {
         private int maxBotLifeDuration = 200;
         private float timeCycleInSeconds = 2.0f;
         private int schoolDuration = 10;
+        private int goldPerClick = 10;
+        private float maxGoldPrice = 0.01f;
+        private float minGoldPrice = 3.00f;
 
         public int KnowledgePerHour {
             get {
@@ -204,6 +207,36 @@ namespace Chojo.LAG.DataController {
 
             set {
                 maxComputerLevel = value;
+            }
+        }
+
+        public int GoldPerClick {
+            get {
+                return goldPerClick;
+            }
+
+            set {
+                goldPerClick = value;
+            }
+        }
+
+        public float MaxGoldPrice {
+            get {
+                return maxGoldPrice;
+            }
+
+            set {
+                maxGoldPrice = value;
+            }
+        }
+
+        public float MinGoldPrice {
+            get {
+                return minGoldPrice;
+            }
+
+            set {
+                minGoldPrice = value;
             }
         }
     }

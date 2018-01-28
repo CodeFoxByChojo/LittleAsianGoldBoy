@@ -3,40 +3,46 @@ using System.Collections.Generic;
 using UnityEngine;
 using Chojo.LAG.Countable;
 using Chojo.LAG.Manager;
+using System;
 
 namespace Chojo.LAG.CharacterController {
     public class School : CountableClass {
 
         private static School instance;
-        private static new GameManager gameManager = GameManager.getInstance();
+        private static new GameManager gameManager = GameManager.GetInstance();
 
         private int duration;
 
         private School() {
-            attachToHourNotify();
+            AttachToHourNotify();
         }
 
-        public static School getInstance() {
+        public static School GetInstance() {
             if (instance == null) {
                 instance = new School();
             }
             return instance;
         }
 
-        public override void oneHourPassed() {
+        public override void OneHourPassed() {
             if (duration > 0)
-            duration = duration - 1;
+                duration = duration - 1;
         }
 
-        public bool isSchoolActive() {
+        public bool IsSchoolActive() {
             if (duration > 0) {
                 return true;
-            }else {
+            } else {
                 return false;
             }
         }
-        public void startLearning() {
-            duration = gameManager.getConfigData().SchoolDuration;
+        public void StartLearning() {
+            duration = gameManager.GetConfigData().SchoolDuration;
+        }
+
+        protected override void AttachToHourNotify() {
+            instance = this;
+            gameManager.RegisterHourNotify(instance);
         }
     }
 }

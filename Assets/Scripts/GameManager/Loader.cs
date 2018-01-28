@@ -9,7 +9,6 @@ namespace Chojo.LAG.Manager {
     public class Loader : MonoBehaviour {
 
         public GameObject interfaceManager;
-        public GameObject gameManager;
 
 
 

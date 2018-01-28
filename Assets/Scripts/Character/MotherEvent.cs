@@ -10,27 +10,33 @@ namespace Chojo.LAG.CharacterController {
         private int waitDuration;
         private string taskname;
         private bool eventActive = false;
-        private static GameManager gameManager = GameManager.getInstance();
+        private static GameManager gameManager = GameManager.GetInstance();
 
         public MotherEvent() {
             int rand = Random.Range(0, tasknames.Length);
             taskname = tasknames[rand];
-            duration = Random.Range(gameManager.getConfigData().MinMotherTaskDuration, gameManager.getConfigData().MaxMotherTaskDuration);
-            waitDuration = Random.Range(gameManager.getConfigData().MinMotherWaitDuration, gameManager.getConfigData().MaxMotherWaitDuration);
+            duration = Random.Range(gameManager.GetConfigData().MinMotherTaskDuration, gameManager.GetConfigData().MaxMotherTaskDuration);
+            waitDuration = Random.Range(gameManager.GetConfigData().MinMotherWaitDuration, gameManager.GetConfigData().MaxMotherWaitDuration);
         }
 
-        public int getWaitDuration() {
+        public int GetWaitDuration() {
             return waitDuration;
         }
-        public int getDuration() {
+        public int GetDuration() {
             return duration;
         }
-        public bool isEventActive() {
+        public string GetTaskName() {
+            return taskname;
+        }
+        public bool IsEventActive() {
             return eventActive;
+        }
+        public void ActivateEvent() {
+            eventActive = true;
         }
 
         //Methode zum herabsetzen der duration.
-        public void oneHourPassed() {
+        public void OneHourPassed() {
             duration = duration - 1;
         }
     }

@@ -22,7 +22,7 @@ namespace Chojo.LAG.DataController {
 
         public ConfigData getConfigData() {
             //loadConfigData();
-            return configData.getConfigData();
+            return configData;
         }
 
         private void loadConfigData() {

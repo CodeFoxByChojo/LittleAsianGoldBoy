@@ -9,13 +9,8 @@ namespace Chojo.LAG.Countable {
         protected GameManager gameManager;
         private static CountableClass instance;
 
-        public abstract void oneHourPassed();
+        public abstract void OneHourPassed();
 
-        protected virtual void attachToHourNotify() {
-            gameManager = GameManager.getInstance();
-            instance = this;
-            gameManager.registerHourNotify(instance);
-            Debug.Log("Attached " + instance + " to hour notify");
-        }
+        protected abstract void AttachToHourNotify();
     }
 }

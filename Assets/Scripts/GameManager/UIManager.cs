@@ -9,7 +9,6 @@ namespace Chojo.LAG.Manager {
 
         private static UIManager instance = null;
 
-        private GameManager gameManager;
         private GameManager gameManager = GameManager.GetInstance();
 
         private int sellGoldAmount;
@@ -71,12 +70,10 @@ namespace Chojo.LAG.Manager {
             pc4UpgradePrice = GameObject.Find("Price4").GetComponent<Text>();
         }
 
-        public static UIManager getInstance() {
+        public static UIManager GetInstance() {
             return instance;
         }
 
-        internal void ButtonClickedEvent() {
-            throw new NotImplementedException();
         internal void ButtonClickedEvent(Defines.ButtonIdentiy identity, Defines.ButtonType type) {
             switch (identity) {
                 case Defines.ButtonIdentiy.Gold:
@@ -112,7 +109,7 @@ namespace Chojo.LAG.Manager {
 
         // Use this for initialization
         void Start() {
-            gameManager = GameManager.getInstance();
+            gameManager = GameManager.GetInstance();
         }
 
         // Update is called once per frame
@@ -125,9 +122,6 @@ namespace Chojo.LAG.Manager {
             UpdateComputer();
         }
 
-        private void updateTime() {
-            int[] time = gameManager.getGameState().getCurrentTime();
-            timeObject.text = "Day: " + time[0] + " Hour: " + time[1];
         private void UpdateComputer() {
             gameManager = GameManager.GetInstance();
             var tempConfigData = gameManager.GetConfigData();
