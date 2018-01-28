@@ -10,8 +10,34 @@ namespace Chojo.LAG.Manager {
         private static UIManager instance = null;
 
         private GameManager gameManager;
+        private GameManager gameManager = GameManager.GetInstance();
 
-        public Text timeObject;
+        private int sellGoldAmount;
+
+        public Text timeDisplay;
+        public Text moneyDisplay;
+        public Text goldDisplay;
+        public Text goldPriceDisplay;
+        public Text taskNameDisplay;
+        public Text taskDurationDisplay;
+        public Text waitDurationDisplay;
+        public Text supportPointsDisplay;
+        public Text pc0Level;
+        public Text pc1Level;
+        public Text pc2Level;
+        public Text pc3Level;
+        public Text pc4Level;
+        public Text pc0Upgrade;
+        public Text pc1Upgrade;
+        public Text pc2Upgrade;
+        public Text pc3Upgrade;
+        public Text pc4Upgrade;
+        public Text pc0UpgradePrice;
+        public Text pc1UpgradePrice;
+        public Text pc2UpgradePrice;
+        public Text pc3UpgradePrice;
+        public Text pc4UpgradePrice;
+
 
         private void Awake() {
             if (instance == null) {
@@ -20,7 +46,29 @@ namespace Chojo.LAG.Manager {
                 Destroy(gameObject);
             }
             DontDestroyOnLoad(gameObject);
-            timeObject = GameObject.Find("DateTime").GetComponent<Text>();
+            timeDisplay = GameObject.Find("DateTime").GetComponent<Text>();
+            moneyDisplay = GameObject.Find("Money").GetComponent<Text>();
+            goldDisplay = GameObject.Find("GoldAmount").GetComponent<Text>();
+            goldPriceDisplay = GameObject.Find("GoldPrice").GetComponent<Text>();
+            taskNameDisplay = GameObject.Find("Taskname").GetComponent<Text>();
+            taskDurationDisplay = GameObject.Find("Taskduration").GetComponent<Text>();
+            waitDurationDisplay = GameObject.Find("TaskWaitDuration").GetComponent<Text>();
+            supportPointsDisplay = GameObject.Find("SupportPoints").GetComponent<Text>();
+            pc0Level = GameObject.Find("Level0").GetComponent<Text>();
+            pc1Level = GameObject.Find("Level1").GetComponent<Text>();
+            pc2Level = GameObject.Find("Level2").GetComponent<Text>();
+            pc3Level = GameObject.Find("Level3").GetComponent<Text>();
+            pc4Level = GameObject.Find("Level4").GetComponent<Text>();
+            pc0Upgrade = GameObject.Find("UpgradeText0").GetComponent<Text>();
+            pc1Upgrade = GameObject.Find("UpgradeText1").GetComponent<Text>();
+            pc2Upgrade = GameObject.Find("UpgradeText2").GetComponent<Text>();
+            pc3Upgrade = GameObject.Find("UpgradeText3").GetComponent<Text>();
+            pc4Upgrade = GameObject.Find("UpgradeText4").GetComponent<Text>();
+            pc0UpgradePrice = GameObject.Find("Price0").GetComponent<Text>();
+            pc1UpgradePrice = GameObject.Find("Price1").GetComponent<Text>();
+            pc2UpgradePrice = GameObject.Find("Price2").GetComponent<Text>();
+            pc3UpgradePrice = GameObject.Find("Price3").GetComponent<Text>();
+            pc4UpgradePrice = GameObject.Find("Price4").GetComponent<Text>();
         }
 
         public static UIManager getInstance() {
