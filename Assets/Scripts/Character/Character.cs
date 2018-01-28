@@ -79,5 +79,34 @@ namespace Chojo.LAG.CharacterController {
             return knowledge;
         }
 
+        public void UpgradeClickLevel() {
+
+        }
+
+        protected override void AttachToHourNotify() {
+            gameManager.RegisterHourNotify(instance);
+        }
+
+        public void AddGold(int amount) {
+            gold = gold + amount;
+        }
+
+        public void SellGold() {
+            money = money + ((int)(gold * gameManager.GetGameState().GetCurrentGoldPrice()))/100;
+            gameManager.GetGameState().GetCurrentGoldPrice();
+            gold = 0;
+        }
+
+        public int GetGold() {
+            return gold;
+        }
+
+        public void CharacterGoldClick() {
+            AddGold(gameManager.GetConfigData().GoldPerClick ^ clickLevel);
+        }
+
+        public Mother GetMother() {
+            return mother;
+        }
     }
 }
