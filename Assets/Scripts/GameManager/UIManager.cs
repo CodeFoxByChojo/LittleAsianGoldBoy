@@ -36,6 +36,9 @@ namespace Chojo.LAG.Manager {
         public Text pc2UpgradePrice;
         public Text pc3UpgradePrice;
         public Text pc4UpgradePrice;
+        public Text botLicenceAmountDisplay;
+        public Text subscriptionsDisplay;
+        public Text autobuyDisplay;
 
 
         private void Awake() {
@@ -68,6 +71,9 @@ namespace Chojo.LAG.Manager {
             pc2UpgradePrice = GameObject.Find("Price2").GetComponent<Text>();
             pc3UpgradePrice = GameObject.Find("Price3").GetComponent<Text>();
             pc4UpgradePrice = GameObject.Find("Price4").GetComponent<Text>();
+            botLicenceAmountDisplay = GameObject.Find("BotLicenceAmount").GetComponent<Text>();
+            subscriptionsDisplay = GameObject.Find("Subscriptions").GetComponent<Text>();
+            autobuyDisplay = GameObject.Find("Autobuy").GetComponent<Text>();
         }
 
         public static UIManager GetInstance() {
@@ -89,6 +95,19 @@ namespace Chojo.LAG.Manager {
                 case Defines.ButtonIdentiy.Mother:
                     if (type == Defines.ButtonType.Activate) {
                         gameManager.GetCharacter().GetMother().GetMotherEvent().ActivateEvent();
+                    }
+                    break;
+                case Defines.ButtonIdentiy.Bot:
+                    if (type == Defines.ButtonType.Buy) {
+                        gameManager.GetEnvironment().BuyBot();
+                    }
+                    break;
+                case Defines.ButtonIdentiy.Subscriptions:
+                    if (type == Defines.ButtonType.Buy) {
+                        gameManager.GetEnvironment().BuySubscription();
+                    }
+                    if (type == Defines.ButtonType.Activate) {
+                        gameManager.GetEnvironment().ToggleAutobuy();
                     }
                     break;
                 default:
@@ -137,7 +156,6 @@ namespace Chojo.LAG.Manager {
         private void UpdateComputer() {
             gameManager = GameManager.GetInstance();
             var tempConfigData = gameManager.GetConfigData();
-            Debug.Log(tempConfigData);
             var pclist = gameManager.GetEnvironment().GetComputer();
             //Computer 0
             if (pclist[0] != null) {
