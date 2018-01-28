@@ -60,5 +60,14 @@ namespace Chojo.LAG.Environments {
                 computer.Add(new Computer());
             }
         }
+        public bool BuyBot() {
+            if (GetMaxBotAmount() > GetBotAmount()) {
+                if (gameManager.GetCharacter().TakeMoney(gameManager.GetConfigData().BotLicensePrice)) {
+                    bots.Add(new Bot());
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }
