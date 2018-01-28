@@ -15,17 +15,8 @@ namespace Chojo.LAG.Manager {
 
         void Awake() {
 
-            if (GameManager.getInstance() == null) {
-                Instantiate(gameManager);
-                while (GameManager.getInstance() == null) {
-                    //wait
-                }
-            }
-            if (UIManager.getInstance() == null) {
+            if (UIManager.GetInstance() == null) {
                 Instantiate(interfaceManager);
-                while (UIManager.getInstance() == null) {
-                    //wait
-                }
             }
         }
 
