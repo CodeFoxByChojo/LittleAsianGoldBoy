@@ -120,6 +120,18 @@ namespace Chojo.LAG.Manager {
             UpdateGoldPrice();
             UpdateMother();
             UpdateComputer();
+            UpdateBots();
+        }
+
+        private void UpdateBots() {
+            var environmentTemp = gameManager.GetEnvironment();
+            botLicenceAmountDisplay.text = "Bot Licences: " + environmentTemp.GetBotAmount() + "/" + environmentTemp.GetMaxBotAmount();
+            subscriptionsDisplay.text = "Subscriptions: " + environmentTemp.GetSubscriptionsAmount() + "/" + environmentTemp.GetMaxSubscriptions();
+            if (environmentTemp.IsAutobuActive()) {
+                autobuyDisplay.text = "Subscription Autobuy on";
+            } else {
+                autobuyDisplay.text = "Subscription Autobuy off";
+            }
         }
 
         private void UpdateComputer() {
