@@ -93,8 +93,9 @@ namespace Chojo.LAG.CharacterController {
         }
 
         public void SellGold() {
-            money = money + ((int)(gold * gameManager.GetGameState().GetCurrentGoldPrice()))/100;
-            gameManager.GetGameState().GetCurrentGoldPrice();
+            float a = gold * gameManager.GetGameState().GetCurrentGoldPrice();
+            int b = (int)(a * 100);
+            money = money + b/100;
             gold = 0;
         }
 
