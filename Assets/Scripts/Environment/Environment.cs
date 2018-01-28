@@ -39,5 +39,22 @@ namespace Chojo.LAG.Environments {
             }
             return maxAmount;
         }
+
+        protected override void AttachToHourNotify() {
+            gameManager.RegisterHourNotify(instance);
+        }
+
+        public List<Computer> GetComputer() {
+            return computer;
+        }
+        public List<Bot> GetBots() {
+            return bots;
+        }
+
+        public void BuyComputer() {
+            if (gameManager.GetCharacter().TakeMoney(gameManager.GetConfigData().ComputerPrice)) {
+                computer.Add(new Computer());
+            }
+        }
     }
 }
