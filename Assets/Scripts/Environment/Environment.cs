@@ -60,6 +60,17 @@ namespace Chojo.LAG.Environments {
                 computer.Add(new Computer());
             }
         }
+        public bool BuySubscription() {
+            if (GetSubscriptionsAmount() != GetMaxSubscriptions() && gameManager.GetCharacter().TakeMoney(gameManager.GetConfigData().SubscriptionPrice))
+                foreach (Bot element in bots) {
+                    if (element.GetLicenceDuration() == 0) {
+                        element.ActivateBot();
+                        return true;
+                    }
+                }
+            return false;
+        }
+
         public bool BuyBot() {
             if (GetMaxBotAmount() > GetBotAmount()) {
                 if (gameManager.GetCharacter().TakeMoney(gameManager.GetConfigData().BotLicensePrice)) {
