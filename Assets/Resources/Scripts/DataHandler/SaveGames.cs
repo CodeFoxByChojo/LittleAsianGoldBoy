@@ -38,7 +38,7 @@ namespace Chojo.LAG.DataController {
         public static void SaveGame() {
             using(StreamWriter writer = new StreamWriter("assets/Resources/SaveGame.yml")) {
                 var serializer = new SerializerBuilder().Build();
-                var yaml = serializer.Serialize(Collector.collect());
+                var yaml = serializer.Serialize(Collector.Collect());
                 writer.WriteLine(yaml);
             }
             Debug.Log("Game saved!");
