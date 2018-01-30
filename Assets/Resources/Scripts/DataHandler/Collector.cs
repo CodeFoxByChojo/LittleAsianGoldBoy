@@ -5,26 +5,27 @@ using Chojo.LAG.Manager;
 
 namespace Chojo.LAG.DataController {
     public class Collector {
-        public static GameData collect() {
             GameManager gameManager = GameManager.GetInstance();
-            var gameData = new GameData();
-            gameData.Computerlist = gameManager.GetEnvironment().GetComputer();
-            gameData.BotAmount = gameManager.GetEnvironment().GetBots().Count;
-            gameData.Autobuy = gameManager.GetEnvironment().IsAutobuActive();
-            gameData.BotLevel = gameManager.GetEnvironment().GetBotLevel();
-            gameData.BotKnowledgeLevel = gameManager.GetEnvironment().GetBotKnowledgeLevel();
-            gameData.Money = gameManager.GetCharacter().GetMoney();
-            gameData.Gold = gameManager.GetCharacter().GetGold();
-            gameData.Knowledge = gameManager.GetCharacter().GetKnowledge();
-            gameData.ClickLevel = gameManager.GetCharacter().GetClickLevel();
-            gameData.Karma = gameManager.GetCharacter().GetMother().GetKarma();
-            gameData.MotherEvent = gameManager.GetCharacter().GetMother().GetMotherEvent();
-            gameData.TimeToNextMotherEvent = gameManager.GetCharacter().GetMother().GetTimeToNextMotherEvent();
-            gameData.Penalization = gameManager.GetCharacter().GetMother().GetPenalization();
-            gameData.Duration = gameManager.GetCharacter().GetSchool().GetLearnDuration();
-            gameData.Count = gameManager.GetGameState().GetCount();
-            gameData.CurrentHour = gameManager.GetGameState().GetCurrentTime()[1];
-            gameData.CurrentDay = gameManager.GetGameState().GetCurrentTime()[0];
+            var gameData = new GameData {
+                Computerlist = gameManager.GetEnvironment().GetComputer(),
+                BotAmount = gameManager.GetEnvironment().GetBots().Count,
+                Autobuy = gameManager.GetEnvironment().IsAutobuActive(),
+                BotLevel = gameManager.GetEnvironment().GetBotLevel(),
+                BotKnowledgeLevel = gameManager.GetEnvironment().GetBotKnowledgeLevel(),
+                Money = gameManager.GetCharacter().GetMoney(),
+                Gold = gameManager.GetCharacter().GetGold(),
+                Knowledge = gameManager.GetCharacter().GetKnowledge(),
+                ClickLevel = gameManager.GetCharacter().GetClickLevel(),
+                Karma = gameManager.GetCharacter().GetMother().GetKarma(),
+                MotherEvent = gameManager.GetCharacter().GetMother().GetMotherEvent(),
+                TimeToNextMotherEvent = gameManager.GetCharacter().GetMother().GetTimeToNextMotherEvent(),
+                Penalization = gameManager.GetCharacter().GetMother().GetPenalization(),
+                Duration = gameManager.GetCharacter().GetSchool().GetLearnDuration(),
+                Count = gameManager.GetGameState().GetCount(),
+                CurrentHour = gameManager.GetGameState().GetCurrentTime()[1],
+                CurrentDay = gameManager.GetGameState().GetCurrentTime()[0],
+                SubscriptionAmount = gameManager.GetEnvironment().GetSubscriptionsAmount()
+            };
             Debug.Log("Data collected");
             return gameData;
         }
