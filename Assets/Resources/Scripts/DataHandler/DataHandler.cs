@@ -8,11 +8,11 @@ namespace Chojo.LAG.DataController {
     public class DataHandler {
 
         private static DataHandler instance;
-        private ConfigHandler configHandler = ConfigHandler.getInstance();
+        private ConfigHandler configHandler = ConfigHandler.GetInstance();
         private GameManager gameManager = GameManager.GetInstance();
         private static SaveGames saveGames = new SaveGames();
 
-        public static DataHandler getInstance() {
+        public static DataHandler GetInstance() {
             if (instance == null) {
                 instance = new DataHandler();
                 return instance;
@@ -26,16 +26,14 @@ namespace Chojo.LAG.DataController {
             return gameManager;
         }
 
-        public ConfigData getConfigData() {
-            return configHandler.getConfigData();
+        public ConfigData GetConfigData() {
+            return configHandler.GetConfigData();
         }
 
-        void Update() {
-
         }
 
-        public void LoadConfig() {
-            
+        public void ReloadConfigData() {
+            configHandler.ReloadConfigData();
         }
 
         internal void SaveGame() {
