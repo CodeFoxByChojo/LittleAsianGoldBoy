@@ -5,15 +5,15 @@ namespace Chojo.LAG.DataController {
 
         private static ConfigData instance;
 
-        public static ConfigData getInstance() {
+        public static ConfigData GetInstance() {
             if (instance == null) {
                 instance = new ConfigData();
             }
             return instance;
         }
 
-        public ConfigData getConfigData() {
-            return getInstance();
+        public ConfigData GetConfigData() {
+            return GetInstance();
         }
 
         private int knowledgePerHour = 8;
