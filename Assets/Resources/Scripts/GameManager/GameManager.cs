@@ -10,11 +10,11 @@ namespace Chojo.LAG.Manager {
     public class GameManager {
 
         private static GameManager instance = null;
-        private static DataHandler dataHandler = DataHandler.getInstance();
+        private static DataHandler dataHandler = DataHandler.GetInstance();
         private static GameState gameState = GameState.GetInstance();
         private static Environment environment = Environment.GetInstance();
         private static Character character = Character.GetInstance();
-        private static ConfigData configData = dataHandler.getConfigData();
+        private static ConfigData configData = dataHandler.GetConfigData();
         private static UIManager uiManager = UIManager.GetInstance();
 
         public List<CountableClass> hourNotify = new List<CountableClass>();
@@ -22,7 +22,7 @@ namespace Chojo.LAG.Manager {
         public GameManager() { }
 
         public static GameManager GetInstance() {
-            if(instance == null) {
+            if (instance == null) {
                 instance = new GameManager();
             }
             return instance;
@@ -35,32 +35,15 @@ namespace Chojo.LAG.Manager {
 
         public ConfigData GetConfigData() {
             if (configData == null || dataHandler == null) {
-                dataHandler = DataHandler.getInstance();
-                configData = dataHandler.getConfigData();
+                dataHandler = DataHandler.GetInstance();
+                configData = dataHandler.GetConfigData();
             }
             return configData;
         }
 
         internal void NewGame() {
-            var gameData = new GameData();
-            environment.SetComputerList(gameData.Computerlist);
-            environment.GenerateBotList(gameData.BotAmount);
-            environment.SetAutobuyActive(gameData.Autobuy);
-            environment.SetBotLevel(gameData.BotLevel);
-            environment.SetBotKnowledgeLevel(gameData.BotKnowledgeLevel);
-            character.SetMoney(gameData.Money);
-            character.SetGold(gameData.Gold);
-            character.SetKnowledge(gameData.Knowledge);
-            character.SetClickLevel(gameData.ClickLevel);
-            character.GetMother().SetKarma(gameData.Karma);
-            character.GetMother().SetMotherEvent(gameData.MotherEvent);
-            character.GetMother().SetTimeToNextMotherEvent(gameData.TimeToNextMotherEvent);
-            character.GetMother().SetPenalization(gameData.Penalization);
-            character.GetSchool().SetDuration(gameData.Duration);
-            gameState.SetCount(gameData.Count);
-            gameState.SetCurrentHour(gameData.CurrentHour);
-            gameState.SetCurrentDay(gameData.CurrentDay);
-            UIManager.GetInstance().setMenuActive(false, false);
+            WriteGameData(new GameData());
+            UIManager.GetInstance().SetMenuActive(false, false);
 
         }
 
@@ -70,25 +53,8 @@ namespace Chojo.LAG.Manager {
         }
 
         internal void LoadGame() {
-            var gameData = dataHandler.LoadGame();
-            environment.SetComputerList(gameData.Computerlist);
-            environment.GenerateBotList(gameData.BotAmount);
-            environment.SetAutobuyActive(gameData.Autobuy);
-            environment.SetBotLevel(gameData.BotLevel);
-            environment.SetBotKnowledgeLevel(gameData.BotKnowledgeLevel);
-            character.SetMoney(gameData.Money);
-            character.SetGold(gameData.Gold);
-            character.SetKnowledge(gameData.Knowledge);
-            character.SetClickLevel(gameData.ClickLevel);
-            character.GetMother().SetKarma(gameData.Karma);
-            character.GetMother().SetMotherEvent(gameData.MotherEvent);
-            character.GetMother().SetTimeToNextMotherEvent(gameData.TimeToNextMotherEvent);
-            character.GetMother().SetPenalization(gameData.Penalization);
-            character.GetSchool().SetDuration(gameData.Duration);
-            gameState.SetCount(gameData.Count);
-            gameState.SetCurrentHour(gameData.CurrentHour);
-            gameState.SetCurrentDay(gameData.CurrentDay);
-            UIManager.GetInstance().setMenuActive(false, false);
+            WriteGameData(dataHandler.LoadGame());
+            UIManager.GetInstance().SetMenuActive(false, false);
 
         }
 
@@ -115,7 +81,6 @@ namespace Chojo.LAG.Manager {
         }
 
         public void RegisterHourNotify(CountableClass notifyObject) {
-            Debug.Log("Registeres in " + this.GetHashCode());
             hourNotify.Add(notifyObject);
             Debug.Log(notifyObject + " succesfully linked to Hour notify");
         }
@@ -129,6 +94,26 @@ namespace Chojo.LAG.Manager {
             int amount;
             amount = (level * 3) * basecost ^ 2 + basecost;
             return amount;
+        }
+        public void WriteGameData(GameData gameData) {
+            environment.SetComputerList(gameData.Computerlist);
+            environment.GenerateBotList(gameData.BotAmount);
+            environment.SetAutobuyActive(gameData.Autobuy);
+            environment.SetBotLevel(gameData.BotLevel);
+            environment.SetBotKnowledgeLevel(gameData.BotKnowledgeLevel);
+            character.SetMoney(gameData.Money);
+            character.SetGold(gameData.Gold);
+            character.SetKnowledge(gameData.Knowledge);
+            character.SetClickLevel(gameData.ClickLevel);
+            character.GetMother().SetKarma(gameData.Karma);
+            character.GetMother().SetMotherEvent(gameData.MotherEvent);
+            character.GetMother().SetTimeToNextMotherEvent(gameData.TimeToNextMotherEvent);
+            character.GetMother().SetPenalization(gameData.Penalization);
+            character.GetSchool().SetDuration(gameData.Duration);
+            gameState.SetCount(gameData.Count);
+            gameState.SetCurrentHour(gameData.CurrentHour);
+            gameState.SetCurrentDay(gameData.CurrentDay);
+            environment.SetSubscriptionsAmount(gameData.SubscriptionAmount);
         }
     }
 }
