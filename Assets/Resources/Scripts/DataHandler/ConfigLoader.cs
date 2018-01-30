@@ -8,7 +8,7 @@ using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 
 namespace Chojo.LAG.DataController {
-    public class ConfigLoader {
+    public static class ConfigLoader {
 
         public static ConfigData LoadConfig() {
 
