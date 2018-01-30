@@ -13,8 +13,8 @@ MaxMotherWaitDuration: 10
 MotherTaskWaitDuration: 24
 MinMotherTaskDuration: 1
 MaxMotherTaskDuration: 5
-MinBotLifeDuration: 72
-MaxBotLifeDuration: 200
+MinBotLifeDuration: 12
+MaxBotLifeDuration: 24
 TimeCycleInSeconds: 2.0
 SchoolDuration: 8
 GoldPerClick: 10
