@@ -13,12 +13,13 @@ namespace Chojo.LAG.DataController {
         GameManager gameManager = GameManager.GetInstance();
 
         //EnvironmentData
-        List<Computer> computerlist = initialiseComputerList();
+        List<Computer> computerlist = InitialiseComputerList();
         List<Bot> bots = new List<Bot>();
         int botAmount = 0;
         bool autobuy = false;
         int botLevel = 1;
         int botKnowledgeLevel = 1;
+        int subscriptionAmount = 0;
 
         //Character
         int money = 0;
@@ -46,9 +47,10 @@ namespace Chojo.LAG.DataController {
         //    return bots;
         //}
 
-        private static List<Computer> initialiseComputerList() {
-            List<Computer> list = new List<Computer>();
-            list.Add(new Computer());
+        private static List<Computer> InitialiseComputerList() {
+            List<Computer> list = new List<Computer> {
+                new Computer()
+            };
             return list;
         }
         
@@ -223,6 +225,16 @@ namespace Chojo.LAG.DataController {
 
             set {
                 botAmount = value;
+            }
+        }
+
+        public int SubscriptionAmount {
+            get {
+                return subscriptionAmount;
+            }
+
+            set {
+                subscriptionAmount = value;
             }
         }
     }
