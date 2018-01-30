@@ -5,6 +5,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace Chojo.LAG.Manager {
+    /// <summary>
+    /// Handles the interface. Updates every display every frame.
+    /// </summary>
     public class UIManager : MonoBehaviour {
 
         private static UIManager instance = null;
@@ -109,7 +112,11 @@ namespace Chojo.LAG.Manager {
             return pauseScreen.activeInHierarchy;
         }
 
-
+        /// <summary>
+        /// Method of UIMangager, which gets called by the ButtonHandler class.
+        /// </summary>
+        /// <param name="identity">Identity of the Button which is clicked.</param>
+        /// <param name="type">Type of action of the Button which is clicked</param>
         internal void ButtonClickedEvent(Defines.ButtonIdentiy identity, Defines.ButtonType type) {
             switch (identity) {
                 case Defines.ButtonIdentiy.Gold:
@@ -118,6 +125,10 @@ namespace Chojo.LAG.Manager {
                     }
                     if (type == Defines.ButtonType.UpgradeMoney) {
                         if (gameManager.GetCharacter().UpgradeClick()) {
+
+                            NewMessage("Upgrade Successful");
+                        } else {
+                            NewMessage("Upgrade failed. Do you have enought money?");
                         }
                     }
                     break;
@@ -183,6 +194,12 @@ namespace Chojo.LAG.Manager {
             }
         }
 
+        /// <summary>
+        /// Method of UIMangager, which gets called by the ButtonHandler class. Only if a computer is the Button Identity.
+        /// </summary>
+        /// <param name="identity">Identity of the Button which is clicked.</param>
+        /// <param name="type">Type of action of the Button which is clicked</param>
+        /// <param name="identifier">ID of the computer</param>
         internal void ButtonClickedEvent(Defines.ButtonIdentiy identity, Defines.ButtonType type, int identifier) {
             var environment = gameManager.GetEnvironment();
             var computer = environment.GetComputer();
@@ -210,6 +227,12 @@ namespace Chojo.LAG.Manager {
             menuScreen.SetActive(true);
         }
 
+        /// <summary>
+        /// Method of UIManager class. Toggles the pause and main menu.
+        /// </summary>
+        /// <param name="menuactive">Menu active?</param>
+        /// <param name="pauseactive">Pause active?</param>
+        public void SetMenuActive(bool menuactive, bool pauseactive) {
             menuScreen.SetActive(menuactive);
             pauseScreen.SetActive(pauseactive);
 
@@ -227,6 +250,9 @@ namespace Chojo.LAG.Manager {
             UpdateMessage();
         }
 
+        /// <summary>
+        /// Update method to update the update messages. 
+        /// </summary>
         private void UpdateMessage() {
             string busy = "You are busy.";
             if (gameManager.GetCharacter().IsCharacterLearning()
@@ -239,12 +265,18 @@ namespace Chojo.LAG.Manager {
 
         }
 
+        /// <summary>
+        /// Update method to update the upgrade section. 
+        /// </summary>
         private void UpdateUpgrade() {
             upgradeBotPriceDisplay.text = gameManager.GetUpgradeCost(gameManager.GetEnvironment().GetBotLevel(), gameManager.GetConfigData().BotLicenseCost) + " $";
             upgradeClickPriceDisplay.text = gameManager.GetUpgradeCost(gameManager.GetCharacter().GetClickLevel(), gameManager.GetConfigData().ClickBaseCost) + " $";
             upgradeBotKnowledgeDisplay.text = gameManager.GetKnowledgeCost(gameManager.GetEnvironment().GetBotKnowledgeLevel(), gameManager.GetConfigData().BotKnowledgeCost) + " Knowledge";
         }
 
+        /// <summary>
+        /// Update method to update the school section.
+        /// </summary>
         private void UpdateSchool() {
             if (gameManager.GetCharacter().IsCharacterLearning() != true) {
                 learnDisplay.text = "Learn "+ gameManager.GetConfigData().SchoolDuration + " hours";
@@ -254,6 +286,9 @@ namespace Chojo.LAG.Manager {
             knowledgeDisplay.text = "Knowledge: " + gameManager.GetCharacter().GetKnowledge();
         }
 
+        /// <summary>
+        /// Update method to update the bot section.
+        /// </summary>
         private void UpdateBots() {
             var environmentTemp = gameManager.GetEnvironment();
             botLicenceAmountDisplay.text = "Bot Licences: " + environmentTemp.GetBotAmount() + "/" + environmentTemp.GetMaxBotAmount();
@@ -268,6 +303,9 @@ namespace Chojo.LAG.Manager {
 
         }
 
+        /// <summary>
+        /// Update method to update the computer section.
+        /// </summary>
         private void UpdateComputer() {
             gameManager = GameManager.GetInstance();
             var tempConfigData = gameManager.GetConfigData();
@@ -341,6 +379,9 @@ namespace Chojo.LAG.Manager {
             }
         }
 
+        /// <summary>
+        /// Update method to update the mother section.
+        /// </summary>
         private void UpdateMother() {
             var mother = gameManager.GetCharacter().GetMother();
             if (gameManager.GetCharacter().GetMother().GetMotherEvent() != null) {
@@ -360,6 +401,10 @@ namespace Chojo.LAG.Manager {
             supportPointsDisplay.text = mother.GetKarma() + "/100";
         }
 
+        /// <summary>
+        /// Update method to update the finances section.
+        /// </summary>
+        private void UpdateFinances() {
             float a = gameManager.GetGameState().GetCurrentGoldPrice();
             int b = (int)(a * 100);
             a = (float)b;
@@ -369,11 +414,19 @@ namespace Chojo.LAG.Manager {
 
         }
 
+        /// <summary>
+        /// Update method to update the time.
+        /// </summary>
         private void UpdateTime() {
             gameManager = GameManager.GetInstance();
             int[] time = gameManager.GetGameState().GetCurrentTime();
             timeDisplay.text = "Day: " + time[0] + " Hour: " + time[1];
         }
+
+        /// <summary>
+        /// update the Message Section.
+        /// </summary>
+        /// <param name="message"></param>
         private void NewMessage(string message) {
             messageDisplay1.text = messageDisplay0.text;
             messageDisplay0.text = message;
