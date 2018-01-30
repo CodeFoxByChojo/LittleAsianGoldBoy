@@ -10,14 +10,12 @@ namespace Chojo.LAG.Manager {
 
         public GameObject interfaceManager;
 
-
-
         void Awake() {
 
             if (UIManager.GetInstance() == null) {
                 Instantiate(interfaceManager);
             }
-            DataHandler.getInstance().LoadConfig();
+            DataHandler.GetInstance().LoadConfig();
         }
 
         // Use this for initialization
