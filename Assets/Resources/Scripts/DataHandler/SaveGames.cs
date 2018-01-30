@@ -9,6 +9,9 @@ using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 
 namespace Chojo.LAG.DataController {
+    /// <summary>
+    /// The SaveGames class saves a game and loads the last saved game.
+    /// </summary>
     public class SaveGames {
 
         /// <summary>

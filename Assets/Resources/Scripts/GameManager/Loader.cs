@@ -6,6 +6,9 @@ using Chojo.LAG.Environments;
 using Chojo.LAG.CharacterController;
 
 namespace Chojo.LAG.Manager {
+    /// <summary>
+    /// Loaded. nessesary, because of unity. Hate it.
+    /// </summary>
     public class Loader : MonoBehaviour {
 
         public GameObject interfaceManager;

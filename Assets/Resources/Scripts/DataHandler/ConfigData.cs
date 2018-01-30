@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 
 namespace Chojo.LAG.DataController {
+    /// <summary>
+    /// Default ConfigData object. Used to cache configdata.
+    /// </summary>
     public class ConfigData {
 
         private static ConfigData instance;

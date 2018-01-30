@@ -4,7 +4,15 @@ using UnityEngine;
 using Chojo.LAG.Manager;
 
 namespace Chojo.LAG.DataController {
+    /// <summary>
+    /// The Collector class collegts all nessesary  data to save the game.
+    /// </summary>
     public class Collector {
+        /// <summary>
+        /// Static Method to collec als nessesary game data to save the game.
+        /// </summary>
+        /// <returns>Returns Game Data object</returns>
+        public static GameData Collect() {
             GameManager gameManager = GameManager.GetInstance();
             var gameData = new GameData {
                 Computerlist = gameManager.GetEnvironment().GetComputer(),

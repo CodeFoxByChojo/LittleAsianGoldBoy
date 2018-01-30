@@ -8,6 +8,9 @@ using System;
 using YamlDotNet.Serialization;
 
 namespace Chojo.LAG.DataController {
+    /// <summary>
+    /// GameData class is a data type which contains all nessesary game data.
+    /// </summary>
     public class GameData {
 
         GameManager gameManager = GameManager.GetInstance();

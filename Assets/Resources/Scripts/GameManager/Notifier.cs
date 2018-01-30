@@ -4,13 +4,16 @@ using UnityEngine;
 using Chojo.LAG.Manager;
 using Chojo.LAG.DataController;
 
+/// <summary>
+/// The notifier class notifies the game manager, that one hour is passed
+/// </summary>
 public class Notifier : MonoBehaviour {
 
     private float oneTimeCycleInSeconds;
     private float timeToNextCycle = 0;
 
-    private static DataHandler dataHandler = DataHandler.getInstance();
-    private ConfigData configData = dataHandler.getConfigData();
+    private static DataHandler dataHandler = DataHandler.GetInstance();
+    private ConfigData configData = dataHandler.GetConfigData();
     private static GameManager gameManager = GameManager.GetInstance();
 
 

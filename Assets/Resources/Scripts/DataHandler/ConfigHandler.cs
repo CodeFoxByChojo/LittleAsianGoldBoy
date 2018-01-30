@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Chojo.LAG.DataController {
+    /// <summary>
+    /// The ConfigHandler class loads the config.yml and returns the ConfigData obejct if needed.
+    /// </summary>
     public class ConfigHandler {
 
         private static ConfigHandler instance = null;
@@ -25,11 +28,18 @@ namespace Chojo.LAG.DataController {
             return configData;
         }
 
+        /// <summary>
+        /// Reads the config.yml and writes it to the configData. Only if it's not loaded
+        /// </summary>
         public void LoadConfigData() {
             if (configLoaded) return;
             configData = ConfigLoader.LoadConfig();
             configLoaded = true;
         }
+
+        /// <summary>
+        /// Reload the ConfigData.
+        /// </summary>
         internal void ReloadConfigData() {
             configData = ConfigLoader.LoadConfig();
         }

@@ -7,6 +7,9 @@ using Chojo.LAG.DataController;
 using Chojo.LAG.CharacterController;
 
 namespace Chojo.LAG.Manager {
+    /// <summary>
+    /// The GameManager class is the core object of the game.
+    /// </summary>
     public class GameManager {
 
         private static GameManager instance = null;
@@ -41,26 +44,38 @@ namespace Chojo.LAG.Manager {
             return configData;
         }
 
+        /// <summary>
+        /// Start a new game and overrides all old data.
+        /// </summary>
         internal void NewGame() {
             WriteGameData(new GameData());
             UIManager.GetInstance().SetMenuActive(false, false);
 
         }
 
+        /// <summary>
+        /// Quits the game and returns to the main menu.
+        /// </summary>
         internal void QuitGame() {
-            UIManager.GetInstance().setMenuActive(true, false);
+            UIManager.GetInstance().SetMenuActive(true, false);
 
         }
 
+        /// <summary>
+        /// Loads the last Game and write the data to the objects.
+        /// </summary>
         internal void LoadGame() {
             WriteGameData(dataHandler.LoadGame());
             UIManager.GetInstance().SetMenuActive(false, false);
 
         }
 
+        /// <summary>
+        /// Saves the game and returns to the main menu
+        /// </summary>
         internal void SaveAndQuitGame() {
             dataHandler.SaveGame();
-            UIManager.GetInstance().setMenuActive(true, false);
+            UIManager.GetInstance().SetMenuActive(true, false);
         }
 
         public Character GetCharacter() {
@@ -80,11 +95,20 @@ namespace Chojo.LAG.Manager {
             }
         }
 
+        /// <summary>
+        /// Adds an CountableClass object to the hour notifier.
+        /// <param name="notifyObject">Object must be a Member of CountableClass</param>
+        /// </summary>
         public void RegisterHourNotify(CountableClass notifyObject) {
             hourNotify.Add(notifyObject);
             Debug.Log(notifyObject + " succesfully linked to Hour notify");
         }
-        //Gibt basierend auf den Basiskosten für das Upgrade und das aktuelle Level einen Wert zurück.
+        /// <summary>
+        /// Calculates the Upgrade Cost depending on the level and the base cost.
+        /// <returns>Returns the costs</returns>
+        /// </summary>
+        /// <param name="level">Level of the object</param>
+        /// <param name="basecost">basecost of the object</param>
         public int GetUpgradeCost(int level, int basecost) {
             int amount;
             amount = (level * 3) * basecost ^ 2 + basecost;
@@ -95,6 +119,11 @@ namespace Chojo.LAG.Manager {
             amount = (level * 3) * basecost ^ 2 + basecost;
             return amount;
         }
+
+        /// <summary>
+        /// Overrides all data with the data of the GameData obejct.
+        /// </summary>
+        /// <param name="gameData">GameData Object</param>
         public void WriteGameData(GameData gameData) {
             environment.SetComputerList(gameData.Computerlist);
             environment.GenerateBotList(gameData.BotAmount);

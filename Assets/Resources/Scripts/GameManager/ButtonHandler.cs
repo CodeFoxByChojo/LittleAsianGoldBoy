@@ -5,6 +5,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace Chojo.LAG.Manager {
+    /// <summary>
+    /// ButtonHandler class to add more informations on a button click.
+    /// </summary>
     public class ButtonHandler : MonoBehaviour {
 
         public Button button;
@@ -23,6 +26,9 @@ namespace Chojo.LAG.Manager {
             btn.onClick.AddListener(TaskOnClick);
         }
 
+        /// <summary>
+        /// Calls the method which ich needed, depends on the configuration of the button
+        /// </summary>
         private void TaskOnClick() {
 
             if (buttonIdentity == Defines.ButtonIdentiy.Menu) {

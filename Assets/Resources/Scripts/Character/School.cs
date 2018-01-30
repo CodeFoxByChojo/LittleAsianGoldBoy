@@ -6,6 +6,9 @@ using Chojo.LAG.Manager;
 using System;
 
 namespace Chojo.LAG.CharacterController {
+    /// <summary>
+    /// The School class is a leightweight class to handle if and how long a player is in school.
+    /// </summary>
     public class School : CountableClass {
 
         private static School instance;

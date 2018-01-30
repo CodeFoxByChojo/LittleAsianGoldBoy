@@ -6,6 +6,9 @@ using Chojo.LAG.Manager;
 using System;
 
 namespace Chojo.LAG.CharacterController {
+    /// <summary>
+    /// Mother Class is a Class which is handled by the Character class. It contains the MotherEvent class
+    /// </summary>
     public class Mother : CountableClass {
 
         private int motherTaskWaitDuration;
@@ -63,6 +66,10 @@ namespace Chojo.LAG.CharacterController {
             if (penalization != 0) {
                 penalization = penalization - 1;
             }
+            //Wenn kein Event vorhanden ist und die Zeit bis zum nächsten Event noch nicht abgelaufen ist, wird sie um 1 verringert.
+            if(motherEvent == null && timeToNextMotherEvent != 0) {
+                timeToNextMotherEvent--;
+            }
         }
 
         internal int GetPenalization() {
@@ -89,6 +96,10 @@ namespace Chojo.LAG.CharacterController {
             karma = value;
         }
 
+        /// <summary>
+        /// Takes karma of the player. If it's 0 he penalizes him.
+        /// </summary>
+        /// <param name="amount"></param>
         private void TakeKarma(int amount) {
             if (karma <= amount) {
                 karma = 0;
@@ -101,6 +112,10 @@ namespace Chojo.LAG.CharacterController {
             }
         }
 
+        /// <summary>
+        /// Adds the amount of Karma
+        /// </summary>
+        /// <param name="amount"></param>
         private void GiveKarma(int amount) {
             if (karma + amount <= 100) {
                 karma = karma + amount;
@@ -116,9 +131,11 @@ namespace Chojo.LAG.CharacterController {
         public MotherEvent GetMotherEvent() {
             return motherEvent;
         }
+
         public int GetMotherTaskWaitDuration() {
             return motherTaskWaitDuration;
         }
+
         public bool IsCharacterPenalized() {
             if (penalization != 0) {
                 return true;

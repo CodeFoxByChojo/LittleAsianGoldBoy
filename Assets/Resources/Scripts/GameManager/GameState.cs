@@ -5,6 +5,9 @@ using UnityEngine;
 using Chojo.LAG.Countable;
 
 namespace Chojo.LAG.Manager {
+    /// <summary>
+    /// The GameState class generate the gold price and saves the data, which is needed to run the game.
+    /// </summary>
     public class GameState : CountableClass {
 
         private static GameState instance = null;

@@ -6,13 +6,15 @@ using Chojo.LAG.Countable;
 using Chojo.LAG.Manager;
 
 namespace Chojo.LAG.Environments {
+    /// <summary>
+    /// bot object to create a list with bots and manage the subscription lifetime.
+    /// </summary>
     public class Bot {
 
         private GameManager gameManager = GameManager.GetInstance();
 
         private int licenceDuration;
 
-        //Ist die Zeit des Bots abgelaufen, wird false zurückgegeben. So weiß das Environment, dass der Bot gelöscht werden kann.
         public bool OneHourPassed() {
             licenceDuration = licenceDuration - 1;
             if (licenceDuration == 0) {
@@ -23,6 +25,10 @@ namespace Chojo.LAG.Environments {
         public int GetLicenceDuration() {
             return licenceDuration;
         }
+
+        /// <summary>
+        /// Method to activate the Bot.
+        /// </summary>
         public void ActivateBot() {
             licenceDuration = UnityEngine.Random.Range(gameManager.GetConfigData().MinBotLifeDuration, gameManager.GetConfigData().MaxBotLifeDuration);
         }

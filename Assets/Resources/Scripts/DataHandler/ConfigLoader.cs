@@ -8,8 +8,15 @@ using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 
 namespace Chojo.LAG.DataController {
+    /// <summary>
+    /// The ConfigLoader class containts a YAML parser to read the config.yml
+    /// </summary>
     public static class ConfigLoader {
 
+        /// <summary>
+        /// Loads the config.yml
+        /// <returns>Returns a ConfigData obejct</returns>
+        /// </summary>
         public static ConfigData LoadConfig() {
 
             string content;

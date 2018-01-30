@@ -5,6 +5,9 @@ using Chojo.LAG.Manager;
 using YamlDotNet.Serialization;
 
 namespace Chojo.LAG.Environments {
+    /// <summary>
+    /// Computer class to create objects.
+    /// </summary>
     public class Computer {
 
         private GameManager gameManager = GameManager.GetInstance();
@@ -32,6 +35,7 @@ namespace Chojo.LAG.Environments {
         public int GetLevel() {
             return level;
         }
+
         public int GetUpgradePrice() {
             return gameManager.GetUpgradeCost(level, gameManager.GetConfigData().ComputerPrice);
         }

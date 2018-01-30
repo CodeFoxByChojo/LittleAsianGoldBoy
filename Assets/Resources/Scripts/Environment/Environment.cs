@@ -6,6 +6,9 @@ using Chojo.LAG.Manager;
 using System;
 
 namespace Chojo.LAG.Environments {
+    /// <summary>
+    /// The Environment class manages all bots, subscriptions and computer
+    /// </summary>
     public class Environment : CountableClass {
         private static Environment instance;
         private new GameManager gameManager = GameManager.GetInstance();
@@ -30,13 +33,15 @@ namespace Chojo.LAG.Environments {
         }
 
         public override void OneHourPassed() {
-            //Entfernt abgelaufene Bots aus der Liste.
             if (autobuy) {
                 RenewSubscriptions();
             }
             int amount = 0;
             amount = (GetSubscriptionsAmount() * ((gameManager.GetConfigData().BotGoldEarnPerHour) * (botLevel * 2)) * (botKnowledgeLevel * 2));
             gameManager.GetCharacter().AddGold(amount);
+            foreach(Bot element in bots) {
+                element.OneHourPassed();
+            }
         }
 
         public int GetBotAmount() {
@@ -88,12 +93,31 @@ namespace Chojo.LAG.Environments {
             return bots;
         }
 
+        /// <summary>
+        /// Buy a computer.
+        /// <returns>Returns 'true' if the character has enought space and money. If not 'false'</returns>
+        /// </summary>
         public bool BuyComputer() {
             if (gameManager.GetCharacter().TakeMoney(gameManager.GetConfigData().ComputerPrice)) {
                 computer.Add(new Computer());
                 return true;
             }
             return false;
+        }
+
+        /// <summary>
+        /// Set Bots alive. Only for Game loading.
+        /// </summary>
+        /// <param name="amount">Amount of Bots which should activated</param>
+        internal void SetSubscriptionsAmount(int amount) {
+            for (int i = 0; i<amount; i++) {
+                foreach (Bot element in bots) {
+                    if (element.GetLicenceDuration() == 0) {
+                        element.ActivateBot();
+                        break;
+                    }
+                }
+            }
         }
 
         public int GetMaxSubscriptions() {
@@ -110,6 +134,10 @@ namespace Chojo.LAG.Environments {
             return amount;
         }
 
+        /// <summary>
+        /// Buy a subscription.
+        /// <returns>Returns 'true' if the character has enought space and money. If not 'false'</returns>
+        /// </summary>
         public bool BuySubscription() {
             if (GetSubscriptionsAmount() != GetMaxSubscriptions() && gameManager.GetCharacter().TakeMoney(gameManager.GetConfigData().SubscriptionPrice))
                 foreach (Bot element in bots) {
@@ -121,6 +149,10 @@ namespace Chojo.LAG.Environments {
             return false;
         }
 
+        /// <summary>
+        /// Buy a bot.
+        /// <returns>Returns 'true' if the character has enought space and money. If not 'false'</returns>
+        /// </summary>
         public bool BuyBot() {
             if (GetMaxBotAmount() > GetBotAmount()) {
                 if (gameManager.GetCharacter().TakeMoney(gameManager.GetConfigData().BotLicenseCost)) {
@@ -131,6 +163,10 @@ namespace Chojo.LAG.Environments {
             return false;
         }
 
+        /// <summary>
+        /// Toggles autobuy
+        /// <returns>Returns the current state of autobuy</returns>
+        /// </summary>
         public bool ToggleAutobuy() {
             autobuy = !autobuy;
             return autobuy;
@@ -139,6 +175,9 @@ namespace Chojo.LAG.Environments {
             return autobuy;
         }
 
+        /// <summary>
+        /// Renew all subscriptions.
+        /// </summary>
         private void RenewSubscriptions() {
             foreach (Bot element in bots) {
                 if (element.GetLicenceDuration() == 0) {
@@ -147,6 +186,10 @@ namespace Chojo.LAG.Environments {
             }
         }
 
+        /// <summary>
+        /// Upgrades bot with money.
+        /// <returns>Returns 'true' if the character has enought space and money. If not 'false'</returns>
+        /// </summary>
         public bool UpgradeBot() {
             if (gameManager.GetCharacter().TakeMoney(gameManager.GetUpgradeCost(botLevel, gameManager.GetConfigData().BotLicenseCost))) {
                 botLevel++;
@@ -159,6 +202,10 @@ namespace Chojo.LAG.Environments {
             return botLevel;
         }
 
+        /// <summary>
+        /// Upgrades bot with knowledge.
+        /// <returns>Returns 'true' if the character has enought space and knowledge. If not 'false'</returns>
+        /// </summary>
         public bool UpgradeBotKnowledge() {
             if (gameManager.GetCharacter().TakeKnowledge(gameManager.GetKnowledgeCost(botKnowledgeLevel, gameManager.GetConfigData().BotKnowledgeCost))) {
                 botLevel++;
