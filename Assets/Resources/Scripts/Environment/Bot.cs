@@ -16,7 +16,9 @@ namespace Chojo.LAG.Environments {
         private int licenceDuration = 0;
 
         public bool OneHourPassed() {
-            licenceDuration = licenceDuration - 1;
+            if (licenceDuration != 0) {
+                licenceDuration = licenceDuration - 1;
+            }
             if (licenceDuration == 0) {
                 return false;
             }

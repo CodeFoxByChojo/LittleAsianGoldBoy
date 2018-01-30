@@ -185,7 +185,7 @@ namespace Chojo.LAG.Environments {
         /// </summary>
         private void RenewSubscriptions() {
             foreach (Bot element in bots) {
-                if (element.GetLicenceDuration() == 0) {
+                if (element.GetLicenceDuration() <= 0) {
                     BuySubscription();
                 }
             }
