@@ -39,7 +39,7 @@ namespace Chojo.LAG.Environments {
             int amount = 0;
             amount = (GetSubscriptionsAmount() * ((gameManager.GetConfigData().BotGoldEarnPerHour) * (botLevel * 2)) * (botKnowledgeLevel * 2));
             gameManager.GetCharacter().AddGold(amount);
-            foreach(Bot element in bots) {
+            foreach (Bot element in bots) {
                 element.OneHourPassed();
             }
         }
@@ -110,7 +110,7 @@ namespace Chojo.LAG.Environments {
         /// </summary>
         /// <param name="amount">Amount of Bots which should activated</param>
         internal void SetSubscriptionsAmount(int amount) {
-            for (int i = 0; i<amount; i++) {
+            for (int i = 0; i < amount; i++) {
                 foreach (Bot element in bots) {
                     if (element.GetLicenceDuration() == 0) {
                         element.ActivateBot();
@@ -139,13 +139,18 @@ namespace Chojo.LAG.Environments {
         /// <returns>Returns 'true' if the character has enought space and money. If not 'false'</returns>
         /// </summary>
         public bool BuySubscription() {
-            if (GetSubscriptionsAmount() != GetMaxSubscriptions() && gameManager.GetCharacter().TakeMoney(gameManager.GetConfigData().SubscriptionPrice))
-                foreach (Bot element in bots) {
-                    if (element.GetLicenceDuration() == 0) {
-                        element.ActivateBot();
-                        return true;
+            if (GetSubscriptionsAmount() != GetMaxSubscriptions()) {
+                if (gameManager.GetCharacter().TakeMoney(gameManager.GetConfigData().SubscriptionPrice)) {
+                    foreach (Bot element in bots) {
+                        Debug.Log(element.GetLicenceDuration());
+                        if (element.GetLicenceDuration() <= 0) {
+                            element.ActivateBot();
+                            return true;
+                        }
                     }
+                    return false;
                 }
+            }
             return false;
         }
 
