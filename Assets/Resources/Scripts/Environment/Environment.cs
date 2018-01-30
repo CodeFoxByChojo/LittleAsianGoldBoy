@@ -35,7 +35,7 @@ namespace Chojo.LAG.Environments {
                 RenewSubscriptions();
             }
             int amount = 0;
-            amount = (bots.Count * ((gameManager.GetConfigData().BotGoldEarnPerHour) * (botLevel * 2)) * (botKnowledgeLevel * 2));
+            amount = (GetSubscriptionsAmount() * ((gameManager.GetConfigData().BotGoldEarnPerHour) * (botLevel * 2)) * (botKnowledgeLevel * 2));
             gameManager.GetCharacter().AddGold(amount);
         }
 
