@@ -96,7 +96,16 @@ namespace Chojo.LAG.CharacterController {
         /// <returns>Returns 'true' if the player has enought money and takes it. If not, it returns false.</returns>
         /// </summary>
         /// <param name="amount">Amount of money which should be taken.</param>
-        public bool TakeMoney(int amount) {
+        public bool TakeMoney(long amount) {
+            if (amount > money) {
+                return false;
+            } else {
+                money = money - amount;
+                return true;
+            }
+        }
+        public bool TakeMoney(int value) {
+            long amount = (long)value;
             if (amount > money) {
                 return false;
             } else {
