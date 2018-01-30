@@ -39,6 +39,14 @@ namespace Chojo.LAG.Manager {
         public Text botLicenceAmountDisplay;
         public Text subscriptionsDisplay;
         public Text autobuyDisplay;
+        public Text knowledgeDisplay;
+        public Text learnDisplay;
+        public Text upgradeBotPriceDisplay;
+        public Text upgradeBotKnowledgeDisplay;
+        public Text upgradeClickPriceDisplay;
+        public Text messageDisplay;
+        public GameObject pauseScreen;
+        public GameObject menuScreen;
 
 
         private void Awake() {
@@ -74,11 +82,24 @@ namespace Chojo.LAG.Manager {
             botLicenceAmountDisplay = GameObject.Find("BotLicenceAmount").GetComponent<Text>();
             subscriptionsDisplay = GameObject.Find("Subscriptions").GetComponent<Text>();
             autobuyDisplay = GameObject.Find("Autobuy").GetComponent<Text>();
+            knowledgeDisplay = GameObject.Find("Knowledge").GetComponent<Text>();
+            learnDisplay = GameObject.Find("Learn").GetComponent<Text>();
+            upgradeBotPriceDisplay = GameObject.Find("UpgradeBotPrice").GetComponent<Text>();
+            upgradeClickPriceDisplay = GameObject.Find("UpgradeClickPrice").GetComponent<Text>();
+            upgradeBotKnowledgeDisplay = GameObject.Find("UpgradeBotKnowledge").GetComponent<Text>();
+            messageDisplay = GameObject.Find("Message").GetComponent<Text>();
+            pauseScreen = GameObject.Find("Pause");
+            menuScreen = GameObject.Find("Menu");
         }
 
         public static UIManager GetInstance() {
             return instance;
         }
+
+        public bool IsPauseScreenActive() {
+            return pauseScreen.activeInHierarchy;
+        }
+
 
         internal void ButtonClickedEvent(Defines.ButtonIdentiy identity, Defines.ButtonType type) {
             switch (identity) {
@@ -86,30 +107,63 @@ namespace Chojo.LAG.Manager {
                     if (type == Defines.ButtonType.Activate) {
                         gameManager.GetCharacter().CharacterGoldClick();
                     }
+                    if (type == Defines.ButtonType.UpgradeMoney) {
+                        if (gameManager.GetCharacter().UpgradeClick()) {
+                            messageDisplay.text = "Upgrade Successful";
+                        }
+                    }
                     break;
                 case Defines.ButtonIdentiy.GoldSell:
                     if (type == Defines.ButtonType.Sell) {
-                        gameManager.GetCharacter().SellGold();
+                        int[] result = gameManager.GetCharacter().SellGold();
+                        messageDisplay.text = "You sold " + result[0].ToString() + " gold for " + result[1] + " $.";
                     }
                     break;
                 case Defines.ButtonIdentiy.Mother:
                     if (type == Defines.ButtonType.Activate) {
                         gameManager.GetCharacter().GetMother().GetMotherEvent().ActivateEvent();
+                        messageDisplay.text = "You doing some work for your Mother. You are busy now.";
                     }
                     break;
                 case Defines.ButtonIdentiy.Bot:
                     if (type == Defines.ButtonType.Buy) {
-                        gameManager.GetEnvironment().BuyBot();
+                        if (gameManager.GetEnvironment().BuyBot()) {
+                            messageDisplay.text = "You bought a new Bot Licence.";
+                        }
+                        messageDisplay.text = "Purchase failed. Do you have enought money or space.";
+                    }
+                    if (type == Defines.ButtonType.UpgradeMoney) {
+                        if (gameManager.GetEnvironment().UpgradeBot()) {
+                            messageDisplay.text = "You upgraded your bots. They are now more efficient.";
+                        }
+                        messageDisplay.text = "Upgrade failed. Do you have enought money? Sell some gold!";
+                    }
+                    if (type == Defines.ButtonType.UpgradeKnowledge) {
+                        if (gameManager.GetEnvironment().UpgradeBotKnowledge()) {
+                            messageDisplay.text = "You upgraded your bots. They are now more efficient.";
+                        }
+                        messageDisplay.text = "Upgrade failed. Do you have enought knowledge? Go to school!";
                     }
                     break;
                 case Defines.ButtonIdentiy.Subscriptions:
                     if (type == Defines.ButtonType.Buy) {
-                        gameManager.GetEnvironment().BuySubscription();
+                        if (gameManager.GetEnvironment().BuySubscription()) {
+                            messageDisplay.text = "You bought a new subscription.";
+                        }
                     }
                     if (type == Defines.ButtonType.Activate) {
-                        gameManager.GetEnvironment().ToggleAutobuy();
+                        if (gameManager.GetEnvironment().ToggleAutobuy()) {
+                            messageDisplay.text = "You toggled the autobuy function! Expired subscriptions are history now.";
+                        }
+                        messageDisplay.text = "You toggled the autobuy function! You wanna do it by yourself? Fine.";
                     }
                     break;
+                case Defines.ButtonIdentiy.School: {
+                        if (type == Defines.ButtonType.Activate) {
+                            gameManager.GetCharacter().ToggleSchool();
+                        }
+                        break;
+                    }
                 default:
                     Debug.Log("Not a vaild combination");
                     break;
@@ -120,15 +174,33 @@ namespace Chojo.LAG.Manager {
             var environment = gameManager.GetEnvironment();
             var computer = environment.GetComputer();
             if (identifier >= computer.Count) {
-                environment.BuyComputer();
+                if (environment.BuyComputer()) {
+                    messageDisplay.text = "You bought a new computer.";
+                } else {
+                    messageDisplay.text = "Purchase failed. Do you have enought money? Sell some gold!";
+                }
             } else {
-                computer[identifier].UpgradeComputer();
+                if (computer[identifier].UpgradeComputer()) {
+                    messageDisplay.text = "You upgraded your computer.";
+                } else {
+                    messageDisplay.text = "Upgrade failed. Do you have enought money? Sell some gold!";
+                }
             }
         }
 
         // Use this for initialization
         void Start() {
             gameManager = GameManager.GetInstance();
+            pauseScreen.SetActive(false);
+            menuScreen.SetActive(true);
+            menuScreen.SetActive(false);
+            menuScreen.SetActive(true);
+        }
+
+        public void setMenuActive(bool menuactive, bool pauseactive) {
+            menuScreen.SetActive(menuactive);
+            pauseScreen.SetActive(pauseactive);
+
         }
 
         // Update is called once per frame
@@ -140,6 +212,37 @@ namespace Chojo.LAG.Manager {
             UpdateMother();
             UpdateComputer();
             UpdateBots();
+            UpdateSchool();
+            UpdateUpgrade();
+            UpdateMessage();
+        }
+
+        private void UpdateMessage() {
+            string busy = "You are busy.";
+            if (gameManager.GetCharacter().IsCharacterLearning()
+                            || gameManager.GetCharacter().IsCharacterWorking()
+                            || gameManager.GetCharacter().GetMother().IsCharacterPenalized()) {
+                messageDisplay.text = busy;
+            } else {
+                if (messageDisplay.text == busy) {
+                    messageDisplay.text = "You are no longer busy";
+                }
+            }
+        }
+
+        private void UpdateUpgrade() {
+            upgradeBotPriceDisplay.text = gameManager.GetUpgradeCost(gameManager.GetEnvironment().GetBotLevel(), gameManager.GetConfigData().BotLicenseCost) + " $";
+            upgradeClickPriceDisplay.text = gameManager.GetUpgradeCost(gameManager.GetCharacter().GetClickLevel(), gameManager.GetConfigData().ClickBaseCost) + " $";
+            upgradeBotKnowledgeDisplay.text = gameManager.GetKnowledgeCost(gameManager.GetEnvironment().GetBotKnowledgeLevel(), gameManager.GetConfigData().BotKnowledgeCost) + " Knowledge";
+        }
+
+        private void UpdateSchool() {
+            if (gameManager.GetCharacter().IsCharacterLearning() != true) {
+                learnDisplay.text = "Learn 8 hours";
+            } else {
+                learnDisplay.text = gameManager.GetCharacter().GetLearnDuration().ToString();
+            }
+            knowledgeDisplay.text = "Knowledge: " + gameManager.GetCharacter().GetKnowledge();
         }
 
         private void UpdateBots() {
@@ -160,7 +263,7 @@ namespace Chojo.LAG.Manager {
             //Computer 0
             if (pclist[0] != null) {
                 if (pclist[0].GetLevel() != 5) {
-                    pc0UpgradePrice.text = pclist[0].GetUpgradePrice().ToString();
+                    pc0UpgradePrice.text = pclist[0].GetUpgradePrice() + " $";
                     pc0Upgrade.text = "Upgrade";
                 } else {
                     pc0UpgradePrice.text = "Maximum";
@@ -171,7 +274,7 @@ namespace Chojo.LAG.Manager {
             //Computer 1
             if (pclist.Count > 1) {
                 if (pclist[1].GetLevel() != 5) {
-                    pc1UpgradePrice.text = pclist[1].GetUpgradePrice().ToString();
+                    pc1UpgradePrice.text = pclist[1].GetUpgradePrice() + " $";
                     pc1Upgrade.text = "Upgrade";
                 } else {
                     pc1UpgradePrice.text = "Maximum";
@@ -179,13 +282,13 @@ namespace Chojo.LAG.Manager {
                 }
                 pc1Level.text = "Level : " + pclist[1].GetLevel() + "/5";
             } else {
-                pc1UpgradePrice.text = tempConfigData.ComputerPrice.ToString();
+                pc1UpgradePrice.text = tempConfigData.ComputerPrice + " $";
                 pc1Upgrade.text = "Buy";
             }
             //Computer 2
             if (pclist.Count > 2) {
                 if (pclist[2].GetLevel() != 5) {
-                    pc2UpgradePrice.text = pclist[2].GetUpgradePrice().ToString();
+                    pc2UpgradePrice.text = pclist[2].GetUpgradePrice() + " $";
                     pc2Upgrade.text = "Upgrade";
                 } else {
                     pc2UpgradePrice.text = "Maximum";
@@ -193,13 +296,13 @@ namespace Chojo.LAG.Manager {
                 }
                 pc2Level.text = "Level : " + pclist[2].GetLevel() + "/5";
             } else {
-                pc2UpgradePrice.text = tempConfigData.ComputerPrice.ToString();
+                pc2UpgradePrice.text = tempConfigData.ComputerPrice + " $";
                 pc2Upgrade.text = "Buy";
             }
             //Computer 3
             if (pclist.Count > 3) {
                 if (pclist[3].GetLevel() != 5) {
-                    pc3UpgradePrice.text = pclist[3].GetUpgradePrice().ToString();
+                    pc3UpgradePrice.text = pclist[3].GetUpgradePrice() + " $";
                     pc3Upgrade.text = "Upgrade";
                 } else {
                     pc3UpgradePrice.text = "Maximum";
@@ -207,13 +310,13 @@ namespace Chojo.LAG.Manager {
                 }
                 pc3Level.text = "Level : " + pclist[3].GetLevel() + "/5";
             } else {
-                pc3UpgradePrice.text = tempConfigData.ComputerPrice.ToString();
+                pc3UpgradePrice.text = tempConfigData.ComputerPrice + " $";
                 pc3Upgrade.text = "Buy";
             }
             //Computer 4
             if (pclist.Count > 4) {
                 if (pclist[4].GetLevel() != 5) {
-                    pc4UpgradePrice.text = pclist[4].GetUpgradePrice().ToString();
+                    pc4UpgradePrice.text = pclist[4].GetUpgradePrice() + " $";
                     pc4Upgrade.text = "Upgrade";
                 } else {
                     pc4UpgradePrice.text = "Maximum";
@@ -221,7 +324,7 @@ namespace Chojo.LAG.Manager {
                 }
                 pc4Level.text = "Level : " + pclist[4].GetLevel() + "/5";
             } else {
-                pc4UpgradePrice.text = tempConfigData.ComputerPrice.ToString();
+                pc4UpgradePrice.text = tempConfigData.ComputerPrice + " $";
                 pc4Upgrade.text = "Buy";
             }
         }
@@ -257,10 +360,11 @@ namespace Chojo.LAG.Manager {
         }
 
         private void UpdateMoney() {
-            moneyDisplay.text = "" + gameManager.GetCharacter().GetMoney();
+            moneyDisplay.text = gameManager.GetCharacter().GetMoney() + " $";
         }
 
         private void UpdateTime() {
+            gameManager = GameManager.GetInstance();
             int[] time = gameManager.GetGameState().GetCurrentTime();
             timeDisplay.text = "Day: " + time[0] + " Hour: " + time[1];
         }

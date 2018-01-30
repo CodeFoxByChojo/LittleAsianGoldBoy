@@ -25,17 +25,23 @@ namespace Chojo.LAG.CharacterController {
         }
 
         public override void OneHourPassed() {
-            if (duration > 0)
+            if (duration != 0) {
                 duration = duration - 1;
+            }
         }
 
         public bool IsSchoolActive() {
-            if (duration > 0) {
+            if (duration != 0) {
                 return true;
             } else {
                 return false;
             }
         }
+
+        public int GetLearnDuration() {
+            return duration;
+        }
+
         public void StartLearning() {
             duration = gameManager.GetConfigData().SchoolDuration;
         }
@@ -43,6 +49,10 @@ namespace Chojo.LAG.CharacterController {
         protected override void AttachToHourNotify() {
             instance = this;
             gameManager.RegisterHourNotify(instance);
+        }
+
+        internal void SetDuration(int value) {
+            duration = value;
         }
     }
 }

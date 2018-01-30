@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="Chojo.LAG.CharacterController.Character">
+    <Position X="0.5" Y="0.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AEQIARIAAAQJAAECCBwIAgAABQBgAABAAAEAAUAAFAA=</HashCode>
+      <FileName>Assets\Scripts\Character\Character.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Chojo.LAG.CharacterController.Mother">
+    <Position X="10.75" Y="0.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AEQCAAAAAQIgABAAABAAEAgABABAAABCABAAAAAAABA=</HashCode>
+      <FileName>Assets\Scripts\Character\Mother.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Chojo.LAG.CharacterController.MotherEvent">
+    <Position X="8" Y="2.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>QEQAAAIgAAAAAgAAAAAAAAQAAAAMCAIAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Character\MotherEvent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Chojo.LAG.CharacterController.School">
+    <Position X="3.75" Y="4" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AEQAAAIAAAAAAIAACAAAAAAABABQAABAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Character\School.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Chojo.LAG.Countable.CountableClass">
+    <Position X="4.5" Y="1.25" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AEQAAAAAAAAAAAAAAAAAAAAAAABAAABAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Countables\Countable.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Chojo.LAG.DataController.Collector">
+    <Position X="1" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\DataHandler\Collector.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Chojo.LAG.DataController.ConfigData">
+    <Position X="31" Y="1.5" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>xAQAoIABgyCAg6WAgAEgoQIAhiJCAIQHAUBABCVGQAA=</HashCode>
+      <FileName>Assets\Scripts\DataHandler\ConfigData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Chojo.LAG.DataController.ConfigHandler">
+    <Position X="22.75" Y="1.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>BAAgAAAAAAAAAAAAAAAAAAAAQABAAAQAAAACACAAAAA=</HashCode>
+      <FileName>Assets\Scripts\DataHandler\ConfigHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Chojo.LAG.DataController.DataHandler">
+    <Position X="20.5" Y="1.25" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAQAAAAAAAAAAAAAABAAAQAAAAAACAAAAA=</HashCode>
+      <FileName>Assets\Scripts\DataHandler\DataHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Chojo.LAG.DataController.GameData">
+    <Position X="19.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\DataHandler\Game Data.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Chojo.LAG.DataController.SaveGames">
+    <Position X="18" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\DataHandler\SaveGames.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Chojo.LAG.Environments.Bot">
+    <Position X="10" Y="7" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AEQAAAAAAAgAAAAEAAQAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\Environment\Bot.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Chojo.LAG.Environments.Computer">
+    <Position X="12.75" Y="8" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAAAAAAAAAAAAAAABAAEAAAgAAAAAAAABAgA=</HashCode>
+      <FileName>Assets\Scripts\Environment\Computer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Chojo.LAG.Environments.Environment">
+    <Position X="13.5" Y="0.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>GEQASAAAEAAABBAAAQAAAEAAFIJAAIBARAAREAEAABA=</HashCode>
+      <FileName>Assets\Scripts\Environment\Environment.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Chojo.LAG.Manager.ButtonHandler">
+    <Position X="15.75" Y="2.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AEQAAAFBACAABAQAAAAAAgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\GameManager\ButtonHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Chojo.LAG.Manager.GameManager">
+    <Position X="6" Y="7.25" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>IAAIAAAgIAIAAgAACAAAAAIgBABAAAAAgAAiABAAAAA=</HashCode>
+      <FileName>Assets\Scripts\GameManager\GameManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Chojo.LAG.Manager.GameState">
+    <Position X="24.75" Y="5.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AEwAAAEAAAAAAABABAAAAAAABABAAAJAAAAEAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\GameManager\GameState.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Chojo.LAG.Manager.Loader">
+    <Position X="3.25" Y="8" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEA=</HashCode>
+      <FileName>Assets\Scripts\GameManager\Loader.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Chojo.LAG.Manager.UIManager">
+    <Position X="18.5" Y="6.75" Width="5.25" />
+    <TypeIdentifier>
+      <HashCode>AESABIACQCMACQAIAEMMAAAMHABIAAAACFQABACiEGA=</HashCode>
+      <FileName>Assets\Scripts\GameManager\UIManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Notifier" Collapsed="true">
+    <Position X="11.25" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEQAAAAAACIAQAAAAAAAAAAgAAAAAAAAAAACAAAAAAA=</HashCode>
+      <FileName>Assets\Scripts\GameManager\Notifier.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

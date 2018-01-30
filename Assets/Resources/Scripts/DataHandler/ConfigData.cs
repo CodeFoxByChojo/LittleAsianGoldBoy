@@ -16,27 +16,31 @@ namespace Chojo.LAG.DataController {
             return getInstance();
         }
 
-        private int knowledgePerHour = 1;
+        private int knowledgePerHour = 8;
         private int licenseCost = 100;
+        private int clickBaseCost = 75;
         private float upgradeCostIncrease = 2.0f;
         private int computerPrice = 500;
         private int maxComputerLevel = 5;
-        private int botLicensePrice = 50;
+        private int botLicenseCost = 50;
+        private int botKnowledgeCost = 100;
         private int bandwidePrice = 200;
         private int roomPrice = 100;
         private int minMotherWaitDuration = 10;
         private int maxMotherWaitDuration = 10;
         private int motherTaskWaitDuration = 24;
-        private int minMotherTaskDuration = 24;
-        private int maxMotherTaskDuration = 24;
-        private int minBotLifeDuration = 72;
-        private int maxBotLifeDuration = 200;
+        private int minMotherTaskDuration = 1;
+        private int maxMotherTaskDuration = 5;
+        private int minBotLifeDuration = 10;
+        private int maxBotLifeDuration = 24;
         private float timeCycleInSeconds = 2.0f;
-        private int schoolDuration = 10;
+        private int schoolDuration = 8;
         private int goldPerClick = 10;
-        private float maxGoldPrice = 0.01f;
-        private float minGoldPrice = 3.00f;
+        private float maxGoldPrice = 3.0f;
+        private float minGoldPrice = 0.1f;
         private int subscriptionPrice = 15;
+        private int penalizationDuration = 24;
+        private int botGoldEarnPerHour = 10; 
 
         public int KnowledgePerHour {
             get {
@@ -59,17 +63,15 @@ namespace Chojo.LAG.DataController {
         }
 
         public float UpgradeCostIncrease {
+            get {
+                return upgradeCostIncrease;
+            }
             set {
                 upgradeCostIncrease = value;
             }
         }
 
-        //Gibt basierend auf den Basiskosten für das Upgrade und das aktuelle Level einen Wert zurück.
-        public int getUpgradeCost(int level, int basecost) {
-            int amount;
-            amount = (level*10) ^ level + basecost;
-            return amount;
-        }
+
 
         public int ComputerPrice {
             get {
@@ -81,13 +83,13 @@ namespace Chojo.LAG.DataController {
             }
         }
 
-        public int BotLicensePrice {
+        public int BotLicenseCost {
             get {
-                return botLicensePrice;
+                return botLicenseCost;
             }
 
             set {
-                botLicensePrice = value;
+                botLicenseCost = value;
             }
         }
 
@@ -248,6 +250,46 @@ namespace Chojo.LAG.DataController {
 
             set {
                 subscriptionPrice = value;
+            }
+        }
+
+        public int PenalizationDuration {
+            get {
+                return penalizationDuration;
+            }
+
+            set {
+                penalizationDuration = value;
+            }
+        }
+
+        public int BotGoldEarnPerHour {
+            get {
+                return botGoldEarnPerHour;
+            }
+
+            set {
+                botGoldEarnPerHour = value;
+            }
+        }
+
+        public int ClickBaseCost {
+            get {
+                return clickBaseCost;
+            }
+
+            set {
+                clickBaseCost = value;
+            }
+        }
+
+        public int BotKnowledgeCost {
+            get {
+                return botKnowledgeCost;
+            }
+
+            set {
+                botKnowledgeCost = value;
             }
         }
     }

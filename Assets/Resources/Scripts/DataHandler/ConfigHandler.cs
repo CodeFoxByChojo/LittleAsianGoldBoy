@@ -7,7 +7,7 @@ namespace Chojo.LAG.DataController {
     public class ConfigHandler {
 
         private static ConfigHandler instance = null;
-        private ConfigData configData = ConfigData.getInstance();
+        private ConfigData configData;
         private bool configLoaded = false;
         public bool instanceCheck = false;
 
@@ -21,14 +21,14 @@ namespace Chojo.LAG.DataController {
         }
 
         public ConfigData getConfigData() {
-            //loadConfigData();
+            loadConfigData();
             return configData;
         }
 
         private void loadConfigData() {
             if (configLoaded) return;
-            configData.KnowledgePerHour = 1;
-            //TODO Implement YAML Parser to get ConfigData
+            configData = ConfigLoader.LoadConfig();
+            configLoaded = true;
         }
     }
 }

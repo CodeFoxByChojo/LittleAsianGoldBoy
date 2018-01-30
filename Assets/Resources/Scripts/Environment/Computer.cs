@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Chojo.LAG.Manager;
+using YamlDotNet.Serialization;
 
 namespace Chojo.LAG.Environments {
     public class Computer {
@@ -20,7 +21,7 @@ namespace Chojo.LAG.Environments {
         
         public bool UpgradeComputer() {
             if (level < gameManager.GetConfigData().MaxComputerLevel
-                && gameManager.GetCharacter().TakeMoney(gameManager.GetConfigData().getUpgradeCost(level, gameManager.GetConfigData().ComputerPrice))) {
+                && gameManager.GetCharacter().TakeMoney(gameManager.GetUpgradeCost(level, gameManager.GetConfigData().ComputerPrice))) {
                 level = level + 1;
                 Debug.Log("Computer " + id + " upgradet");
                 return true;
@@ -32,8 +33,18 @@ namespace Chojo.LAG.Environments {
             return level;
         }
         public int GetUpgradePrice() {
-            return gameManager.GetConfigData().getUpgradeCost(level, gameManager.GetConfigData().ComputerPrice);
+            return gameManager.GetUpgradeCost(level, gameManager.GetConfigData().ComputerPrice);
         }
+        
+        public int Level {
+            get {
+                return level;
+            }
+            set {
+                level = value;
+            }
+        }
+
     }
 
 }

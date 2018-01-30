@@ -18,7 +18,9 @@ namespace Chojo.LAG.CharacterController {
         private int money = 0;
         private int clickLevel = 1;
 
-        private Character() { }
+        private Character() {
+            AttachToHourNotify();
+        }
 
         public static Character GetInstance() {
             if (instance == null) {
@@ -38,6 +40,9 @@ namespace Chojo.LAG.CharacterController {
         }
 
         public bool IsCharacterWorking() {
+            if (mother.GetMotherEvent() == null) {
+                return false;
+            }
             return mother.GetMotherEvent().IsEventActive();
         }
         public bool IsCharacterLearning() {
@@ -52,6 +57,26 @@ namespace Chojo.LAG.CharacterController {
             money = money + amount;
         }
 
+        public int GetLearnDuration() {
+            return school.GetLearnDuration();
+        }
+
+        internal void SetMoney(int value) {
+            money = value;
+        }
+
+        internal void SetGold(int value) {
+            gold = value;
+        }
+
+        internal void SetKnowledge(int value) {
+            knowledge = value;
+        }
+
+        internal void SetClickLevel(int value) {
+            clickLevel = value;
+        }
+
         //Gibt 'true' zurück, wenn Geld abgezogen wurde. Gibt 'false' zurück, wenn der Spieler nicht genug Geld hat und zieht kein Geld ab.
         public bool TakeMoney(int amount) {
             if (amount > money) {
@@ -60,6 +85,10 @@ namespace Chojo.LAG.CharacterController {
                 money = money - amount;
                 return true;
             }
+        }
+
+        internal School GetSchool() {
+            return school;
         }
 
         //Gibt 'true' zurück, wenn Knowledge abgezogen wurde. Gibt 'false' zurück, wenn der Spieler nicht genug Knowledge hat und zieht kein Knowledge ab.
@@ -80,11 +109,8 @@ namespace Chojo.LAG.CharacterController {
             return knowledge;
         }
 
-        public void UpgradeClickLevel() {
-
-        }
-
         protected override void AttachToHourNotify() {
+            instance = this;
             gameManager.RegisterHourNotify(instance);
         }
 
@@ -92,11 +118,14 @@ namespace Chojo.LAG.CharacterController {
             gold = gold + amount;
         }
 
-        public void SellGold() {
+        public int[] SellGold() {
             float a = gold * gameManager.GetGameState().GetCurrentGoldPrice();
             int b = (int)(a * 100);
-            money = money + b/100;
+            b = (b / 10000);
+            int[] result = { gold, b};
+            money = money + b;
             gold = 0;
+            return result;
         }
 
         public int GetGold() {
@@ -104,11 +133,26 @@ namespace Chojo.LAG.CharacterController {
         }
 
         public void CharacterGoldClick() {
-            AddGold(gameManager.GetConfigData().GoldPerClick ^ clickLevel);
+            AddGold(gameManager.GetConfigData().GoldPerClick * (clickLevel * 2));
+        }
+
+        public bool UpgradeClick() {
+            if (gameManager.GetCharacter().TakeMoney(gameManager.GetUpgradeCost(clickLevel, gameManager.GetConfigData().ClickBaseCost))) {
+                clickLevel++;
+                return true;
+            }
+            return false;
         }
 
         public Mother GetMother() {
             return mother;
+        }
+        public void ToggleSchool() {
+            school.StartLearning();
+        }
+
+        public int GetClickLevel() {
+            return clickLevel;
         }
     }
 }

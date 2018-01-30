@@ -16,6 +16,8 @@ namespace Chojo.LAG.CharacterController {
         private int timeToNextMotherEvent = 0;
         private int karma = 50;
 
+        private int penalization = 0;
+
         private Mother() {
             AttachToHourNotify();
         }
@@ -58,6 +60,33 @@ namespace Chojo.LAG.CharacterController {
                 timeToNextMotherEvent = UnityEngine.Random.Range(gameManager.GetConfigData().MinMotherWaitDuration, gameManager.GetConfigData().MaxMotherWaitDuration);
                 TakeKarma(10);
             }
+            if (penalization != 0) {
+                penalization = penalization - 1;
+            }
+        }
+
+        internal int GetPenalization() {
+            return penalization;
+        }
+
+        internal int GetTimeToNextMotherEvent() {
+            return timeToNextMotherEvent;
+        }
+
+        internal void SetPenalization(int value) {
+            penalization = value;
+        }
+
+        internal void SetTimeToNextMotherEvent(int value) {
+            timeToNextMotherEvent = value;
+        }
+
+        internal void SetMotherEvent(MotherEvent value) {
+            motherEvent = value;
+        }
+
+        internal void SetKarma(int value) {
+            karma = value;
         }
 
         private void TakeKarma(int amount) {
@@ -65,6 +94,10 @@ namespace Chojo.LAG.CharacterController {
                 karma = 0;
             } else {
                 karma = karma - amount;
+            }
+            if (karma == 0) {
+                penalization = gameManager.GetConfigData().PenalizationDuration;
+                karma = 20;
             }
         }
 
@@ -85,6 +118,12 @@ namespace Chojo.LAG.CharacterController {
         }
         public int GetMotherTaskWaitDuration() {
             return motherTaskWaitDuration;
+        }
+        public bool IsCharacterPenalized() {
+            if (penalization != 0) {
+                return true;
+            }
+            return false;
         }
     }
 }

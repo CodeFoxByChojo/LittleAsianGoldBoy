@@ -61,6 +61,22 @@ namespace Chojo.LAG.Manager {
             a = a + ((float)(UnityEngine.Random.Range(-50, 50)) / 100);
             return a;
         }
+
+        internal int GetCount() {
+           return (int)count;
+        }
+
+        internal void SetCount(int value) {
+            count = value;
+        }
+
+        internal void SetCurrentHour(int value) {
+            currentHour = value;
+        }
+
+        internal void SetCurrentDay(int value) {
+            currentDay = value;
+        }
     }
 }
 

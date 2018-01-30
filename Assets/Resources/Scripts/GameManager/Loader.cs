@@ -17,6 +17,7 @@ namespace Chojo.LAG.Manager {
             if (UIManager.GetInstance() == null) {
                 Instantiate(interfaceManager);
             }
+            DataHandler.getInstance().LoadConfig();
         }
 
         // Use this for initialization
