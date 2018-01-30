@@ -30,5 +30,8 @@ namespace Chojo.LAG.DataController {
             configData = ConfigLoader.LoadConfig();
             configLoaded = true;
         }
+        internal void ReloadConfigData() {
+            configData = ConfigLoader.LoadConfig();
+        }
     }
 }
