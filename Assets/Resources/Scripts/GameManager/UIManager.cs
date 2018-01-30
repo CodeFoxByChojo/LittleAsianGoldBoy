@@ -44,9 +44,13 @@ namespace Chojo.LAG.Manager {
         public Text upgradeBotPriceDisplay;
         public Text upgradeBotKnowledgeDisplay;
         public Text upgradeClickPriceDisplay;
-        public Text messageDisplay;
+        public Text messageDisplay0;
+        public Text messageDisplay1;
         public GameObject pauseScreen;
         public GameObject menuScreen;
+        public Text buyBotLicenceButton;
+        public Text buySubscriptionButton;
+        public Text learnButton;
 
 
         private void Awake() {
@@ -87,9 +91,14 @@ namespace Chojo.LAG.Manager {
             upgradeBotPriceDisplay = GameObject.Find("UpgradeBotPrice").GetComponent<Text>();
             upgradeClickPriceDisplay = GameObject.Find("UpgradeClickPrice").GetComponent<Text>();
             upgradeBotKnowledgeDisplay = GameObject.Find("UpgradeBotKnowledge").GetComponent<Text>();
-            messageDisplay = GameObject.Find("Message").GetComponent<Text>();
+            messageDisplay0 = GameObject.Find("Message0").GetComponent<Text>();
+            messageDisplay1 = GameObject.Find("Message1").GetComponent<Text>();
             pauseScreen = GameObject.Find("Pause");
             menuScreen = GameObject.Find("Menu");
+            buyBotLicenceButton = GameObject.Find("buyBotLicence").GetComponent<Text>();
+            buySubscriptionButton = GameObject.Find("buySubscription").GetComponent<Text>();
+            learnButton = GameObject.Find("Learn").GetComponent<Text>();
+
         }
 
         public static UIManager GetInstance() {
@@ -109,53 +118,57 @@ namespace Chojo.LAG.Manager {
                     }
                     if (type == Defines.ButtonType.UpgradeMoney) {
                         if (gameManager.GetCharacter().UpgradeClick()) {
-                            messageDisplay.text = "Upgrade Successful";
                         }
                     }
                     break;
                 case Defines.ButtonIdentiy.GoldSell:
                     if (type == Defines.ButtonType.Sell) {
                         int[] result = gameManager.GetCharacter().SellGold();
-                        messageDisplay.text = "You sold " + result[0].ToString() + " gold for " + result[1] + " $.";
+                        NewMessage("You sold " + result[0].ToString() + " gold for " + result[1] + " $.");
                     }
                     break;
                 case Defines.ButtonIdentiy.Mother:
                     if (type == Defines.ButtonType.Activate) {
-                        gameManager.GetCharacter().GetMother().GetMotherEvent().ActivateEvent();
-                        messageDisplay.text = "You doing some work for your Mother. You are busy now.";
+                        if (gameManager.GetCharacter().ActivateMotherEvent()) {
+                            NewMessage("You doing some work for your Mother. You are busy now.");
+                        }
                     }
                     break;
                 case Defines.ButtonIdentiy.Bot:
                     if (type == Defines.ButtonType.Buy) {
                         if (gameManager.GetEnvironment().BuyBot()) {
-                            messageDisplay.text = "You bought a new Bot Licence.";
+                            NewMessage("You bought a new Bot Licence.");
+                        } else {
+                            NewMessage("Purchase failed. Do you have enought money or space.");
                         }
-                        messageDisplay.text = "Purchase failed. Do you have enought money or space.";
                     }
                     if (type == Defines.ButtonType.UpgradeMoney) {
                         if (gameManager.GetEnvironment().UpgradeBot()) {
-                            messageDisplay.text = "You upgraded your bots. They are now more efficient.";
+                            NewMessage("You upgraded your bots. They are now more efficient.");
+                        } else {
+                            NewMessage("Upgrade failed. Do you have enought money? Sell some gold!");
                         }
-                        messageDisplay.text = "Upgrade failed. Do you have enought money? Sell some gold!";
                     }
                     if (type == Defines.ButtonType.UpgradeKnowledge) {
                         if (gameManager.GetEnvironment().UpgradeBotKnowledge()) {
-                            messageDisplay.text = "You upgraded your bots. They are now more efficient.";
+                            NewMessage("You upgraded your bots. They are now more efficient.");
+                        } else {
+                            NewMessage("Upgrade failed. Do you have enought knowledge? Go to school!");
                         }
-                        messageDisplay.text = "Upgrade failed. Do you have enought knowledge? Go to school!";
                     }
                     break;
                 case Defines.ButtonIdentiy.Subscriptions:
                     if (type == Defines.ButtonType.Buy) {
                         if (gameManager.GetEnvironment().BuySubscription()) {
-                            messageDisplay.text = "You bought a new subscription.";
+                            NewMessage("You bought a new subscription.");
                         }
                     }
                     if (type == Defines.ButtonType.Activate) {
                         if (gameManager.GetEnvironment().ToggleAutobuy()) {
-                            messageDisplay.text = "You toggled the autobuy function! Expired subscriptions are history now.";
+                            NewMessage("You toggled the autobuy function! Expired subscriptions are history now.");
+                        } else {
+                            NewMessage("You toggled the autobuy function! You wanna do it by yourself? Fine.");
                         }
-                        messageDisplay.text = "You toggled the autobuy function! You wanna do it by yourself? Fine.";
                     }
                     break;
                 case Defines.ButtonIdentiy.School: {
@@ -175,15 +188,15 @@ namespace Chojo.LAG.Manager {
             var computer = environment.GetComputer();
             if (identifier >= computer.Count) {
                 if (environment.BuyComputer()) {
-                    messageDisplay.text = "You bought a new computer.";
+                    NewMessage("You bought a new computer.");
                 } else {
-                    messageDisplay.text = "Purchase failed. Do you have enought money? Sell some gold!";
+                    NewMessage("Purchase failed. Do you have enought money? Sell some gold!");
                 }
             } else {
                 if (computer[identifier].UpgradeComputer()) {
-                    messageDisplay.text = "You upgraded your computer.";
+                    NewMessage("You upgraded your computer.");
                 } else {
-                    messageDisplay.text = "Upgrade failed. Do you have enought money? Sell some gold!";
+                    NewMessage("Upgrade failed. Do you have enought money? Sell some gold!");
                 }
             }
         }
@@ -197,7 +210,6 @@ namespace Chojo.LAG.Manager {
             menuScreen.SetActive(true);
         }
 
-        public void setMenuActive(bool menuactive, bool pauseactive) {
             menuScreen.SetActive(menuactive);
             pauseScreen.SetActive(pauseactive);
 
@@ -206,9 +218,7 @@ namespace Chojo.LAG.Manager {
         // Update is called once per frame
         void Update() {
             UpdateTime();
-            UpdateMoney();
-            UpdateGold();
-            UpdateGoldPrice();
+            UpdateFinances();
             UpdateMother();
             UpdateComputer();
             UpdateBots();
@@ -222,12 +232,11 @@ namespace Chojo.LAG.Manager {
             if (gameManager.GetCharacter().IsCharacterLearning()
                             || gameManager.GetCharacter().IsCharacterWorking()
                             || gameManager.GetCharacter().GetMother().IsCharacterPenalized()) {
-                messageDisplay.text = busy;
-            } else {
-                if (messageDisplay.text == busy) {
-                    messageDisplay.text = "You are no longer busy";
-                }
+                NewMessage(busy);
+            } else if (messageDisplay0.text == busy) {
+                NewMessage("You are no longer busy");
             }
+
         }
 
         private void UpdateUpgrade() {
@@ -238,7 +247,7 @@ namespace Chojo.LAG.Manager {
 
         private void UpdateSchool() {
             if (gameManager.GetCharacter().IsCharacterLearning() != true) {
-                learnDisplay.text = "Learn 8 hours";
+                learnDisplay.text = "Learn "+ gameManager.GetConfigData().SchoolDuration + " hours";
             } else {
                 learnDisplay.text = gameManager.GetCharacter().GetLearnDuration().ToString();
             }
@@ -254,6 +263,9 @@ namespace Chojo.LAG.Manager {
             } else {
                 autobuyDisplay.text = "Subscription Autobuy off";
             }
+            buyBotLicenceButton.text = "Buy Bot Licence (" + gameManager.GetConfigData().BotLicenseCost + "$)";
+            buySubscriptionButton.text = "Buy Subscription (" + gameManager.GetConfigData().SubscriptionPrice + "$)";
+
         }
 
         private void UpdateComputer() {
@@ -348,25 +360,23 @@ namespace Chojo.LAG.Manager {
             supportPointsDisplay.text = mother.GetKarma() + "/100";
         }
 
-        private void UpdateGoldPrice() {
             float a = gameManager.GetGameState().GetCurrentGoldPrice();
             int b = (int)(a * 100);
             a = (float)b;
             goldPriceDisplay.text = "" + a / 100;
-        }
-
-        private void UpdateGold() {
             goldDisplay.text = "" + gameManager.GetCharacter().GetGold();
-        }
-
-        private void UpdateMoney() {
             moneyDisplay.text = gameManager.GetCharacter().GetMoney() + " $";
+
         }
 
         private void UpdateTime() {
             gameManager = GameManager.GetInstance();
             int[] time = gameManager.GetGameState().GetCurrentTime();
             timeDisplay.text = "Day: " + time[0] + " Hour: " + time[1];
+        }
+        private void NewMessage(string message) {
+            messageDisplay1.text = messageDisplay0.text;
+            messageDisplay0.text = message;
         }
     }
 }
