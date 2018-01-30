@@ -170,6 +170,8 @@ namespace Chojo.LAG.Manager {
                     if (type == Defines.ButtonType.Buy) {
                         if (gameManager.GetEnvironment().BuySubscription()) {
                             NewMessage("You bought a new subscription.");
+                        } else {
+                            NewMessage("Purchase failed. Do you have enought money or space.");
                         }
                     }
                     if (type == Defines.ButtonType.Activate) {
