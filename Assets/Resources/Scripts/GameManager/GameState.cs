@@ -52,6 +52,11 @@ namespace Chojo.LAG.Manager {
         public float GetCurrentGoldPrice() {
             return currentGoldPrice;
         }
+
+        /// <summary>
+        /// Calculates the gold price with a random rande. Depends on a sin graph.
+        /// </summary>
+        /// <returns></returns>
         private float CalculateGoldPrice() {
             count = count + ((float)(UnityEngine.Random.Range(0, 50)) / 100);
 
