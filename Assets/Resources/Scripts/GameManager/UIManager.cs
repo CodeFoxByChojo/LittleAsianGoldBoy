@@ -14,8 +14,6 @@ namespace Chojo.LAG.Manager {
 
         private GameManager gameManager = GameManager.GetInstance();
 
-        private int sellGoldAmount;
-
         public Text timeDisplay;
         public Text moneyDisplay;
         public Text goldDisplay;
@@ -134,7 +132,7 @@ namespace Chojo.LAG.Manager {
                     break;
                 case Defines.ButtonIdentiy.GoldSell:
                     if (type == Defines.ButtonType.Sell) {
-                        int[] result = gameManager.GetCharacter().SellGold();
+                        long[] result = gameManager.GetCharacter().SellGold();
                         NewMessage("You sold " + result[0].ToString() + " gold for " + result[1] + " $.");
                     }
                     break;

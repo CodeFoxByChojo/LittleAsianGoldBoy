@@ -17,8 +17,8 @@ namespace Chojo.LAG.CharacterController {
         private School school = School.GetInstance();
 
         private int knowledge = 0;
-        private int gold = 0;
-        private int money = 0;
+        private long gold = 0;
+        private long money = 0;
         private int clickLevel = 1;
 
         private Character() {
@@ -57,7 +57,7 @@ namespace Chojo.LAG.CharacterController {
             return school.IsSchoolActive();
         }
 
-        public int GetMoney() {
+        public long GetMoney() {
             return money;
         }
 
@@ -74,11 +74,11 @@ namespace Chojo.LAG.CharacterController {
         }
 
 
-        internal void SetMoney(int value) {
+        internal void SetMoney(long value) {
             money = value;
         }
 
-        internal void SetGold(int value) {
+        internal void SetGold(long value) {
             gold = value;
         }
 
@@ -156,17 +156,18 @@ namespace Chojo.LAG.CharacterController {
         /// Method of Character, which sells all the gold of the player and adds the money to the money of the Character obeject.
         /// </summary>
         /// <returns>Returns the Amount of gold sold and the recieved Money as an int[]</returns>
-        public int[] SellGold() {
+        public long[] SellGold() {
             float a = gold * gameManager.GetGameState().GetCurrentGoldPrice();
-            int b = (int)(a * 100);
+            a = a * 100;
+            long b = (long)a;
             b = (b / 10000);
-            int[] result = { gold, b };
+            long[] result = { gold, b };
             money = money + b;
             gold = 0;
-            return result;
+                return result;
         }
 
-        public int GetGold() {
+        public long GetGold() {
             return gold;
         }
 

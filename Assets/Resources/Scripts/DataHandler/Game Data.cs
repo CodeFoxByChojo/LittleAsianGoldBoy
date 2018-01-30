@@ -25,8 +25,8 @@ namespace Chojo.LAG.DataController {
         int subscriptionAmount = 0;
 
         //Character
-        int money = 0;
-        int gold = 0;
+        long money = 0;
+        long gold = 0;
         int knowledge = 0;
         int clickLevel = 1;
         //Mother
@@ -101,7 +101,7 @@ namespace Chojo.LAG.DataController {
             }
         }
 
-        public int Money {
+        public long Money {
             get {
                 return money;
             }
@@ -111,7 +111,7 @@ namespace Chojo.LAG.DataController {
             }
         }
 
-        public int Gold {
+        public long Gold {
             get {
                 return gold;
             }
