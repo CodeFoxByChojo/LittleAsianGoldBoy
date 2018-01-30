@@ -53,7 +53,7 @@ namespace Chojo.LAG.CharacterController {
             return money;
         }
 
-        public void AddMoney( int amount) {
+        public void AddMoney(int amount) {
             money = money + amount;
         }
 
@@ -81,7 +81,7 @@ namespace Chojo.LAG.CharacterController {
         public bool TakeMoney(int amount) {
             if (amount > money) {
                 return false;
-            }else {
+            } else {
                 money = money - amount;
                 return true;
             }
@@ -122,7 +122,7 @@ namespace Chojo.LAG.CharacterController {
             float a = gold * gameManager.GetGameState().GetCurrentGoldPrice();
             int b = (int)(a * 100);
             b = (b / 10000);
-            int[] result = { gold, b};
+            int[] result = { gold, b };
             money = money + b;
             gold = 0;
             return result;
