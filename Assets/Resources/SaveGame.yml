@@ -2,9 +2,12 @@ Computerlist:
 - Level: 1
 BotLevel: 1
 BotKnowledgeLevel: 1
+Money: 63
 ClickLevel: 1
-Karma: 50
+Karma: 40
 MotherEvent: {}
-Count: 2
-CurrentHour: 8
+Count: 9
+CurrentHour: 12
+CurrentDay: 1
+BotAmount: 1
 

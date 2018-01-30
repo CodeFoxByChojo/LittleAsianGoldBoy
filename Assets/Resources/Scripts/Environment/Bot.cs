@@ -13,7 +13,7 @@ namespace Chojo.LAG.Environments {
 
         private GameManager gameManager = GameManager.GetInstance();
 
-        private int licenceDuration;
+        private int licenceDuration = 0;
 
         public bool OneHourPassed() {
             licenceDuration = licenceDuration - 1;
