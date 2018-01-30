@@ -32,7 +32,7 @@ namespace Chojo.LAG.Manager {
             if (currentHour == 0) {
                 currentDay += 1;
             }
-            currentGoldPrice = (float)calculateGoldPrice();
+            currentGoldPrice = (float)CalculateGoldPrice();
 
         }
 
@@ -49,7 +49,7 @@ namespace Chojo.LAG.Manager {
         public float GetCurrentGoldPrice() {
             return currentGoldPrice;
         }
-        private float calculateGoldPrice() {
+        private float CalculateGoldPrice() {
             count = count + ((float)(UnityEngine.Random.Range(0, 50)) / 100);
 
             float a = (float)Math.Sin(count);
