@@ -13,19 +13,19 @@ namespace Chojo.LAG.DataController {
 
         private ConfigHandler() { }
 
-        public static ConfigHandler getInstance() {
+        public static ConfigHandler GetInstance() {
             if ( instance == null) {
                 instance = new ConfigHandler();
             }
             return instance;
         }
 
-        public ConfigData getConfigData() {
-            loadConfigData();
+        public ConfigData GetConfigData() {
+            LoadConfigData();
             return configData;
         }
 
-        private void loadConfigData() {
+        public void LoadConfigData() {
             if (configLoaded) return;
             configData = ConfigLoader.LoadConfig();
             configLoaded = true;
