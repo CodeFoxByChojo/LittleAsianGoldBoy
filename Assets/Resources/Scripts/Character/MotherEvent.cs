@@ -1,49 +1,62 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Chojo.LAG.Manager;
 using UnityEngine;
-using Chojo.LAG.Manager;
 
-namespace Chojo.LAG.CharacterController {
+namespace Chojo.LAG.CharacterController
+{
     /// <summary>
-    /// MotherEvent is a class which creates a random event on creation.
+    ///     MotherEvent is a class which creates a random event on creation.
     /// </summary>
-    public class MotherEvent {
-        private string[] tasknames = { "make the dishes", "trash", "clean up your room", "cook" };
+    public class MotherEvent
+    {
+        private static readonly GameManager gameManager = GameManager.GetInstance();
         private int duration;
-        private int waitDuration;
-        private string taskname;
-        private bool eventActive = false;
-        private static GameManager gameManager = GameManager.GetInstance();
+        private bool eventActive;
+        private readonly string taskname;
+        private readonly string[] tasknames = {"make the dishes", "trash", "clean up your room", "cook"};
+        private readonly int waitDuration;
 
 
         /// <summary>
-        /// Constructor of Mother Event. Generates a random event.
+        ///     Constructor of Mother Event. Generates a random event.
         /// </summary>
-        public MotherEvent() {
-            int rand = Random.Range(0, tasknames.Length);
+        public MotherEvent()
+        {
+            var rand = Random.Range(0, tasknames.Length);
             taskname = tasknames[rand];
-            duration = Random.Range(gameManager.GetConfigData().MinMotherTaskDuration, gameManager.GetConfigData().MaxMotherTaskDuration);
-            waitDuration = Random.Range(gameManager.GetConfigData().MinMotherWaitDuration, gameManager.GetConfigData().MaxMotherWaitDuration);
+            duration = Random.Range(gameManager.GetConfigData().MinMotherTaskDuration,
+                gameManager.GetConfigData().MaxMotherTaskDuration);
+            waitDuration = Random.Range(gameManager.GetConfigData().MinMotherWaitDuration,
+                gameManager.GetConfigData().MaxMotherWaitDuration);
         }
 
-        public int GetWaitDuration() {
+        public int GetWaitDuration()
+        {
             return waitDuration;
         }
-        public int GetDuration() {
+
+        public int GetDuration()
+        {
             return duration;
         }
-        public string GetTaskName() {
+
+        public string GetTaskName()
+        {
             return taskname;
         }
-        public bool IsEventActive() {
+
+        public bool IsEventActive()
+        {
             return eventActive;
         }
-        public void ActivateEvent() {
+
+        public void ActivateEvent()
+        {
             eventActive = true;
         }
 
         //Methode zum herabsetzen der duration.
-        public void OneHourPassed() {
+        public void OneHourPassed()
+        {
             duration = duration - 1;
         }
     }

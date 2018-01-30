@@ -1,65 +1,63 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace Chojo.LAG.Manager {
+namespace Chojo.LAG.Manager
+{
     /// <summary>
-    /// Handles the interface. Updates every display every frame.
+    ///     Handles the interface. Updates every display every frame.
     /// </summary>
-    public class UIManager : MonoBehaviour {
-
-        private static UIManager instance = null;
-
-        private GameManager gameManager = GameManager.GetInstance();
-
-        public Text timeDisplay;
-        public Text moneyDisplay;
-        public Text goldDisplay;
-        public Text goldPriceDisplay;
-        public Text taskNameDisplay;
-        public Text taskDurationDisplay;
-        public Text waitDurationDisplay;
-        public Text supportPointsDisplay;
-        public Text pc0Level;
-        public Text pc1Level;
-        public Text pc2Level;
-        public Text pc3Level;
-        public Text pc4Level;
-        public Text pc0Upgrade;
-        public Text pc1Upgrade;
-        public Text pc2Upgrade;
-        public Text pc3Upgrade;
-        public Text pc4Upgrade;
-        public Text pc0UpgradePrice;
-        public Text pc1UpgradePrice;
-        public Text pc2UpgradePrice;
-        public Text pc3UpgradePrice;
-        public Text pc4UpgradePrice;
-        public Text botLicenceAmountDisplay;
-        public Text subscriptionsDisplay;
+    public class UIManager : MonoBehaviour
+    {
+        private static UIManager instance;
         public Text autobuyDisplay;
-        public Text knowledgeDisplay;
-        public Text learnDisplay;
-        public Text upgradeBotPriceDisplay;
-        public Text upgradeBotKnowledgeDisplay;
-        public Text upgradeClickPriceDisplay;
-        public Text messageDisplay0;
-        public Text messageDisplay1;
-        public GameObject pauseScreen;
-        public GameObject menuScreen;
+        public Text botLicenceAmountDisplay;
         public Text buyBotLicenceButton;
         public Text buySubscriptionButton;
+
+        private GameManager gameManager = GameManager.GetInstance();
+        public Text goldDisplay;
+        public Text goldPriceDisplay;
+        public Text knowledgeDisplay;
         public Text learnButton;
+        public Text learnDisplay;
+        public GameObject menuScreen;
+        public Text messageDisplay0;
+        public Text messageDisplay1;
+        public Text moneyDisplay;
+        public GameObject pauseScreen;
+        public Text pc0Level;
+        public Text pc0Upgrade;
+        public Text pc0UpgradePrice;
+        public Text pc1Level;
+        public Text pc1Upgrade;
+        public Text pc1UpgradePrice;
+        public Text pc2Level;
+        public Text pc2Upgrade;
+        public Text pc2UpgradePrice;
+        public Text pc3Level;
+        public Text pc3Upgrade;
+        public Text pc3UpgradePrice;
+        public Text pc4Level;
+        public Text pc4Upgrade;
+        public Text pc4UpgradePrice;
+        public Text subscriptionsDisplay;
+        public Text supportPointsDisplay;
+        public Text taskDurationDisplay;
+        public Text taskNameDisplay;
+
+        public Text timeDisplay;
+        public Text upgradeBotKnowledgeDisplay;
+        public Text upgradeBotPriceDisplay;
+        public Text upgradeClickPriceDisplay;
+        public Text waitDurationDisplay;
 
 
-        private void Awake() {
-            if (instance == null) {
+        private void Awake()
+        {
+            if (instance == null)
                 instance = this;
-            } else if (instance != this) {
+            else if (instance != this)
                 Destroy(gameObject);
-            }
             DontDestroyOnLoad(gameObject);
             timeDisplay = GameObject.Find("DateTime").GetComponent<Text>();
             moneyDisplay = GameObject.Find("Money").GetComponent<Text>();
@@ -99,95 +97,82 @@ namespace Chojo.LAG.Manager {
             buyBotLicenceButton = GameObject.Find("buyBotLicence").GetComponent<Text>();
             buySubscriptionButton = GameObject.Find("buySubscription").GetComponent<Text>();
             learnButton = GameObject.Find("Learn").GetComponent<Text>();
-
         }
 
-        public static UIManager GetInstance() {
+        public static UIManager GetInstance()
+        {
             return instance;
         }
 
-        public bool IsPauseScreenActive() {
+        public bool IsPauseScreenActive()
+        {
             return pauseScreen.activeInHierarchy;
         }
 
         /// <summary>
-        /// Method of UIMangager, which gets called by the ButtonHandler class.
+        ///     Method of UIMangager, which gets called by the ButtonHandler class.
         /// </summary>
         /// <param name="identity">Identity of the Button which is clicked.</param>
         /// <param name="type">Type of action of the Button which is clicked</param>
-        internal void ButtonClickedEvent(Defines.ButtonIdentiy identity, Defines.ButtonType type) {
-            switch (identity) {
+        internal void ButtonClickedEvent(Defines.ButtonIdentiy identity, Defines.ButtonType type)
+        {
+            switch (identity)
+            {
                 case Defines.ButtonIdentiy.Gold:
-                    if (type == Defines.ButtonType.Activate) {
-                        gameManager.GetCharacter().CharacterGoldClick();
-                    }
-                    if (type == Defines.ButtonType.UpgradeMoney) {
-                        if (gameManager.GetCharacter().UpgradeClick()) {
-
+                    if (type == Defines.ButtonType.Activate) gameManager.GetCharacter().CharacterGoldClick();
+                    if (type == Defines.ButtonType.UpgradeMoney)
+                        if (gameManager.GetCharacter().UpgradeClick())
                             NewMessage("Upgrade Successful");
-                        } else {
+                        else
                             NewMessage("Upgrade failed. Do you have enought money?");
-                        }
-                    }
                     break;
                 case Defines.ButtonIdentiy.GoldSell:
-                    if (type == Defines.ButtonType.Sell) {
-                        long[] result = gameManager.GetCharacter().SellGold();
-                        NewMessage("You sold " + result[0].ToString() + " gold for " + result[1] + " $.");
+                    if (type == Defines.ButtonType.Sell)
+                    {
+                        var result = gameManager.GetCharacter().SellGold();
+                        NewMessage("You sold " + result[0] + " gold for " + result[1] + " $.");
                     }
+
                     break;
                 case Defines.ButtonIdentiy.Mother:
-                    if (type == Defines.ButtonType.Activate) {
-                        if (gameManager.GetCharacter().ActivateMotherEvent()) {
+                    if (type == Defines.ButtonType.Activate)
+                        if (gameManager.GetCharacter().ActivateMotherEvent())
                             NewMessage("You doing some work for your Mother. You are busy now.");
-                        }
-                    }
                     break;
                 case Defines.ButtonIdentiy.Bot:
-                    if (type == Defines.ButtonType.Buy) {
-                        if (gameManager.GetEnvironment().BuyBot()) {
+                    if (type == Defines.ButtonType.Buy)
+                        if (gameManager.GetEnvironment().BuyBot())
                             NewMessage("You bought a new Bot Licence.");
-                        } else {
+                        else
                             NewMessage("Purchase failed. Do you have enought money or space.");
-                        }
-                    }
-                    if (type == Defines.ButtonType.UpgradeMoney) {
-                        if (gameManager.GetEnvironment().UpgradeBot()) {
+                    if (type == Defines.ButtonType.UpgradeMoney)
+                        if (gameManager.GetEnvironment().UpgradeBot())
                             NewMessage("You upgraded your bots. They are now more efficient.");
-                        } else {
+                        else
                             NewMessage("Upgrade failed. Do you have enought money? Sell some gold!");
-                        }
-                    }
-                    if (type == Defines.ButtonType.UpgradeKnowledge) {
-                        if (gameManager.GetEnvironment().UpgradeBotKnowledge()) {
+                    if (type == Defines.ButtonType.UpgradeKnowledge)
+                        if (gameManager.GetEnvironment().UpgradeBotKnowledge())
                             NewMessage("You upgraded your bots. They are now more efficient.");
-                        } else {
+                        else
                             NewMessage("Upgrade failed. Do you have enought knowledge? Go to school!");
-                        }
-                    }
                     break;
                 case Defines.ButtonIdentiy.Subscriptions:
-                    if (type == Defines.ButtonType.Buy) {
-                        if (gameManager.GetEnvironment().BuySubscription()) {
+                    if (type == Defines.ButtonType.Buy)
+                        if (gameManager.GetEnvironment().BuySubscription())
                             NewMessage("You bought a new subscription.");
-                        } else {
+                        else
                             NewMessage("Purchase failed. Do you have enought money or space.");
-                        }
-                    }
-                    if (type == Defines.ButtonType.Activate) {
-                        if (gameManager.GetEnvironment().ToggleAutobuy()) {
+                    if (type == Defines.ButtonType.Activate)
+                        if (gameManager.GetEnvironment().ToggleAutobuy())
                             NewMessage("You toggled the autobuy function! Expired subscriptions are history now.");
-                        } else {
+                        else
                             NewMessage("You toggled the autobuy function! You wanna do it by yourself? Fine.");
-                        }
-                    }
                     break;
-                case Defines.ButtonIdentiy.School: {
-                        if (type == Defines.ButtonType.Activate) {
-                            gameManager.GetCharacter().ToggleSchool();
-                        }
-                        break;
-                    }
+                case Defines.ButtonIdentiy.School:
+                {
+                    if (type == Defines.ButtonType.Activate) gameManager.GetCharacter().ToggleSchool();
+                    break;
+                }
                 default:
                     Debug.Log("Not a vaild combination");
                     break;
@@ -195,31 +180,34 @@ namespace Chojo.LAG.Manager {
         }
 
         /// <summary>
-        /// Method of UIMangager, which gets called by the ButtonHandler class. Only if a computer is the Button Identity.
+        ///     Method of UIMangager, which gets called by the ButtonHandler class. Only if a computer is the Button Identity.
         /// </summary>
         /// <param name="identity">Identity of the Button which is clicked.</param>
         /// <param name="type">Type of action of the Button which is clicked</param>
         /// <param name="identifier">ID of the computer</param>
-        internal void ButtonClickedEvent(Defines.ButtonIdentiy identity, Defines.ButtonType type, int identifier) {
+        internal void ButtonClickedEvent(Defines.ButtonIdentiy identity, Defines.ButtonType type, int identifier)
+        {
             var environment = gameManager.GetEnvironment();
             var computer = environment.GetComputer();
-            if (identifier >= computer.Count) {
-                if (environment.BuyComputer()) {
+            if (identifier >= computer.Count)
+            {
+                if (environment.BuyComputer())
                     NewMessage("You bought a new computer.");
-                } else {
+                else
                     NewMessage("Purchase failed. Do you have enought money? Sell some gold!");
-                }
-            } else {
-                if (computer[identifier].UpgradeComputer()) {
+            }
+            else
+            {
+                if (computer[identifier].UpgradeComputer())
                     NewMessage("You upgraded your computer.");
-                } else {
+                else
                     NewMessage("Upgrade failed. Do you have enought money? Sell some gold!");
-                }
             }
         }
 
         // Use this for initialization
-        void Start() {
+        private void Start()
+        {
             gameManager = GameManager.GetInstance();
             pauseScreen.SetActive(false);
             menuScreen.SetActive(true);
@@ -228,18 +216,19 @@ namespace Chojo.LAG.Manager {
         }
 
         /// <summary>
-        /// Method of UIManager class. Toggles the pause and main menu.
+        ///     Method of UIManager class. Toggles the pause and main menu.
         /// </summary>
         /// <param name="menuactive">Menu active?</param>
         /// <param name="pauseactive">Pause active?</param>
-        public void SetMenuActive(bool menuactive, bool pauseactive) {
+        public void SetMenuActive(bool menuactive, bool pauseactive)
+        {
             menuScreen.SetActive(menuactive);
             pauseScreen.SetActive(pauseactive);
-
         }
 
         // Update is called once per frame
-        void Update() {
+        private void Update()
+        {
             UpdateTime();
             UpdateFinances();
             UpdateMother();
@@ -251,183 +240,232 @@ namespace Chojo.LAG.Manager {
         }
 
         /// <summary>
-        /// Update method to update the update messages. 
+        ///     Update method to update the update messages.
         /// </summary>
-        private void UpdateMessage() {
-            string busy = "You are busy.";
+        private void UpdateMessage()
+        {
+            var busy = "You are busy.";
             if (gameManager.GetCharacter().IsCharacterLearning()
-                            || gameManager.GetCharacter().IsCharacterWorking()
-                            || gameManager.GetCharacter().GetMother().IsCharacterPenalized()) {
+                || gameManager.GetCharacter().IsCharacterWorking()
+                || gameManager.GetCharacter().GetMother().IsCharacterPenalized())
                 NewMessage(busy);
-            } else if (messageDisplay0.text == busy) {
+            else if (messageDisplay0.text == busy)
                 NewMessage("You are no longer busy");
-            }
-
         }
 
         /// <summary>
-        /// Update method to update the upgrade section. 
+        ///     Update method to update the upgrade section.
         /// </summary>
-        private void UpdateUpgrade() {
-            upgradeBotPriceDisplay.text = gameManager.GetUpgradeCost(gameManager.GetEnvironment().GetBotLevel(), gameManager.GetConfigData().BotLicenseCost) + " $";
-            upgradeClickPriceDisplay.text = gameManager.GetUpgradeCost(gameManager.GetCharacter().GetClickLevel(), gameManager.GetConfigData().ClickBaseCost) + " $";
-            upgradeBotKnowledgeDisplay.text = gameManager.GetKnowledgeCost(gameManager.GetEnvironment().GetBotKnowledgeLevel(), gameManager.GetConfigData().BotKnowledgeCost) + " Knowledge";
+        private void UpdateUpgrade()
+        {
+            upgradeBotPriceDisplay.text = gameManager.GetUpgradeCost(gameManager.GetEnvironment().GetBotLevel(),
+                                              gameManager.GetConfigData().BotLicenseCost) + " $";
+            upgradeClickPriceDisplay.text = gameManager.GetUpgradeCost(gameManager.GetCharacter().GetClickLevel(),
+                                                gameManager.GetConfigData().ClickBaseCost) + " $";
+            upgradeBotKnowledgeDisplay.text =
+                gameManager.GetKnowledgeCost(gameManager.GetEnvironment().GetBotKnowledgeLevel(),
+                    gameManager.GetConfigData().BotKnowledgeCost) + " Knowledge";
         }
 
         /// <summary>
-        /// Update method to update the school section.
+        ///     Update method to update the school section.
         /// </summary>
-        private void UpdateSchool() {
-            if (gameManager.GetCharacter().IsCharacterLearning() != true) {
-                learnDisplay.text = "Learn "+ gameManager.GetConfigData().SchoolDuration + " hours";
-            } else {
+        private void UpdateSchool()
+        {
+            if (gameManager.GetCharacter().IsCharacterLearning() != true)
+                learnDisplay.text = "Learn " + gameManager.GetConfigData().SchoolDuration + " hours";
+            else
                 learnDisplay.text = gameManager.GetCharacter().GetLearnDuration().ToString();
-            }
             knowledgeDisplay.text = "Knowledge: " + gameManager.GetCharacter().GetKnowledge();
         }
 
         /// <summary>
-        /// Update method to update the bot section.
+        ///     Update method to update the bot section.
         /// </summary>
-        private void UpdateBots() {
+        private void UpdateBots()
+        {
             var environmentTemp = gameManager.GetEnvironment();
-            botLicenceAmountDisplay.text = "Bot Licences: " + environmentTemp.GetBotAmount() + "/" + environmentTemp.GetMaxBotAmount();
-            subscriptionsDisplay.text = "Subscriptions: " + environmentTemp.GetSubscriptionsAmount() + "/" + environmentTemp.GetMaxSubscriptions();
-            if (environmentTemp.IsAutobuActive()) {
+            botLicenceAmountDisplay.text = "Bot Licences: " + environmentTemp.GetBotAmount() + "/" +
+                                           environmentTemp.GetMaxBotAmount();
+            subscriptionsDisplay.text = "Subscriptions: " + environmentTemp.GetSubscriptionsAmount() + "/" +
+                                        environmentTemp.GetMaxSubscriptions();
+            if (environmentTemp.IsAutobuActive())
                 autobuyDisplay.text = "Subscription Autobuy on";
-            } else {
+            else
                 autobuyDisplay.text = "Subscription Autobuy off";
-            }
             buyBotLicenceButton.text = "Buy Bot Licence (" + gameManager.GetConfigData().BotLicenseCost + "$)";
             buySubscriptionButton.text = "Buy Subscription (" + gameManager.GetConfigData().SubscriptionPrice + "$)";
-
         }
 
         /// <summary>
-        /// Update method to update the computer section.
+        ///     Update method to update the computer section.
         /// </summary>
-        private void UpdateComputer() {
+        private void UpdateComputer()
+        {
             gameManager = GameManager.GetInstance();
             var tempConfigData = gameManager.GetConfigData();
             var pclist = gameManager.GetEnvironment().GetComputer();
             //Computer 0
-            if (pclist[0] != null) {
-                if (pclist[0].GetLevel() != 5) {
+            if (pclist[0] != null)
+            {
+                if (pclist[0].GetLevel() != 5)
+                {
                     pc0UpgradePrice.text = pclist[0].GetUpgradePrice() + " $";
                     pc0Upgrade.text = "Upgrade";
-                } else {
+                }
+                else
+                {
                     pc0UpgradePrice.text = "Maximum";
                     pc0Upgrade.text = "High End";
                 }
+
                 pc0Level.text = "Level : " + pclist[0].GetLevel() + "/5";
             }
+
             //Computer 1
-            if (pclist.Count > 1) {
-                if (pclist[1].GetLevel() != 5) {
+            if (pclist.Count > 1)
+            {
+                if (pclist[1].GetLevel() != 5)
+                {
                     pc1UpgradePrice.text = pclist[1].GetUpgradePrice() + " $";
                     pc1Upgrade.text = "Upgrade";
-                } else {
+                }
+                else
+                {
                     pc1UpgradePrice.text = "Maximum";
                     pc1Upgrade.text = "High End";
                 }
+
                 pc1Level.text = "Level : " + pclist[1].GetLevel() + "/5";
-            } else {
+            }
+            else
+            {
                 pc1UpgradePrice.text = tempConfigData.ComputerPrice + " $";
                 pc1Upgrade.text = "Buy";
             }
+
             //Computer 2
-            if (pclist.Count > 2) {
-                if (pclist[2].GetLevel() != 5) {
+            if (pclist.Count > 2)
+            {
+                if (pclist[2].GetLevel() != 5)
+                {
                     pc2UpgradePrice.text = pclist[2].GetUpgradePrice() + " $";
                     pc2Upgrade.text = "Upgrade";
-                } else {
+                }
+                else
+                {
                     pc2UpgradePrice.text = "Maximum";
                     pc2Upgrade.text = "High End";
                 }
+
                 pc2Level.text = "Level : " + pclist[2].GetLevel() + "/5";
-            } else {
+            }
+            else
+            {
                 pc2UpgradePrice.text = tempConfigData.ComputerPrice + " $";
                 pc2Upgrade.text = "Buy";
             }
+
             //Computer 3
-            if (pclist.Count > 3) {
-                if (pclist[3].GetLevel() != 5) {
+            if (pclist.Count > 3)
+            {
+                if (pclist[3].GetLevel() != 5)
+                {
                     pc3UpgradePrice.text = pclist[3].GetUpgradePrice() + " $";
                     pc3Upgrade.text = "Upgrade";
-                } else {
+                }
+                else
+                {
                     pc3UpgradePrice.text = "Maximum";
                     pc3Upgrade.text = "High End";
                 }
+
                 pc3Level.text = "Level : " + pclist[3].GetLevel() + "/5";
-            } else {
+            }
+            else
+            {
                 pc3UpgradePrice.text = tempConfigData.ComputerPrice + " $";
                 pc3Upgrade.text = "Buy";
             }
+
             //Computer 4
-            if (pclist.Count > 4) {
-                if (pclist[4].GetLevel() != 5) {
+            if (pclist.Count > 4)
+            {
+                if (pclist[4].GetLevel() != 5)
+                {
                     pc4UpgradePrice.text = pclist[4].GetUpgradePrice() + " $";
                     pc4Upgrade.text = "Upgrade";
-                } else {
+                }
+                else
+                {
                     pc4UpgradePrice.text = "Maximum";
                     pc4Upgrade.text = "High End";
                 }
+
                 pc4Level.text = "Level : " + pclist[4].GetLevel() + "/5";
-            } else {
+            }
+            else
+            {
                 pc4UpgradePrice.text = tempConfigData.ComputerPrice + " $";
                 pc4Upgrade.text = "Buy";
             }
         }
 
         /// <summary>
-        /// Update method to update the mother section.
+        ///     Update method to update the mother section.
         /// </summary>
-        private void UpdateMother() {
+        private void UpdateMother()
+        {
             var mother = gameManager.GetCharacter().GetMother();
-            if (gameManager.GetCharacter().GetMother().GetMotherEvent() != null) {
+            if (gameManager.GetCharacter().GetMother().GetMotherEvent() != null)
+            {
                 taskNameDisplay.text = mother.GetMotherEvent().GetTaskName();
                 taskDurationDisplay.text = mother.GetMotherEvent().GetDuration().ToString();
                 var a = mother.GetMotherTaskWaitDuration();
-                if (mother.GetMotherEvent().IsEventActive()) {
+                if (mother.GetMotherEvent().IsEventActive())
                     waitDurationDisplay.text = "active";
-                } else {
+                else
                     waitDurationDisplay.text = a.ToString();
-                }
-            } else {
+            }
+            else
+            {
                 taskNameDisplay.text = "";
                 taskDurationDisplay.text = "";
                 waitDurationDisplay.text = "";
             }
+
             supportPointsDisplay.text = mother.GetKarma() + "/100";
         }
 
         /// <summary>
-        /// Update method to update the finances section.
+        ///     Update method to update the finances section.
         /// </summary>
-        private void UpdateFinances() {
-            float a = gameManager.GetGameState().GetCurrentGoldPrice();
-            int b = (int)(a * 100);
-            a = (float)b;
+        private void UpdateFinances()
+        {
+            var a = gameManager.GetGameState().GetCurrentGoldPrice();
+            var b = (int) (a * 100);
+            a = b;
             goldPriceDisplay.text = "" + a / 100;
             goldDisplay.text = "" + gameManager.GetCharacter().GetGold();
             moneyDisplay.text = gameManager.GetCharacter().GetMoney() + " $";
-
         }
 
         /// <summary>
-        /// Update method to update the time.
+        ///     Update method to update the time.
         /// </summary>
-        private void UpdateTime() {
+        private void UpdateTime()
+        {
             gameManager = GameManager.GetInstance();
-            int[] time = gameManager.GetGameState().GetCurrentTime();
+            var time = gameManager.GetGameState().GetCurrentTime();
             timeDisplay.text = "Day: " + time[0] + " Hour: " + time[1];
         }
 
         /// <summary>
-        /// update the Message Section.
+        ///     update the Message Section.
         /// </summary>
         /// <param name="message"></param>
-        private void NewMessage(string message) {
+        private void NewMessage(string message)
+        {
             messageDisplay1.text = messageDisplay0.text;
             messageDisplay0.text = message;
         }

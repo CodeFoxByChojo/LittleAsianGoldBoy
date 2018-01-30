@@ -1,28 +1,26 @@
-﻿using System;
-using System.Text;
-using System.IO;
-using System.Collections.Generic;
+﻿using System.IO;
 using UnityEngine;
-using YamlDotNet.RepresentationModel;
-using YamlDotNet.Samples.Helpers;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 
-namespace Chojo.LAG.DataController {
+namespace Chojo.LAG.DataController
+{
     /// <summary>
-    /// The SaveGames class saves a game and loads the last saved game.
+    ///     The SaveGames class saves a game and loads the last saved game.
     /// </summary>
-    public class SaveGames {
-
+    public class SaveGames
+    {
         /// <summary>
-        /// Load the last game from the SafeGame.yml
+        ///     Load the last game from the SafeGame.yml
         /// </summary>
         /// <returns>Returns the GameData of the last saved Game</returns>
-        public static GameData LoadGame() {
+        public static GameData LoadGame()
+        {
             string content;
 
             //Load yml
-            using (StreamReader sr = new StreamReader("assets/Resources/SaveGame.yml")) {
+            using (var sr = new StreamReader("assets/Resources/SaveGame.yml"))
+            {
                 content = sr.ReadToEnd();
             }
 
@@ -36,22 +34,26 @@ namespace Chojo.LAG.DataController {
         }
 
         /// <summary>
-        /// Saves the game to the SaveGame.yml
+        ///     Saves the game to the SaveGame.yml
         /// </summary>
-        public static void SaveGame() {
-            using(StreamWriter writer = new StreamWriter("assets/Resources/SaveGame.yml")) {
+        public static void SaveGame()
+        {
+            using (var writer = new StreamWriter("assets/Resources/SaveGame.yml"))
+            {
                 var serializer = new SerializerBuilder().Build();
                 var yaml = serializer.Serialize(Collector.Collect());
                 writer.WriteLine(yaml);
             }
+
             Debug.Log("Game saved!");
         }
 
         /// <summary>
-        /// Overrides all existing data and starts a new game.
+        ///     Overrides all existing data and starts a new game.
         /// </summary>
         /// <returns>Returns the default GameData object</returns>
-        public GameData LoadNewGame() {
+        public GameData LoadNewGame()
+        {
             Debug.Log("New GameData created");
 
             return new GameData();

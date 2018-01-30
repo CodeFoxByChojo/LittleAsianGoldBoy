@@ -1,13 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 /// <summary>
-/// Just a script class for unity to close the game.
+///     Just a script class for unity to close the game.
 /// </summary>
-public class CloseGame : MonoBehaviour {
-
-    public void QuitGame() {
+public class CloseGame : MonoBehaviour
+{
+    public void QuitGame()
+    {
         Application.Quit();
     }
 }

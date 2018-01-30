@@ -1,20 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using Chojo.LAG.Manager;
 using UnityEngine;
-using Chojo.LAG.Manager;
 
-namespace Chojo.LAG.DataController {
+namespace Chojo.LAG.DataController
+{
     /// <summary>
-    /// The Collector class collegts all nessesary  data to save the game.
+    ///     The Collector class collegts all nessesary  data to save the game.
     /// </summary>
-    public class Collector {
+    public class Collector
+    {
         /// <summary>
-        /// Static Method to collec als nessesary game data to save the game.
+        ///     Static Method to collec als nessesary game data to save the game.
         /// </summary>
         /// <returns>Returns Game Data object</returns>
-        public static GameData Collect() {
-            GameManager gameManager = GameManager.GetInstance();
-            var gameData = new GameData {
+        public static GameData Collect()
+        {
+            var gameManager = GameManager.GetInstance();
+            var gameData = new GameData
+            {
                 Computerlist = gameManager.GetEnvironment().GetComputer(),
                 BotAmount = gameManager.GetEnvironment().GetBots().Count,
                 Autobuy = gameManager.GetEnvironment().IsAutobuActive(),
@@ -37,6 +39,5 @@ namespace Chojo.LAG.DataController {
             Debug.Log("Data collected");
             return gameData;
         }
-        
     }
 }

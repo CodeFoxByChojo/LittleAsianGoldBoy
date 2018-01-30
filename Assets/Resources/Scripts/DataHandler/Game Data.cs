@@ -1,46 +1,111 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 using Chojo.LAG.CharacterController;
-using Chojo.LAG.Manager;
 using Chojo.LAG.Environments;
-using System;
-using YamlDotNet.Serialization;
+using Chojo.LAG.Manager;
 
-namespace Chojo.LAG.DataController {
+namespace Chojo.LAG.DataController
+{
     /// <summary>
-    /// GameData class is a data type which contains all nessesary game data.
+    ///     GameData class is a data type which contains all nessesary game data.
     /// </summary>
-    public class GameData {
-
-        GameManager gameManager = GameManager.GetInstance();
+    public class GameData
+    {
+        private int botKnowledgeLevel = 1;
+        private int botLevel = 1;
+        private readonly List<Bot> bots = new List<Bot>();
+        private int clickLevel = 1;
 
         //EnvironmentData
-        List<Computer> computerlist = InitialiseComputerList();
-        List<Bot> bots = new List<Bot>();
-        int botAmount = 0;
-        bool autobuy = false;
-        int botLevel = 1;
-        int botKnowledgeLevel = 1;
-        int subscriptionAmount = 0;
-
-        //Character
-        long money = 0;
-        long gold = 0;
-        int knowledge = 0;
-        int clickLevel = 1;
-        //Mother
-        int karma = 50;
-        MotherEvent motherEvent = null;
-        int timeToNextMotherEvent = 0;
-        int penalization = 0;
-        //School
-        int duration = 0;
+        private List<Computer> computerlist = InitialiseComputerList();
 
         //GameState
-        int count = 0;
-        int currentHour = 0;
-        int currentDay = 0;
+
+        //School
+
+        private GameManager gameManager = GameManager.GetInstance();
+
+        //Mother
+        private int karma = 50;
+
+        //Character
+
+        public GameData()
+        {
+            SubscriptionAmount = 0;
+            BotAmount = 0;
+            CurrentDay = 0;
+            CurrentHour = 0;
+            Count = 0;
+            Duration = 0;
+            Penalization = 0;
+            TimeToNextMotherEvent = 0;
+            MotherEvent = null;
+            Knowledge = 0;
+            Gold = 0;
+            Money = 0;
+            Autobuy = false;
+        }
+
+        public List<Computer> Computerlist
+        {
+            get { return computerlist; }
+
+            set { computerlist = value; }
+        }
+
+        public bool Autobuy { get; set; }
+
+        public int BotLevel
+        {
+            get { return botLevel; }
+
+            set { botLevel = value; }
+        }
+
+        public int BotKnowledgeLevel
+        {
+            get { return botKnowledgeLevel; }
+
+            set { botKnowledgeLevel = value; }
+        }
+
+        public long Money { get; set; }
+
+        public long Gold { get; set; }
+
+        public int Knowledge { get; set; }
+
+        public int ClickLevel
+        {
+            get { return clickLevel; }
+
+            set { clickLevel = value; }
+        }
+
+        public int Karma
+        {
+            get { return karma; }
+
+            set { karma = value; }
+        }
+
+        public MotherEvent MotherEvent { get; set; }
+
+        public int TimeToNextMotherEvent { get; set; }
+
+        public int Penalization { get; set; }
+
+        public int Duration { get; set; }
+
+        public int Count { get; set; }
+
+        public int CurrentHour { get; set; }
+
+        public int CurrentDay { get; set; }
+
+        public int BotAmount { get; set; }
+
+        public int SubscriptionAmount { get; set; }
 
         //private static List<Bot> initialiseBotList() {
         //    bots = new List<Bot>(botAmount);
@@ -50,195 +115,18 @@ namespace Chojo.LAG.DataController {
         //    return bots;
         //}
 
-        private static List<Computer> InitialiseComputerList() {
-            List<Computer> list = new List<Computer> {
+        private static List<Computer> InitialiseComputerList()
+        {
+            var list = new List<Computer>
+            {
                 new Computer()
             };
             return list;
         }
-        
-        public List<Computer> Computerlist {
-            get {
-                return computerlist;
-            }
 
-            set {
-                computerlist = value;
-            }
-        }
-
-        public List<Bot> GetBots() {
+        public List<Bot> GetBots()
+        {
             return bots;
-        }
-
-        public bool Autobuy {
-            get {
-                return autobuy;
-            }
-
-            set {
-                autobuy = value;
-            }
-        }
-
-        public int BotLevel {
-            get {
-                return botLevel;
-            }
-
-            set {
-                botLevel = value;
-            }
-        }
-
-        public int BotKnowledgeLevel {
-            get {
-                return botKnowledgeLevel;
-            }
-
-            set {
-                botKnowledgeLevel = value;
-            }
-        }
-
-        public long Money {
-            get {
-                return money;
-            }
-
-            set {
-                money = value;
-            }
-        }
-
-        public long Gold {
-            get {
-                return gold;
-            }
-
-            set {
-                gold = value;
-            }
-        }
-
-        public int Knowledge {
-            get {
-                return knowledge;
-            }
-
-            set {
-                knowledge = value;
-            }
-        }
-
-        public int ClickLevel {
-            get {
-                return clickLevel;
-            }
-
-            set {
-                clickLevel = value;
-            }
-        }
-
-        public int Karma {
-            get {
-                return karma;
-            }
-
-            set {
-                karma = value;
-            }
-        }
-
-        public MotherEvent MotherEvent {
-            get {
-                return motherEvent;
-            }
-
-            set {
-                motherEvent = value;
-            }
-        }
-
-        public int TimeToNextMotherEvent {
-            get {
-                return timeToNextMotherEvent;
-            }
-
-            set {
-                timeToNextMotherEvent = value;
-            }
-        }
-
-        public int Penalization {
-            get {
-                return penalization;
-            }
-
-            set {
-                penalization = value;
-            }
-        }
-
-        public int Duration {
-            get {
-                return duration;
-            }
-
-            set {
-                duration = value;
-            }
-        }
-
-        public int Count {
-            get {
-                return count;
-            }
-
-            set {
-                count = value;
-            }
-        }
-
-        public int CurrentHour {
-            get {
-                return currentHour;
-            }
-
-            set {
-                currentHour = value;
-            }
-        }
-
-        public int CurrentDay {
-            get {
-                return currentDay;
-            }
-
-            set {
-                currentDay = value;
-            }
-        }
-
-        public int BotAmount {
-            get {
-                return botAmount;
-            }
-
-            set {
-                botAmount = value;
-            }
-        }
-
-        public int SubscriptionAmount {
-            get {
-                return subscriptionAmount;
-            }
-
-            set {
-                subscriptionAmount = value;
-            }
         }
     }
 }

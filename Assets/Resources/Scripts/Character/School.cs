@@ -1,60 +1,59 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Chojo.LAG.Countable;
+﻿using Chojo.LAG.Countable;
 using Chojo.LAG.Manager;
-using System;
 
-namespace Chojo.LAG.CharacterController {
+namespace Chojo.LAG.CharacterController
+{
     /// <summary>
-    /// The School class is a leightweight class to handle if and how long a player is in school.
+    ///     The School class is a leightweight class to handle if and how long a player is in school.
     /// </summary>
-    public class School : CountableClass {
-
+    public class School : CountableClass
+    {
         private static School instance;
-        private static new GameManager gameManager = GameManager.GetInstance();
+        private new static readonly GameManager gameManager = GameManager.GetInstance();
 
         private int duration;
 
-        private School() {
+        private School()
+        {
             AttachToHourNotify();
         }
 
-        public static School GetInstance() {
-            if (instance == null) {
-                instance = new School();
-            }
+        public static School GetInstance()
+        {
+            if (instance == null) instance = new School();
             return instance;
         }
 
-        public override void OneHourPassed() {
-            if (duration != 0) {
-                duration = duration - 1;
-            }
+        public override void OneHourPassed()
+        {
+            if (duration != 0) duration = duration - 1;
         }
 
-        public bool IsSchoolActive() {
-            if (duration != 0) {
+        public bool IsSchoolActive()
+        {
+            if (duration != 0)
                 return true;
-            } else {
-                return false;
-            }
+            return false;
         }
 
-        public int GetLearnDuration() {
+        public int GetLearnDuration()
+        {
             return duration;
         }
 
-        public void StartLearning() {
+        public void StartLearning()
+        {
             duration = gameManager.GetConfigData().SchoolDuration;
         }
 
-        protected override void AttachToHourNotify() {
+        protected override void AttachToHourNotify()
+        {
             instance = this;
             gameManager.RegisterHourNotify(instance);
         }
 
-        internal void SetDuration(int value) {
+        internal void SetDuration(int value)
+        {
             duration = value;
         }
     }

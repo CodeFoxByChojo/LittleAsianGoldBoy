@@ -1,16 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Chojo.LAG.Manager;
+﻿using Chojo.LAG.Manager;
 
-namespace Chojo.LAG.Countable {
+namespace Chojo.LAG.Countable
+{
     /// <summary>
-    /// Abstract class to make an object countable.
+    ///     Abstract class to make an object countable.
     /// </summary>
-    public abstract class CountableClass {
+    public abstract class CountableClass
+    {
+        private static CountableClass instance;
 
         protected GameManager gameManager;
-        private static CountableClass instance;
 
         public abstract void OneHourPassed();
 
